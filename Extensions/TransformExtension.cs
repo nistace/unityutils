@@ -1,5 +1,4 @@
-﻿using MSG;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class TransformExtension {
 	public static void ClampPosition(this Transform transform, Vector3 minPosition, Vector3 maxPosition) {
@@ -10,5 +9,5 @@ public static class TransformExtension {
 			currentPosition.z.Clamp(minPosition.z, maxPosition.z));
 	}
 
-	public static void MoveUiOverWorldTransform(this Transform uiTransform, Transform worldTarget) => uiTransform.position = CameraMonoBehaviour.mainCamera.WorldToScreenPoint(worldTarget.position);
+	public static void MoveUiOverWorldTransform(this Transform uiTransform, Transform worldTarget) => uiTransform.position = CameraUtils.main.WorldToScreenPoint(worldTarget.position);
 }
