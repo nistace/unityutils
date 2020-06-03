@@ -25,7 +25,7 @@ public static class VectorExtension {
 
 	public static Vector2 OnGround(this Vector3 v3) => new Vector2(v3.x, v3.z);
 
-	public static Vector3 FromGround(this Vector2 v2) => new Vector3(v2.x, 0, v2.y);
+	public static Vector3 FromGround(this Vector2 v2, float? height = null) => new Vector3(v2.x, height ?? 0, v2.y);
 
 	public static Vector2 Clamp(this Vector2 v2, Vector2 min, Vector2 max) => new Vector2(Mathf.Clamp(v2.x, min.x, max.x), Mathf.Clamp(v2.y, min.y, max.y));
 }
