@@ -75,4 +75,26 @@ public static class ArrayExtension {
 	}
 
 	public static E GetSafe<E>(this E[] array, int index, E defaultValue = default) => array == null || index >= array.Length || index < 0 ? defaultValue : array[index];
+
+	public static int IndexOf<E>(this IReadOnlyList<E> list, E item) {
+		for (var i = 0; i < list.Count; ++i)
+			if (!ReferenceEquals(list[i], null) && list[i].Equals(item))
+				return i;
+		return -1;
+	}
+
+	public static int IndexOfMax(this IList<float> list) => list.IndexOfMax(t => t);
+	public static int IndexOfMax(this IList<int> list) => list.IndexOfMax(t => t);
+
+	public static int IndexOfMax<E>(this IList<E> list, Func<E, float> maxFunc) {
+		var max = float.MinValue;
+		var index = -1;
+		for (var i = 0; i < list.Count; ++i) {
+			var itemValue = maxFunc(list[i]);
+			if (!(itemValue > max)) continue;
+			index = i;
+			max = itemValue;
+		}
+		return index;
+	}
 }

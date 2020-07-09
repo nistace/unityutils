@@ -174,6 +174,7 @@ public static class EnumerableExtension {
 	}
 
 	public static E[] WithLength<E>(this E[] array, int newLength, E defaultValue = default) {
+		if (array.Length == newLength) return array;
 		var newArray = new E[newLength];
 		for (var i = 0; i < newArray.Length; ++i) {
 			newArray[i] = i < array.Length ? array[i] : defaultValue;

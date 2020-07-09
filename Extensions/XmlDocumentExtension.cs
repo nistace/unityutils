@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
 public static class XmlDocumentExtension {
-	public static XmlElement Element(this XmlNode node, string name) {
+	public static XmlElement NewElement(this XmlNode node, string name) {
 		if (!(node is XmlDocument) && node.OwnerDocument == null) throw new NullReferenceException();
 		var element = (node as XmlDocument ?? node.OwnerDocument).CreateElement(name);
 		node.AppendChild(element);
@@ -36,5 +37,19 @@ public static class XmlDocumentExtension {
 		var nodes = parent.SelectNodes(name);
 		for (var i = 0; i < nodes.Count; ++i) result.Add(nodes[i]);
 		return result;
+	}
+
+	public static XmlNode WithSimpleListElements<E>(this XmlNode node, IEnumerable<E> items, string elementName, Func<E, (string, object)[]> dataFunc) {
+		foreach (var item in items) {
+			node.NewElement(elementName).WithAttributes(dataFunc(item));
+		}
+		return node;
+	}
+
+	public static IEnumerable<E> LoadSimpleListElements<E>(this XmlNode node, string elementName, Func<XmlNode, E> loadItemFunc) => node.Nodes(elementName).Select(loadItemFunc);
+
+	public static bool TrySelectSingleNode(this XmlNode thisNode, string elementName, out XmlNode node) {
+		node = thisNode.SelectSingleNode(elementName);
+		return node != null;
 	}
 }

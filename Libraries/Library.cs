@@ -34,6 +34,23 @@ public abstract class Library<E> : DataScriptableObject {
 		}
 	}
 
+	public void Set(string spriteIdentifier, E data) {
+		var index = _itemNames.IndexOf(spriteIdentifier);
+		if (index < 0) {
+			index = _itemNames.Length;
+			_itemNames = _itemNames.WithAppended(spriteIdentifier);
+		}
+		if (_items.Length <= index) _items = _items.WithLength(index + 1);
+		_items[index] = data;
+	}
+
+	public E GetRandom(string keyRoot) {
+		var cleanKey = keyRoot.CleanKey().WithEnding(".");
+		if (map.Where(t => t.Key.StartsWith(cleanKey)).TryRandom(out var result)) return result.Value;
+		if (Application.isPlaying) Debug.LogWarning(GetNonExistingWarningMessage(cleanKey));
+		return default;
+	}
+
 	[Serializable]
 	public class NamedItem {
 		[SerializeField] protected string _name;

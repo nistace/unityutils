@@ -10,4 +10,7 @@ public static class TransformExtension {
 	}
 
 	public static void MoveUiOverWorldTransform(this Transform uiTransform, Transform worldTarget) => uiTransform.position = CameraUtils.main.WorldToScreenPoint(worldTarget.position);
+
+	public static void SetRotationWithEuler(this Transform t, float? x = null, float? y = null, float? z = null) => t.rotation = t.rotation.WithEuler(x, y, z);
+	public static void SetPositionWith(this Transform t, float? x = null, float? y = null, float? z = null) => t.position = t.position.With(x, y, z);
 }

@@ -44,14 +44,14 @@ public class L10NText : MonoBehaviour {
 		Refresh();
 	}
 
-	[MenuItem("Tools/Localisation/RefreshAllL10NTexts")]
+	[MenuItem("Tools/Localisation/Refresh All L10N Texts")]
 	private static void RefreshAll() {
 		if (Localisation.loaded) Localisation.Reload();
 		else Localisation.SetLanguage(Memory.languages.Values.Single(t => t.defaultLanguage));
 		Resources.FindObjectsOfTypeAll<L10NText>().ForEach(t => t.Refresh());
 	}
 
-	[MenuItem("Tools/Localisation/SortKeysInFiles")]
+	[MenuItem("Tools/Localisation/Sort Keys In Files")]
 	public static void SortLinesInFiles() {
 		foreach (var textAsset in Resources.LoadAll<TextAsset>("Localisation")) {
 			var path = AssetDatabase.GetAssetPath(textAsset);
