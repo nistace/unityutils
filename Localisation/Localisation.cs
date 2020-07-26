@@ -10,6 +10,7 @@ public static class Localisation {
 	public class LanguageChangedEvent : UnityEvent { }
 
 	private static Regex                            pluralRegex       { get; } = new Regex("\\[PL(\\d+):([^\\]]+)\\]");
+	private static Regex                            singularRegex     { get; } = new Regex("\\[SG(\\d+):([^\\]]+)\\]");
 	private static Dictionary<string, string>       messages          { get; } = new Dictionary<string, string>();
 	private static Dictionary<string, int>          multipleItemCount { get; } = new Dictionary<string, int>();
 	private static Dictionary<string, HashSet<int>> uniquenessCheck   { get; } = new Dictionary<string, HashSet<int>>();
@@ -60,21 +61,24 @@ public static class Localisation {
 			return null;
 		}
 		try {
-			return pluralRegex.Replace(string.Format(messages[cleanKey], parameters), GetPluralReplacement);
+			var message = string.Format(messages[cleanKey], parameters);
+			message = pluralRegex.Replace(message, t => GetFloatValueReplacement(t, v => Mathf.Abs(v) > 1));
+			message = singularRegex.Replace(message, t => GetFloatValueReplacement(t, v => Mathf.Abs(v) <= 1));
+			return message;
 		}
 		catch (FormatException) {
 			Debug.LogWarning($"Format exception while mapping [{cleanKey}] with {parameters.Length} parameters");
 			return $"[{cleanKey}]";
 		}
 
-		string GetPluralReplacement(Match match) {
+		string GetFloatValueReplacement(Match match, Func<float, bool> check) {
 			if (!int.TryParse(match.Groups[1].Value, out var paramIndex))
 				Debug.LogWarning($"Localisation {cleanKey} have an error parsing the regex. {match.Groups[1].Value} cannot be turned into an index.");
 			else if (parameters.Length <= paramIndex)
 				Debug.LogWarning($"Localisation {cleanKey} requires a parameter at index {paramIndex} but not enough parameters were given.");
 			else if (!float.TryParse($"{parameters[paramIndex]}", out var paramAsFloat))
 				Debug.LogWarning($"Localisation {cleanKey} requires a number parameter at {paramIndex} but this parameter could not be parsed to a number.");
-			else if (Mathf.Abs(paramAsFloat) > 1) return match.Groups[2].Value;
+			else if (check(paramAsFloat)) return match.Groups[2].Value;
 			return string.Empty;
 		}
 	}

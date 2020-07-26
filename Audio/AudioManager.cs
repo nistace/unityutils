@@ -122,8 +122,13 @@ namespace Utils.Audio {
 				get => instance._musicVolume;
 				set {
 					instance._musicVolume = value;
-					if (instance._musicSource) instance._musicSource.volume = value * instance._masterVolume;
+					instance._musicSource.volume = value * instance._masterVolume;
 				}
+			}
+
+			private static float tmpVolume {
+				get => (instance._musicSource?.volume ?? 0) / instance._masterVolume;
+				set => instance._musicSource.volume = value * instance._masterVolume;
 			}
 
 			public static bool loop {
@@ -131,32 +136,34 @@ namespace Utils.Audio {
 				set => instance._musicSource.loop = value;
 			}
 
+			private static Coroutine changeClipCoroutine { get; set; }
+
 			public static bool isPlaying => instance._musicSource.isPlaying;
 
 			public static void ChangeToRandomClip(string clipKeyRoot, bool restartIfPlaying = false) => ChangeClip(AudioClips.RandomOf(clipKeyRoot), restartIfPlaying);
 			public static void ChangeClip(string clipKey, bool restartIfPlaying = false) => ChangeClip(AudioClips.Of(clipKey), restartIfPlaying);
 
 			public static void ChangeClip(AudioClip clip, bool restartIfPlaying = false) {
-				instance.StartCoroutine(DoChangeClip(clip, restartIfPlaying));
+				if (changeClipCoroutine != null) instance.StopCoroutine(changeClipCoroutine);
+				changeClipCoroutine = instance.StartCoroutine(DoChangeClip(clip, restartIfPlaying));
 			}
 
 			private static IEnumerator DoChangeClip(AudioClip clip, bool restartIfPlaying = false) {
-				if (instance._musicSource.clip == clip && !restartIfPlaying) yield break;
-				var targetVolume = volume;
-				if (instance._musicSource.clip && instance._musicSource.isPlaying) {
-					while (volume > 0) {
-						volume -= Time.deltaTime * instance._changeMusicClipSpeed;
+				if (instance._musicSource.clip == clip && tmpVolume == volume && !restartIfPlaying) yield break;
+				if (instance._musicSource.clip && (instance._musicSource.clip != clip || restartIfPlaying) && instance._musicSource.isPlaying) {
+					while (tmpVolume > 0) {
+						tmpVolume -= Time.deltaTime * instance._changeMusicClipSpeed;
 						yield return null;
 					}
+					tmpVolume = 0;
 				}
-				volume = 0;
 				instance._musicSource.clip = clip;
 				instance._musicSource.Play();
-				while (volume < targetVolume) {
-					volume += Time.deltaTime * instance._changeMusicClipSpeed;
+				while (tmpVolume < volume) {
+					tmpVolume += Time.deltaTime * instance._changeMusicClipSpeed;
 					yield return null;
 				}
-				volume = targetVolume;
+				tmpVolume = volume;
 			}
 		}
 	}

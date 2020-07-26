@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class Colors {
 	private static ColorLibrary library { get; set; }

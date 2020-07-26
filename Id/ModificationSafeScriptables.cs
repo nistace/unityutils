@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Utils.Id {
@@ -13,5 +14,12 @@ namespace Utils.Id {
 			scriptables.Set(modifiableInstance, modifiableInstance);
 			return modifiableInstance;
 		}
+
+		public static bool Contains<E>(IEnumerable<E> items, E item) where E : ScriptableObject {
+			var modificationSafeItem = GetModifiableInstance(item);
+			return items.Any(t => modificationSafeItem == GetModifiableInstance(t));
+		}
+
+		public static bool Equals<E>(E first, E second) where E : ScriptableObject => GetModifiableInstance(first) == GetModifiableInstance(second);
 	}
 }

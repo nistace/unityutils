@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MSG;
@@ -68,7 +69,16 @@ public class L10NText : MonoBehaviour {
 						blockLines.Add(allLines[0]);
 						allLines.RemoveAt(0);
 					}
-					foreach (var line in blockLines.OrderBy(t => t)) writer.WriteLine(line);
+					var previousLineKey = string.Empty;
+					foreach (var line in blockLines.OrderBy(t => t)) {
+						if (line.IndexOf("=", StringComparison.Ordinal) < 0) continue;
+						var key = line.Substring(0, line.IndexOf("=", StringComparison.Ordinal)).CleanKey();
+						if (previousLineKey == key) {
+							Debug.Log("Duplicate entry for key " + key);
+						}
+						previousLineKey = key;
+						writer.WriteLine(line);
+					}
 					writer.WriteLine(string.Empty);
 				}
 			}

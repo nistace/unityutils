@@ -8,6 +8,7 @@ public class TooltipUi : MonoBehaviour {
 	[Header("Texts")] [SerializeField]      protected TMPro.TMP_Text _title;
 	[SerializeField]                        protected LayoutText     _text;
 	[SerializeField]                        protected TMPro.TMP_Text _shortcut;
+	[SerializeField]                        protected Vector2        _positionDelta;
 
 	private Graphic[]     allGraphics   { get; set; }
 	private RectTransform rectTransform { get; set; }
@@ -24,14 +25,18 @@ public class TooltipUi : MonoBehaviour {
 	}
 
 	private void Relocate(RectTransform target) {
-		Vector2 targetPosition = target.position;
-		var targetRect = target.rect;
+		var rect = target.rect;
+		Relocate(target.position, rect.min, rect.max);
+	}
 
-		var left = targetPosition.x < containerRect.width / 2;
-		var bottom = targetPosition.y < containerRect.height / 2;
+	private void Relocate(Vector2 target) => Relocate(target, Vector2.zero, Vector2.zero);
 
-		rectTransform.pivot = new Vector2(targetPosition.x / containerRect.width, bottom ? 0 : 1);
-		rectTransform.position = targetPosition + new Vector2(left ? targetRect.xMax : targetRect.xMin, bottom ? targetRect.yMax : targetRect.yMin);
+	private void Relocate(Vector2 position, Vector2 targetMin, Vector2 targetMax) {
+		var left = position.x < containerRect.width / 2;
+		var bottom = position.y < containerRect.height / 2;
+
+		rectTransform.pivot = new Vector2(position.x / containerRect.width, bottom ? 0 : 1);
+		rectTransform.position = position + new Vector2(left ? targetMax.x + _positionDelta.x : targetMin.x - _positionDelta.x, bottom ? targetMax.y + _positionDelta.y : targetMin.y - _positionDelta.y);
 	}
 
 	public void RefreshGraphicsOpacity(Ratio opacity) => allGraphics.ForEach(t => t.color = t.color.With(a: opacity));
@@ -43,6 +48,7 @@ public class TooltipUi : MonoBehaviour {
 		if (_title) _title.text = data.title;
 		if (_text) _text.text = data.text;
 		if (_shortcut) _shortcut.text = data.shortcut;
-		Relocate(data.target);
+		if (data.targetIsV2) Relocate(data.targetPosition);
+		else Relocate(data.target);
 	}
 }

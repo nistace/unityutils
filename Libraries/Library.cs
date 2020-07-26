@@ -9,10 +9,11 @@ public abstract class Library<E> : DataScriptableObject {
 	[SerializeField] protected string[] _itemNames;
 	[SerializeField] protected E[]      _items;
 
-	public  int                   orderIndex => _orderIndex;
-	private Dictionary<string, E> map        { get; } = new Dictionary<string, E>();
-	public  IEnumerable<E>        allItems   => map.Values;
-	public  int                   count      => _items.Length;
+	public  int                   orderIndex  => _orderIndex;
+	private Dictionary<string, E> map         { get; } = new Dictionary<string, E>();
+	public  IEnumerable<E>        allItems    => map.Values;
+	public  int                   count       => _items.Length;
+	public  E                     defaultItem => _defaultItem;
 
 	public E this[string key] {
 		get {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public static class Sprites {
 	private static SpriteLibrary library { get; set; }

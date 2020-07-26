@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Constants/Libraries/Colors")]
 public class ColorLibrary : Library<Color> {

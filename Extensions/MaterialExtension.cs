@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class MaterialExtension {
 	private static readonly int dstBlend = Shader.PropertyToID("_DstBlend");
