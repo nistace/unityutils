@@ -24,8 +24,11 @@ public static class StringExtension {
 		return $"{str}{ending}";
 	}
 
-	public static string CleanKey(this string rawKey) {
-		return rawKey?.Trim().ToLower().Replace(" ", "") ?? "";
+	public static string CleanKey(this string rawKey, bool keepCase = false) {
+		if (string.IsNullOrEmpty(rawKey)) return string.Empty;
+		var cleanKey = rawKey.Trim().Replace(" ", "");
+		if (!keepCase) cleanKey = cleanKey.ToLower();
+		return cleanKey;
 	}
 
 	public static string ToUpperFirst(this string str) {

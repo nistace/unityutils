@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using MSG;
 using UnityEditor;
 using UnityEngine;
@@ -31,12 +28,11 @@ public class L10NText : MonoBehaviour {
 	}
 
 	private void Refresh() {
+		if (!enabled) return;
 		if (!_text) _text = GetComponent<TMPro.TMP_Text>();
 		if (!_text) return;
 		_text.text = Localisation.Map(key);
 	}
-
-#if UNITY_EDITOR
 
 	[ContextMenu("Refresh")]
 	private void RefreshThis() {
@@ -45,47 +41,12 @@ public class L10NText : MonoBehaviour {
 		Refresh();
 	}
 
+#if UNITY_EDITOR
 	[MenuItem("Tools/Localisation/Refresh All L10N Texts")]
 	private static void RefreshAll() {
 		if (Localisation.loaded) Localisation.Reload();
 		else Localisation.SetLanguage(Memory.languages.Values.Single(t => t.defaultLanguage));
 		Resources.FindObjectsOfTypeAll<L10NText>().ForEach(t => t.Refresh());
-	}
-
-	[MenuItem("Tools/Localisation/Sort Keys In Files")]
-	public static void SortLinesInFiles() {
-		foreach (var textAsset in Resources.LoadAll<TextAsset>("Localisation")) {
-			var path = AssetDatabase.GetAssetPath(textAsset);
-			var allLines = textAsset.Lines().Select(t => t.Replace("\n", string.Empty).Trim()).Where(t => !string.IsNullOrEmpty(t)).ToList();
-
-			using (var writer = new StreamWriter(path, false)) {
-				while (allLines.Count > 0) {
-					while (allLines.Count > 0 && allLines[0].StartsWith("#")) {
-						writer.WriteLine(allLines[0]);
-						allLines.RemoveAt(0);
-					}
-					var blockLines = new List<string>();
-					while (allLines.Count > 0 && !allLines[0].StartsWith("#")) {
-						blockLines.Add(allLines[0]);
-						allLines.RemoveAt(0);
-					}
-					var previousLineKey = string.Empty;
-					foreach (var line in blockLines.OrderBy(t => t)) {
-						if (line.IndexOf("=", StringComparison.Ordinal) < 0) continue;
-						var key = line.Substring(0, line.IndexOf("=", StringComparison.Ordinal)).CleanKey();
-						if (previousLineKey == key) {
-							Debug.Log("Duplicate entry for key " + key);
-						}
-						previousLineKey = key;
-						writer.WriteLine(line);
-					}
-					writer.WriteLine(string.Empty);
-				}
-			}
-			AssetDatabase.ImportAsset(path);
-			EditorUtility.SetDirty(textAsset);
-		}
-		AssetDatabase.SaveAssets();
 	}
 #endif
 }

@@ -2,9 +2,10 @@
 
 public class CursorManager : MonoBehaviour {
 	private static CursorManager instance { get; set; }
-	public static  CursorLibrary library  { get; set; }
+	private static CursorLibrary library  { get; set; }
 
 	private CursorType cursor         { get; set; }
+	private CursorType previousCursor { get; set; }
 	private int        frame          { get; set; }
 	private float      nextFrameDelay { get; set; }
 	private bool       animated       => cursor != null && cursor.frameCount > 1;
@@ -24,9 +25,12 @@ public class CursorManager : MonoBehaviour {
 
 	public static void SetCursor(string key) => SetCursor(library?[key]);
 
-	public static void SetCursor(CursorType cursor) {
+	public static void SetCursorToPrevious() => SetCursor(instance.previousCursor);
+
+	private static void SetCursor(CursorType cursor) {
 		if (cursor == null) cursor = library?.defaultItem;
 		if (instance.cursor == cursor) return;
+		instance.previousCursor = instance.cursor;
 		instance.cursor = cursor;
 		instance.frame = 0;
 		instance.nextFrameDelay = 0;

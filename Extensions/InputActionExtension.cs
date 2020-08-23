@@ -12,6 +12,16 @@ public static class InputActionExtension {
 		else action.RemovePerformListener(context);
 	}
 
+	public static void SetCancelListenerOnce(this InputAction action, Action<InputAction.CallbackContext> context, bool enable) {
+		if (enable) action.AddCancelListenerOnce(context);
+		else action.RemoveCancelListener(context);
+	}
+
+	public static void SetAnyListenerOnce(this InputAction action, Action<InputAction.CallbackContext> context, bool enable) {
+		if (enable) action.AddAnyListenerOnce(context);
+		else action.RemoveAnyListener(context);
+	}
+
 	public static void AddCancelListenerOnce(this InputAction action, Action<InputAction.CallbackContext> context) {
 		action.canceled -= context;
 		action.canceled += context;
