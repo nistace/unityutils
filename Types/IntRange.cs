@@ -56,4 +56,6 @@ public struct IntRange {
 		if (min == max) return $"{min}";
 		return $"{min} - {max}";
 	}
+
+	public int Clamped(int value) => value.Clamp(min, max);
 }

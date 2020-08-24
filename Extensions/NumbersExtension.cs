@@ -107,20 +107,11 @@ public static class NumbersExtension {
 		return Mathf.Abs((f - (int) f));
 	}
 
-	public static int Clamp(this int i, int min, int max) {
-		return Mathf.Clamp(i, min, max);
-	}
-
+	public static int Clamp(this int i, int min, int max) => Mathf.Clamp(i, min, max);
+	public static int Clamp(this int i, IntRange range) => Mathf.Clamp(i, range.min, range.max);
 	public static float Clamp(this float f, float min, float max) => Mathf.Clamp(f, min, max);
 	public static float Clamp(this float f, FloatRange range) => f.Clamp(range.min, range.max);
-
-	public static Ratio Clamp(this Ratio r, Ratio min, Ratio max) {
-		return r.value.Clamp(min, max);
-	}
-
-	public static float AtLeast(this float f, float atLeast) {
-		return Mathf.Max(f, atLeast);
-	}
-
+	public static Ratio Clamp(this Ratio r, Ratio min, Ratio max) => r.value.Clamp(min, max);
+	public static float AtLeast(this float f, float atLeast) => Mathf.Max(f, atLeast);
 	public static float MoveTowards(this float f, float target, float step) => f < target ? Mathf.Min(f + step, target) : Mathf.Max(f - step, target);
 }
