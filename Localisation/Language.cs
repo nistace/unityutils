@@ -66,8 +66,8 @@ public class Language : DataScriptableObject {
 		AssetDatabase.SaveAssets();
 	}
 
-	[MenuItem("Tools/Localisation/Import CSV")]
-	public static void ImportSoldiersCsv() {
+	[MenuItem("Tools/Localisation/Import CSV ")]
+	public static void ImportCsv() {
 		Debug.ClearDeveloperConsole();
 		var textAsset = Resources.Load<TextAsset>("Localisation/allTexts");
 		if (!textAsset) {
