@@ -16,8 +16,9 @@ public struct IntRange {
 	[SerializeField] private int _min;
 	[SerializeField] private int _max;
 
-	public int min => _min;
-	public int max => _max;
+	public int min   => _min;
+	public int max   => _max;
+	public int delta => max - min;
 
 	public IntRange(int min, int max) {
 		_min = min;
