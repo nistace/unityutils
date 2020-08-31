@@ -5,6 +5,10 @@ public static class EnumUtils {
 		return (E[]) Enum.GetValues(typeof(E));
 	}
 
+	public static void ForEach<E>(Action<E> action) where E : Enum {
+		foreach (var e in Values<E>()) action(e);
+	}
+
 	public static int SizeOf<E>() where E : Enum {
 		return Values<E>().Length;
 	}
