@@ -35,9 +35,7 @@ public struct IntRange {
 		return UnityEngine.Random.Range((float) _min, _max);
 	}
 
-	public static IntRange operator *(IntRange orig, int amount) {
-		return new IntRange(orig._min * amount, orig._max * amount);
-	}
+	public static IntRange operator *(IntRange orig, int amount) => new IntRange(orig._min * amount, orig._max * amount);
 
 	public static FloatRange operator *(IntRange orig, float amount) {
 		return new FloatRange(orig._min * amount, orig._max * amount);
