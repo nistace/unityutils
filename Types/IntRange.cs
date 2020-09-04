@@ -7,7 +7,9 @@ public struct IntRange {
 		return obj is IntRange other && Equals(other);
 	}
 
-	public override int GetHashCode() => (min * 397) ^ max;
+	public override int GetHashCode() {
+		return (min * 397) ^ max;
+	}
 
 	public static readonly IntRange zero = new IntRange {_min = 0, _max = 0};
 	public static readonly IntRange one  = new IntRange {_min = 1, _max = 1};
@@ -25,9 +27,13 @@ public struct IntRange {
 		_max = max;
 	}
 
-	public int Random() => UnityEngine.Random.Range(_min, _max + 1);
+	public int Random() {
+		return UnityEngine.Random.Range(_min, _max + 1);
+	}
 
-	public float FloatRandom() => UnityEngine.Random.Range((float) _min, _max);
+	public float FloatRandom() {
+		return UnityEngine.Random.Range((float) _min, _max);
+	}
 
 	public static IntRange operator *(IntRange orig, int amount) {
 		return new IntRange(orig._min * amount, orig._max * amount);
@@ -45,8 +51,13 @@ public struct IntRange {
 		return new IntRange(ir1._min - ir2._min, ir1._max - ir2._max);
 	}
 
-	public static bool operator ==(IntRange ir1, IntRange ir2) => ir1.Equals(ir2);
-	public static bool operator !=(IntRange ir1, IntRange ir2) => !(ir1 == ir2);
+	public static bool operator ==(IntRange ir1, IntRange ir2) {
+		return ir1.Equals(ir2);
+	}
+
+	public static bool operator !=(IntRange ir1, IntRange ir2) {
+		return !(ir1 == ir2);
+	}
 
 	private bool Equals(IntRange other) {
 		return min == other.min && max == other.max;
@@ -58,5 +69,11 @@ public struct IntRange {
 		return $"{min} - {max}";
 	}
 
-	public int Clamped(int value) => value.Clamp(min, max);
+	public int Clamped(int value) {
+		return value.Clamp(min, max);
+	}
+
+	public bool Contains(int value) {
+		return value <= max && value >= min;
+	}
 }
