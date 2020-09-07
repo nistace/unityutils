@@ -1,4 +1,4 @@
-﻿﻿﻿using System;
+﻿using System;
 using UnityEngine;
 
 public static class VectorExtension {
@@ -8,8 +8,13 @@ public static class VectorExtension {
 
 	public static Vector3 With(this Vector3 v3, float? x = null, float? y = null, float? z = null) => new Vector3(x ?? v3.x, y ?? v3.y, z ?? v3.z);
 
+	public static Vector3 With(this Vector3 v3, Func<float, float> funcX = null, Func<float, float> funcY = null, Func<float, float> funcZ = null) =>
+		new Vector3((funcX ?? (t => t))(v3.x), (funcY ?? (t => t))(v3.y), (funcZ ?? (t => t))(v3.z));
+
 	public static Vector3 Rotate(this Vector3 v3, float? aroundXAxis = null, float? aroundYAxis = null, float? aroundZAxis = null) =>
 		Quaternion.Euler(aroundXAxis ?? 0, aroundYAxis ?? 0, aroundZAxis ?? 0) * v3;
+
+	public static Vector3 Rotate(this Vector3 v3, Vector3 aroundAllAxes) => v3.Rotate(aroundAllAxes.x, aroundAllAxes.y, aroundAllAxes.z);
 
 	public static Vector2 Rotate(this Vector2 v2, float amplitude) => new Vector3(v2.x, 0, v2.y).Rotate(aroundYAxis: amplitude).OnGround();
 
