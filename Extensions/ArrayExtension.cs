@@ -74,7 +74,14 @@ public static class ArrayExtension {
 		foreach (var newItem in newItems) items.Insert(0, newItem);
 	}
 
-	public static E GetSafe<E>(this E[] array, int index, E defaultValue = default) => array == null || index >= array.Length || index < 0 ? defaultValue : array[index];
+	public static E GetSafe<E>(this IReadOnlyList<E> array, int index, E defaultValue = default) => array.TryGet(index, out var e) ? e : defaultValue;
+
+	public static bool TryGet<E>(this IReadOnlyList<E> list, int index, out E e) {
+		e = default;
+		if (index < 0 || index >= list.Count) return false;
+		e = list[index];
+		return true;
+	}
 
 	public static int IndexOf<E>(this IReadOnlyList<E> list, E item) {
 		for (var i = 0; i < list.Count; ++i)
