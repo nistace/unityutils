@@ -63,15 +63,17 @@ namespace Utils.Audio {
 			public static void Play(string audioClipKey) => Play(AudioClips.Of(audioClipKey));
 			public static void PlayRandom(string audioClipKeyRoot) => Play(AudioClips.RandomOf(audioClipKeyRoot));
 
-			public static void Play(AudioClip clip) => Play(clip, 1);
+			public static AudioSource Play(AudioClip clip) => Play(clip, 1);
 
-			public static void Play(AudioClip clip, float volumeCoefficient) {
+			public static AudioSource Play(AudioClip clip, float volumeCoefficient) {
 				var src = instance.availableSources.Count > 0 ? instance.availableSources.Dequeue() : instance.CreateNewSource();
+				src.loop = false;
 				src.volume = volume * instance._masterVolume * volumeCoefficient;
 				src.clip = clip;
 				src.gameObject.SetActive(true);
 				src.Play();
 				playingSources.Add(src);
+				return src;
 			}
 
 			internal static void Update() {
