@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Utils.Audio {
 	public class AudioManager : MonoBehaviour {
-		private static AudioManager instance { get; set; }
+		[SerializeField] protected float _changeMusicClipSpeed = 1;
 
-		[SerializeField]                           protected Ratio       _masterVolume = 1;
-		[Header("Music")] [SerializeField]         protected AudioSource _musicSource;
-		[SerializeField]                           protected Ratio       _musicVolume          = 1;
-		[SerializeField]                           protected float       _changeMusicClipSpeed = 1;
-		[Header("Sound effects")] [SerializeField] protected Ratio       _sfxVolume            = 1;
-		[Header("Voices")] [SerializeField]        protected Ratio       _voicesVolume         = 1;
+		[SerializeField]                           protected Ratio        _masterVolume = 1;
+		[Header("Music")] [SerializeField]         protected AudioSource  _musicSource;
+		[SerializeField]                           protected Ratio        _musicVolume  = 1;
+		[Header("Sound effects")] [SerializeField] protected Ratio        _sfxVolume    = 1;
+		[Header("Voices")] [SerializeField]        protected Ratio        _voicesVolume = 1;
+		private static                                       AudioManager instance { get; set; }
 
 		private Queue<AudioSource> availableSources { get; } = new Queue<AudioSource>();
 
