@@ -114,4 +114,10 @@ public static class NumbersExtension {
 	public static Ratio Clamp(this Ratio r, Ratio min, Ratio max) => r.value.Clamp(min, max);
 	public static float AtLeast(this float f, float atLeast) => Mathf.Max(f, atLeast);
 	public static float MoveTowards(this float f, float target, float step) => f < target ? Mathf.Min(f + step, target) : Mathf.Max(f - step, target);
+
+	public static float Remap(this float f, float originMin, float originMax, float destinationMin, float destinationMax) {
+		if (f <= originMin) return destinationMin;
+		if (f >= originMax) return destinationMax;
+		return destinationMin + ((f - originMin) / (originMax - originMin)) * (destinationMax - destinationMin);
+	}
 }
