@@ -6,8 +6,10 @@ namespace Utils.Types {
 		private IDictionary<T1, T2> lefts  { get; } = new Dictionary<T1, T2>();
 		private IDictionary<T2, T1> rights { get; } = new Dictionary<T2, T1>();
 
-		public int  Count      => lefts.Count;
-		public bool IsReadOnly => false;
+		public IEnumerable<T1> leftKeys   => lefts.Keys;
+		public IEnumerable<T2> rightKeys  => rights.Keys;
+		public int             Count      => lefts.Count;
+		public bool            IsReadOnly => false;
 
 		public IEnumerator<KeyValuePair<T1, T2>> GetEnumerator() => lefts.GetEnumerator();
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
