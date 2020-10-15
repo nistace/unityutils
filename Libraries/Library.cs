@@ -45,11 +45,20 @@ public abstract class Library<E> : DataScriptableObject {
 		_items[index] = data;
 	}
 
-	public E GetRandom(string keyRoot) {
+	public E GetRandom(string keyRoot) => this[GetRandomKey(keyRoot)];
+
+	public string GetRandomKey(string keyRoot) {
 		var cleanKey = keyRoot.CleanKey().WithEnding(".");
-		if (map.Where(t => t.Key.StartsWith(cleanKey)).TryRandom(out var result)) return result.Value;
+		if (map.Where(t => t.Key.StartsWith(cleanKey)).TryRandom(out var result)) return result.Key;
 		if (Application.isPlaying) Debug.LogWarning(GetNonExistingWarningMessage(cleanKey));
 		return default;
+	}
+
+	public bool HasKey(string key) => map.ContainsKey(key.CleanKey());
+
+	public IReadOnlyDictionary<string, E> AllStartingWith(string keyRoot) {
+		var cleanKey = keyRoot.CleanKey().WithEnding(".");
+		return map.Keys.Where(t => t.StartsWith(cleanKey)).ToDictionary(t => t, t => this[t]);
 	}
 
 	[Serializable]
