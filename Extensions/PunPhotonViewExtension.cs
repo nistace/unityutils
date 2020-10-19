@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using Photon.Pun;
 
 namespace Utils.Extensions {
@@ -14,4 +14,5 @@ namespace Utils.Extensions {
 		public static void Rpc<E, F, G, H, I>(this PhotonView photonView, Action<E, F, G, H, I> func, RpcTarget target, E param1, F param2, G param3, H param4, I param5) =>
 			photonView.RPC(nameof(func), target, param1, param2, param3, param4, param5);
 	}
-}
+}*/
+
