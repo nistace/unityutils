@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using MSG;
 using UnityEditor;
 using UnityEngine;
 
@@ -37,7 +36,7 @@ public class L10NText : MonoBehaviour {
 	[ContextMenu("Refresh")]
 	private void RefreshThis() {
 		if (Localisation.loaded) Localisation.Reload();
-		else Localisation.SetLanguage(Memory.languages.Values.Single(t => t.defaultLanguage));
+		else Localisation.SetLanguage(Resources.LoadAll<Language>("Data/Languages").Single(t => t.defaultLanguage));
 		Refresh();
 	}
 
@@ -45,7 +44,7 @@ public class L10NText : MonoBehaviour {
 	[MenuItem("Tools/Localisation/Refresh All L10N Texts")]
 	private static void RefreshAll() {
 		if (Localisation.loaded) Localisation.Reload();
-		else Localisation.SetLanguage(Memory.languages.Values.Single(t => t.defaultLanguage));
+		else Localisation.SetLanguage(Resources.LoadAll<Language>("Data/Languages").Single(t => t.defaultLanguage));
 		Resources.FindObjectsOfTypeAll<L10NText>().ForEach(t => t.Refresh());
 	}
 #endif

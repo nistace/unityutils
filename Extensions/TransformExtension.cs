@@ -9,8 +9,21 @@ public static class TransformExtension {
 			currentPosition.z.Clamp(minPosition.z, maxPosition.z));
 	}
 
-	public static void MoveUiOverWorldTransform(this Transform uiTransform, Transform worldTarget) => uiTransform.position = CameraUtils.main.WorldToScreenPoint(worldTarget.position);
+	public static void MoveUiOverWorldTransform(this Transform uiTransform, Transform worldTarget, Vector3? offset = null) {
+		var position = worldTarget.position;
+		if (offset != null) position += offset.Value;
+		uiTransform.position = CameraUtils.main.WorldToScreenPoint(position);
+	}
 
 	public static void SetRotationWithEuler(this Transform t, float? x = null, float? y = null, float? z = null) => t.rotation = t.rotation.WithEuler(x, y, z);
 	public static void SetPositionWith(this Transform t, float? x = null, float? y = null, float? z = null) => t.position = t.position.With(x, y, z);
+
+	public static Transform FindRecursive(this Transform transform, string name) {
+		foreach (var child in transform.Children()) {
+			if (child.name == name) return child;
+			var recursiveFindResult = child.FindRecursive(name);
+			if (recursiveFindResult) return recursiveFindResult;
+		}
+		return null;
+	}
 }

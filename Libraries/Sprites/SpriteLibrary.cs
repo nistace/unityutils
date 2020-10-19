@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Constants/Libraries/Sprites")]
 public class SpriteLibrary : Library<Sprite> {

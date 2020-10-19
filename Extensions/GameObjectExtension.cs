@@ -81,6 +81,11 @@ public static class GameObjectExtension {
 		return (components?.Length ?? 0) > 0;
 	}
 
+	public static bool TryGetComponentInParent<E>(this GameObject gameObject, out E component) {
+		component = gameObject.GetComponentInParent<E>();
+		return component != null;
+	}
+
 	public static IEnumerable<E> SelectNotNullComponents<E>(this IEnumerable<GameObject> gameObjects) {
 		var selects = new List<E>();
 		foreach (var gameObject in gameObjects.NotNull())

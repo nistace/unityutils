@@ -62,6 +62,7 @@ public class Language : DataScriptableObject {
 			}
 			AssetDatabase.ImportAsset(path);
 			EditorUtility.SetDirty(textAsset);
+			Debug.Log($"Keys sorted in {textAsset} asset file.");
 		}
 		AssetDatabase.SaveAssets();
 	}

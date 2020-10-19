@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class Colors {
 	private static ColorLibrary library { get; set; }
@@ -26,4 +27,9 @@ public static class Colors {
 	public static Color Of(float r, float g, float b, float a) {
 		return new Color(r, g, b, a);
 	}
+
+	public static Color Random(string keyRoot) => library.GetRandom(keyRoot);
+	public static string RandomKey(string keyRoot) => library.GetRandomKey(keyRoot);
+	public static bool HasKey(string key) => library.HasKey(key);
+	public static IReadOnlyDictionary<string, Color> AllStartingWith(string keyRoot) => library.AllStartingWith(keyRoot);
 }
