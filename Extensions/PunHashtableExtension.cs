@@ -1,4 +1,4 @@
-﻿/*using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using UnityEngine;
 
 namespace Utils.Extensions {
@@ -47,5 +47,4 @@ namespace Utils.Extensions {
 		public static void Define(this Hashtable table, string key, bool b) => table[key] = b;
 		public static void Define(this Hashtable table, string key, byte b) => table[key] = b;
 	}
-}*/
-
+}
