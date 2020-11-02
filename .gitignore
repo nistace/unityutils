@@ -1,9 +1,0 @@
-
-.gitignore
-
-Extensions/PunHashtableExtension.cs
-Extensions/PunHashtableExtension.cs.meta
-Extensions/PunPhotonViewExtension.cs
-Extensions/PunPhotonViewExtension.cs.meta
-StaticUtils/PhotonNetworkUtils.cs
-StaticUtils/PhotonNetworkUtils.cs.meta

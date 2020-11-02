@@ -1,4 +1,4 @@
-﻿/*using Photon.Pun;
+﻿using Photon.Pun;
 using UnityEngine;
 
 namespace Utils.StaticUtils {
@@ -7,5 +7,4 @@ namespace Utils.StaticUtils {
 
 		public static E Instantiate<E>(E prefab, Vector3 position, Quaternion rotation) where E : MonoBehaviour => PhotonNetwork.Instantiate(prefab.name, position, rotation).GetComponent<E>();
 	}
-}*/
-
+}
