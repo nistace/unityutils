@@ -17,7 +17,7 @@ public class FixedTooltipHolder : TooltipHolder {
 		_keys = keys;
 	}
 
-	protected override TooltipData? GetShowData() {
+	protected override TooltipData GetShowData() {
 		parameters.Set(titleParameter, GetValue(_title));
 		parameters.Set(textParameter, GetValue(_text));
 		return new TooltipData(rectTransform, parameters);

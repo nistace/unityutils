@@ -12,7 +12,7 @@ public class SourceTooltipHolder : TooltipHolder {
 		dataSource = _dataSource as ITooltipExternalSource ?? _dataSource?.GetComponent<ITooltipExternalSource>();
 	}
 
-	protected override TooltipData? GetShowData() {
+	protected override TooltipData GetShowData() {
 		if (dataSource == null) {
 			Debug.LogWarning($"Tooltip holder with no source: {name}");
 			return null;
