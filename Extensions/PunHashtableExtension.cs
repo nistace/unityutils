@@ -1,4 +1,4 @@
-﻿using ExitGames.Client.Photon;
+﻿﻿using ExitGames.Client.Photon;
 using UnityEngine;
 
 namespace Utils.Extensions {
