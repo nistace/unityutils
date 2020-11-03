@@ -6,7 +6,7 @@ public abstract class TooltipHolder : MonoBehaviour, IPointerEnterHandler, IPoin
 	public static string textParameter     { get; } = "__TEXT";
 	public static string shortcutParameter { get; } = "__SHORTCUT";
 
-	private TooltipData? shownData { get; set; }
+	private TooltipData shownData { get; set; }
 
 	protected          RectTransform rectTransform { get; private set; }
 	protected abstract TooltipUi     uiModel       { get; }
@@ -21,14 +21,14 @@ public abstract class TooltipHolder : MonoBehaviour, IPointerEnterHandler, IPoin
 	private void Show() {
 		shownData = GetShowData();
 		if (shownData == null) return;
-		TooltipOverlayUi.Show(uiModel, shownData.Value);
+		TooltipOverlayUi.Show(uiModel, shownData);
 	}
 
-	protected abstract TooltipData? GetShowData();
+	protected abstract TooltipData GetShowData();
 
 	private void Hide() {
 		if (shownData == null) return;
-		TooltipOverlayUi.Hide(shownData.Value);
+		TooltipOverlayUi.Hide(shownData);
 		shownData = null;
 	}
 

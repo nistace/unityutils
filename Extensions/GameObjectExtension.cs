@@ -124,6 +124,10 @@ public static class GameObjectExtension {
 
 	public static bool TrySingleOrDefault<E>(this IEnumerable<Component> components, out E single) where E : Component => components.Select(t => t.gameObject).TrySingleOrDefault(out single);
 
+	public static void DestroyComponentsInChildren<E>(this GameObject gameObject) where E : Object {
+		foreach (var component in gameObject.GetComponentsInChildren<E>().ToArray()) Object.Destroy(component);
+	}
+
 	public static GameObject Active(this GameObject go) {
 		go.SetActive(true);
 		return go;

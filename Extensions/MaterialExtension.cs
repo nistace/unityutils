@@ -18,4 +18,10 @@ public static class MaterialExtension {
 		material.renderQueue = -1;
 	}
 
+	public static void SetEmissionEnabled(this Material material, bool enabled) => material.SetKeywordEnabled("_EMISSION", enabled);
+
+	public static void SetKeywordEnabled(this Material material, string keyword, bool enabled) {
+		if (enabled) material.EnableKeyword(keyword);
+		else material.DisableKeyword(keyword);
+	}
 }

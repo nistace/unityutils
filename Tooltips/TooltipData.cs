@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public struct TooltipData {
+public class TooltipData {
 	public  RectTransform                       target         { get; }
 	public  Vector2                             targetPosition { get; }
 	public  bool                                targetIsV2     { get; }
