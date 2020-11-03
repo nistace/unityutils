@@ -123,4 +123,14 @@ public static class GameObjectExtension {
 	}
 
 	public static bool TrySingleOrDefault<E>(this IEnumerable<Component> components, out E single) where E : Component => components.Select(t => t.gameObject).TrySingleOrDefault(out single);
+
+	public static GameObject Active(this GameObject go) {
+		go.SetActive(true);
+		return go;
+	}
+
+	public static GameObject Inactive(this GameObject go) {
+		go.SetActive(false);
+		return go;
+	}
 }
