@@ -32,7 +32,7 @@ public class Language : DataScriptableObject {
 	[MenuItem("Tools/Localisation/Sort Keys In Files")]
 	public static void SortLinesInFiles() {
 		foreach (var textAsset in Resources.LoadAll<TextAsset>("Localisation")) {
-			if (textAsset.name == "allTexts") continue;
+			if (textAsset.name.In("allTexts", "how-to")) continue;
 			var path = AssetDatabase.GetAssetPath(textAsset);
 			var allLines = textAsset.Lines().Select(t => t.Replace("\n", string.Empty).Trim()).Where(t => !string.IsNullOrEmpty(t)).ToList();
 
@@ -62,7 +62,7 @@ public class Language : DataScriptableObject {
 			}
 			AssetDatabase.ImportAsset(path);
 			EditorUtility.SetDirty(textAsset);
-			Debug.Log($"Keys sorted in {textAsset} asset file.");
+			Debug.Log($"Keys sorted in {textAsset.name} asset file.");
 		}
 		AssetDatabase.SaveAssets();
 	}
@@ -79,6 +79,7 @@ public class Language : DataScriptableObject {
 		var keyColumnIndex = columns["Key"];
 		var lines = textAsset.CsvLines().ToArray();
 		foreach (var lang in columns.Keys) {
+			if (lang.Trim().Length == 0) continue;
 			if (lang.ToLower().In("key", "parameters")) continue;
 			var langColumnIndex = columns[lang];
 			var langTextAsset = Resources.Load<TextAsset>($"Localisation/{lang.CamelCase()}");
