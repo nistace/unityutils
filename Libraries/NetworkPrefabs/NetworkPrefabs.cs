@@ -1,7 +1,6 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using Debug = Utils.Debugging.Debug;
 
 public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool, IPunOwnershipCallbacks {
 	private static NetworkPrefabs        instance { get; set; }
@@ -14,6 +13,7 @@ public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool, IPunOwnershipCallba
 			instance = this;
 			PhotonNetwork.PrefabPool = this;
 			PhotonNetwork.AddCallbackTarget(this);
+			if (transform != transform.root) transform.SetParent(null);
 			DontDestroyOnLoad(gameObject);
 		}
 	}
@@ -23,8 +23,10 @@ public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool, IPunOwnershipCallba
 		if (library) library.Load();
 	}
 
-	public static GameObject Of(string prefabId, Vector3 position, Quaternion rotation) => PhotonNetwork.Instantiate(prefabId, position, rotation);
-	public static E Of<E>(string prefabId, Vector3 position, Quaternion rotation) => Of(prefabId, position, rotation).GetComponent<E>();
+	public static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null) =>
+		PhotonNetwork.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
+
+	public static E Of<E>(string prefabId, Vector3? position = null, Quaternion? rotation = null) => Of(prefabId, position, rotation).GetComponent<E>();
 
 	public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation) {
 		if (!library) return null;
