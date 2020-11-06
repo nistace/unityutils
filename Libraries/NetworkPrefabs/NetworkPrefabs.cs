@@ -1,8 +1,7 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
-public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool, IPunOwnershipCallbacks {
+public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool {
 	private static NetworkPrefabs        instance { get; set; }
 	private static NetworkPrefabsLibrary library  { get; set; }
 	public static  bool                  loaded   => library != null;
@@ -32,20 +31,11 @@ public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool, IPunOwnershipCallba
 		if (!library) return null;
 		if (!library[prefabId]) return null;
 		var photonView = Object.Instantiate(library[prefabId], position, rotation).Inactive().GetComponent<PhotonView>();
-		Debug.Log($"Instantiating {prefabId} with ownership {photonView.OwnershipTransfer}");
 		return photonView.gameObject;
 	}
 
 	public void Destroy(GameObject gameObject) {
 		if (!gameObject) return;
 		Object.Destroy(gameObject);
-	}
-
-	public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer) {
-		Debug.Log(targetView.name + " requested by " + requestingPlayer.NickName);
-	}
-
-	public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner) {
-		Debug.Log(targetView.name + " transfered, previous " + previousOwner.NickName);
 	}
 }

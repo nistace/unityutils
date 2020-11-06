@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ExitGames.Client.Photon;
 using UnityEngine;
@@ -10,9 +11,15 @@ namespace Utils.Extensions {
 		public static string String(this Hashtable table, string name, string defaultValue = default) => table.Get(name, defaultValue);
 		public static float Float(this Hashtable table, string name, float defaultValue = default) => table.Get(name, defaultValue);
 		public static bool Bool(this Hashtable table, string name, bool defaultValue = default) => table.Get(name, defaultValue);
-		public static string[] StringArray(this Hashtable table, string key) => table.String(key).Split('|');
-		public static int[] IntArray(this Hashtable table, string key) => table.String(key).Split('|').Select(int.Parse).ToArray();
-		public static float[] FloatArray(this Hashtable table, string key) => table.String(key).Split('|').Select(float.Parse).ToArray();
+		public static string[] StringArray(this Hashtable table, string key) => table.Array(key, t => t);
+		public static int[] IntArray(this Hashtable table, string key) => table.Array(key, int.Parse);
+		public static float[] FloatArray(this Hashtable table, string key) => table.Array(key, float.Parse);
+
+		private static E[] Array<E>(this Hashtable table, string key, Func<string, E> parse) {
+			var stringValue = table.String(key);
+			if (string.IsNullOrEmpty(stringValue)) return new E[0];
+			return stringValue.Split('|').Select(parse).ToArray();
+		}
 
 		public static Color Color(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);

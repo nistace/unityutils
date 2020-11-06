@@ -2,5 +2,5 @@
 using UnityEngine.Events;
 
 namespace Utils.Events {
-	public class RoomInfoEvent : UnityEvent<RoomInfo> { }
+	public class PunRoomInfoEvent : UnityEvent<RoomInfo> { }
 }
