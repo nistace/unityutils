@@ -78,7 +78,7 @@ public static class ArrayExtension {
 
 	public static bool TryGet<E>(this IReadOnlyList<E> list, int index, out E e) {
 		e = default;
-		if (index < 0 || index >= list.Count) return false;
+		if (list == null || index < 0 || index >= list.Count) return false;
 		e = list[index];
 		return true;
 	}
