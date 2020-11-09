@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool {
 	private static NetworkPrefabs        instance { get; set; }
@@ -22,8 +23,12 @@ public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool {
 		if (library) library.Load();
 	}
 
-	public static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null) =>
-		PhotonNetwork.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
+	private static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null) {
+		if (PhotonNetwork.OfflineMode) {
+			return instance.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity).Active();
+		}
+		return PhotonNetwork.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
+	}
 
 	public static E Of<E>(string prefabId, Vector3? position = null, Quaternion? rotation = null) => Of(prefabId, position, rotation).GetComponent<E>();
 
