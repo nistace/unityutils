@@ -11,8 +11,7 @@ public class DebugUi : MonoBehaviour {
 	private void Awake() {
 		if (instance) Destroy(gameObject);
 		else instance = this;
-		if (transform != transform.root) transform.SetParent(null);
-		DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(transform.root.gameObject);
 	}
 
 	private void Start() {
@@ -22,5 +21,9 @@ public class DebugUi : MonoBehaviour {
 	public static void Print(string info) {
 		var line = Instantiate(instance._linePrefab, instance._linesContainer);
 		line.SetText($"[{DateTime.Now:h:mm:ss tt}]{info}");
+	}
+
+	public static void Toggle() {
+		instance.gameObject.SetActive(!instance.gameObject.activeSelf);
 	}
 }
