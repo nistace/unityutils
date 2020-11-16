@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public static class EnumerableExtension {
 	public static void Shuffle<E>(this IList<E> list) {
@@ -21,7 +20,7 @@ public static class EnumerableExtension {
 	public static bool TryRandom<E>(this IEnumerable<E> array, out E result) {
 		result = default;
 		var enumerable = array as E[] ?? array.ToArray();
-		var r = Utils.RandomUtils.Random.Range(0, enumerable.Length);
+		var r = UnityEngine.Random.Range(0, enumerable.Length);
 		foreach (var e in enumerable) {
 			if (r == 0) {
 				result = e;
