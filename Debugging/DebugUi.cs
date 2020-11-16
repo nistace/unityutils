@@ -1,12 +1,20 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using Utils.Events;
+using Utils.Types.Ui;
 
 public class DebugUi : MonoBehaviour {
 	private static DebugUi instance { get; set; }
 
-	[SerializeField] protected TMP_Text  _linePrefab;
-	[SerializeField] protected Transform _linesContainer;
+	[SerializeField] protected DebugLineUi            _linePrefab;
+	[SerializeField] protected Transform              _linesContainer;
+	[SerializeField] protected ScrollRectAutoScroller _autoScroller;
+	[SerializeField] protected int                    _autoScrollerUpdateFrames = 5;
+	[SerializeField] protected TMP_InputField         _commandInput;
+	[SerializeField] protected bool                   _refocusOnSubmit = true;
+
+	public static StringEvent onCommandSubmitted { get; } = new StringEvent();
+	public static BoolEvent   onDisplayedChanged { get; } = new BoolEvent();
 
 	private void Awake() {
 		if (instance) Destroy(gameObject);
@@ -14,16 +22,36 @@ public class DebugUi : MonoBehaviour {
 		DontDestroyOnLoad(transform.root.gameObject);
 	}
 
-	private void Start() {
-		gameObject.SetActive(false);
+	private void Start() => gameObject.SetActive(false);
+
+	private void OnEnable() => SetListeners(true);
+
+	private void OnDisable() => SetListeners(false);
+
+	private void SetListeners(bool enabled) {
+		if (!_commandInput) return;
+
+		_commandInput.onSubmit.SetListenerActive(HandleSubmitCommand, enabled);
 	}
 
-	public static void Print(string info) {
+	private void HandleSubmitCommand(string command) {
+		if (!_commandInput.wasCanceled && command.Trim().Length > 0) {
+			onCommandSubmitted.Invoke(command.Trim());
+		}
+		_commandInput.SetTextWithoutNotify(string.Empty);
+		if (_refocusOnSubmit) _commandInput.ActivateInputField();
+	}
+
+	public static void Print(string info, string type, Color color) {
+		if (instance && instance._autoScroller && instance._autoScroller.atBottom) instance._autoScroller.ScrollToBottom(instance._autoScrollerUpdateFrames);
 		var line = Instantiate(instance._linePrefab, instance._linesContainer);
-		line.SetText($"[{DateTime.Now:h:mm:ss tt}]{info}");
+		line.Set(info, type);
+		line.color = color;
 	}
 
 	public static void Toggle() {
 		instance.gameObject.SetActive(!instance.gameObject.activeSelf);
+		if (instance.gameObject.activeSelf && instance._commandInput) instance._commandInput.ActivateInputField();
+		onDisplayedChanged.Invoke(instance.gameObject.activeSelf);
 	}
 }
