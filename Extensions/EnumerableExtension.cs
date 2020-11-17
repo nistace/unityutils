@@ -58,7 +58,10 @@ public static class EnumerableExtension {
 		return default;
 	}
 
-	public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability) {
+	public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, UnityEngine.Random.Range);
+	public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, Utils.RandomUtils.NetworkRandom.Range);
+
+	private static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability, Func<float, float, float> randomRangeFunc) {
 		if (array == null || array.Count == 0) return default;
 		if (size == 0) return new E[] { };
 		var probabilities = array.Select(probability).ToArray();
@@ -66,7 +69,7 @@ public static class EnumerableExtension {
 		if (sumProbability <= 0) return default;
 		var result = new E[size];
 		for (var i = 0; i < size; ++i) {
-			var r = UnityEngine.Random.Range(0, sumProbability);
+			var r = randomRangeFunc(0, sumProbability);
 			var index = -1;
 			while (r >= 0 && index < array.Count) {
 				index++;

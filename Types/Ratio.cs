@@ -1,19 +1,18 @@
 ﻿using System;
 using UnityEngine;
+using Utils.RandomUtils;
 
 [Serializable]
 public struct Ratio : IComparable<Ratio> {
 	public static Ratio one  { get; } = 1;
 	public static Ratio zero { get; } = 0;
 
-	public static Ratio Random() {
-		return new Ratio(UnityEngine.Random.value);
-	}
+	public static Ratio Random() => new Ratio(UnityEngine.Random.value);
 
-	private static bool Roll(float value, bool winUnder = true) {
+	private static bool Roll(float value, float random, bool winUnder = true) {
 		if (value >= 1) return winUnder;
 		if (value <= 0) return !winUnder;
-		return winUnder == (UnityEngine.Random.value < value);
+		return winUnder == random < value;
 	}
 
 	[Range(0, 1)] [SerializeField] private float _value;
@@ -24,6 +23,9 @@ public struct Ratio : IComparable<Ratio> {
 		_value = value.Clamp(0, 1);
 	}
 
+	public static implicit operator Ratio(float value) => new Ratio(value);
+	public static implicit operator float(Ratio r) => r.value;
+
 	public Ratio(float value, float over) {
 		_value = value;
 		if (value == 0) _value = 0;
@@ -32,37 +34,16 @@ public struct Ratio : IComparable<Ratio> {
 		_value = this.value.Clamp(0, 1);
 	}
 
-	public static Ratio operator +(Ratio r, Ratio r2) {
-		return r + r2.value;
-	}
-
-	public static Ratio operator -(Ratio r, Ratio r2) {
-		return r - r2.value;
-	}
-
-	public static Ratio operator *(Ratio r, Ratio r2) {
-		return new Ratio(r.value * r2.value);
-	}
-
-	public static Ratio operator /(Ratio r, Ratio r2) {
-		return new Ratio(r.value, r2.value);
-	}
-
-	public static Ratio operator +(Ratio r, float v) {
-		return new Ratio(r.value + v);
-	}
-
-	public static Ratio operator -(Ratio r, float v) {
-		return new Ratio(r.value - v);
-	}
-
-	public static bool operator !=(Ratio r, float f) {
-		return !(r == f);
-	}
-
-	public static bool operator ==(Ratio r, float f) {
-		return r.value == f;
-	}
+	public static Ratio operator +(Ratio r, Ratio r2) => r + r2.value;
+	public static Ratio operator -(Ratio r, Ratio r2) => r - r2.value;
+	public static Ratio operator *(Ratio r, Ratio r2) => new Ratio(r.value * r2.value);
+	public static Ratio operator /(Ratio r, Ratio r2) => new Ratio(r.value, r2.value);
+	public static Ratio operator +(Ratio r, float v) => new Ratio(r.value + v);
+	public static Ratio operator -(Ratio r, float v) => new Ratio(r.value - v);
+	public static bool operator !=(Ratio r, float f) => !(r == f);
+	public static bool operator ==(Ratio r, float f) => r.value == f;
+	public static float operator *(Ratio r, float v) => r.value * v;
+	public static float operator /(Ratio r, float v) => r.value / v;
 
 	public override bool Equals(object obj) {
 		switch (obj) {
@@ -77,37 +58,11 @@ public struct Ratio : IComparable<Ratio> {
 		}
 	}
 
-	public override int GetHashCode() {
-		return value.GetHashCode();
-	}
+	public override int GetHashCode() => value.GetHashCode();
 
-	public static float operator *(Ratio r, float v) {
-		return r.value * v;
-	}
-
-	public static float operator /(Ratio r, float v) {
-		return r.value / v;
-	}
-
-	public static implicit operator Ratio(float value) {
-		return new Ratio(value);
-	}
-
-	public static implicit operator float(Ratio r) {
-		return r.value;
-	}
-
-	public bool Roll(bool winUnder = true) {
-		return Roll(value, winUnder);
-	}
-
-	public override string ToString() {
-		return $"{value}";
-	}
-
-	public string ToStringPc(string format) {
-		return $"{(value * 100).ToString(format)}%";
-	}
-
+	public bool Roll(bool winUnder = true) => Roll(value, UnityEngine.Random.value, winUnder);
+	public bool NetworkRoll(bool winUnder = true) => Roll(value, NetworkRandom.GetNextValue(), winUnder);
+	public override string ToString() => $"{value}";
+	public string ToStringPc(string format) => $"{(value * 100).ToString(format)}%";
 	public int CompareTo(Ratio other) => _value.CompareTo(other._value);
 }
