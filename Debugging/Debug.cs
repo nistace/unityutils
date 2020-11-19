@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils.Events;
 
 namespace Utils.Debugging {
 	public static class Debug {
-		public static StringEvent onCommandSubmitted      => DebugUi.onCommandSubmitted;
-		public static BoolEvent   onDebugDisplayedChanged => DebugUi.onDisplayedChanged;
+		public static BoolEvent onDebugDisplayedChanged => DebugUi.onDisplayedChanged;
 
 		public enum Type {
 			Info    = 0,

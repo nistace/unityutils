@@ -5,17 +5,36 @@ using System.Text.RegularExpressions;
 
 namespace Utils.Debugging {
 	public static class CheatManager {
-		public static int userAccessLevel { get; set; }
+		public static  int          userAccessLevel     { get; set; }
+		private static List<string> previousCommands    { get; } = new List<string>();
+		private static int          repeatPreviousIndex { get; set; }
 
 		private static Dictionary<Regex, CheatCode> cheatCodes { get; } = new Dictionary<Regex, CheatCode> {
 			{new Regex("^ *help *(\\w+)? *$"), new CheatCode(HandleHelpCheatCode, 0)}, {new Regex("^ *exit-debug *(\\w+)? *$"), new CheatCode(HandleExitDebug, 0)}
 		};
 
 		public static void DefineCheatCode(string regex, Func<Match, string> cheatCodeAction, int protectionLevel) => cheatCodes.Set(new Regex(regex), new CheatCode(cheatCodeAction, protectionLevel));
-		public static void SetListenToDebugCommand(bool enable) => Debug.onCommandSubmitted.SetListenerActive(HandleCheatCode, enable);
 
-		public static void HandleCheatCode(string cmd) {
+		public static void SetListenToDebugCommand(bool enable) {
+			DebugUi.onCommandSubmitted.SetListenerActive(HandleCheatCode, enable);
+			DebugUi.onDownPressedInCommandInput.SetListenerActive(RepeatNextCommand, enable);
+			DebugUi.onUpPressedInCommandInput.SetListenerActive(RepeatPreviousCommand, enable);
+		}
+
+		private static void RepeatPreviousCommand() {
+			repeatPreviousIndex = (repeatPreviousIndex - 1).Clamp(0, previousCommands.Count);
+			DebugUi.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
+		}
+
+		private static void RepeatNextCommand() {
+			repeatPreviousIndex = (repeatPreviousIndex + 1).Clamp(0, previousCommands.Count);
+			DebugUi.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
+		}
+
+		private static void HandleCheatCode(string cmd) {
 			cmd = cmd.ToLower().Trim();
+			previousCommands.Add(cmd);
+			repeatPreviousIndex = previousCommands.Count;
 			var matchingRegex = cheatCodes.FirstOrDefault(t => t.Key.IsMatch(cmd)).Key;
 			if (matchingRegex == null) Debug.LogCheat($"{cmd}: Command not found");
 			else if (!IsCheatCodeAllowed(cheatCodes[matchingRegex])) Debug.LogCheat($"{cmd}: You don't have the rights to use that command.");

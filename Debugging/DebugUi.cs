@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils.Events;
 using Utils.Types.Ui;
 
@@ -13,8 +14,10 @@ public class DebugUi : MonoBehaviour {
 	[SerializeField] protected TMP_InputField         _commandInput;
 	[SerializeField] protected bool                   _refocusOnSubmit = true;
 
-	public static StringEvent onCommandSubmitted { get; } = new StringEvent();
-	public static BoolEvent   onDisplayedChanged { get; } = new BoolEvent();
+	public static StringEvent onCommandSubmitted          { get; } = new StringEvent();
+	public static BoolEvent   onDisplayedChanged          { get; } = new BoolEvent();
+	public static UnityEvent  onUpPressedInCommandInput   { get; } = new UnityEvent();
+	public static UnityEvent  onDownPressedInCommandInput { get; } = new UnityEvent();
 
 	private void Awake() {
 		if (instance) Destroy(gameObject);
@@ -53,5 +56,16 @@ public class DebugUi : MonoBehaviour {
 		instance.gameObject.SetActive(!instance.gameObject.activeSelf);
 		if (instance.gameObject.activeSelf && instance._commandInput) instance._commandInput.ActivateInputField();
 		onDisplayedChanged.Invoke(instance.gameObject.activeSelf);
+	}
+
+	private void Update() {
+		if (!_commandInput.isActiveAndEnabled) return;
+		if (Input.GetKeyDown(KeyCode.UpArrow)) onUpPressedInCommandInput.Invoke();
+		if (Input.GetKeyDown(KeyCode.DownArrow)) onDownPressedInCommandInput.Invoke();
+	}
+
+	public static void SetCommand(string cmd) {
+		instance._commandInput.text = cmd;
+		instance._commandInput.caretPosition = cmd.Length;
 	}
 }
