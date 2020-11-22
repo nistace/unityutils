@@ -46,7 +46,7 @@ public class DebugUi : MonoBehaviour {
 	}
 
 	public static void Print(string info, string type, Color color) {
-		if (instance && instance._autoScroller && instance._autoScroller.atBottom) instance._autoScroller.ScrollToBottom(instance._autoScrollerUpdateFrames);
+		if (instance && instance._autoScroller && instance._autoScroller.atBottom) instance._autoScroller.ScrollToBottom();
 		var line = Instantiate(instance._linePrefab, instance._linesContainer);
 		line.Set(info, type);
 		line.color = color;

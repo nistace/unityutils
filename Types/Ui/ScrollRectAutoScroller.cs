@@ -7,23 +7,24 @@ namespace Utils.Types.Ui {
 		[SerializeField] protected Scrollbar  _scrollbar;
 		[SerializeField] protected int        _duringFrames = 2;
 
-		public  bool  atBottom => _scrollbar.value < .001f;
-		public  bool  atTop    => _scrollbar.value > .999f;
-		private float target   { get; set; }
+		public  bool  atBottom        => _scrollbar.value < .001f;
+		public  bool  atTop           => _scrollbar.value > .999f;
+		private int   remainingFrames { get; set; }
+		private float target          { get; set; }
 
-		public void ScrollToBottom(int? duringFrames = null) => ScrollTo(0, duringFrames ?? _duringFrames);
+		public void ScrollToBottom() => ScrollTo(0, _duringFrames);
 
-		public void ScrollToTop(int? duringFrames = null) => ScrollTo(1, duringFrames ?? _duringFrames);
+		public void ScrollToTop() => ScrollTo(1, _duringFrames);
 
 		private void ScrollTo(float value, int duringFrames) {
 			target = value;
-			_duringFrames = duringFrames;
+			remainingFrames = duringFrames;
 		}
 
 		private void LateUpdate() {
-			if (_duringFrames <= 0) return;
+			if (remainingFrames <= 0) return;
 			_scrollRect.verticalNormalizedPosition = target;
-			_duringFrames--;
+			remainingFrames--;
 		}
 	}
 }
