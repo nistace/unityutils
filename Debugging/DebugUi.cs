@@ -10,7 +10,6 @@ public class DebugUi : MonoBehaviour {
 	[SerializeField] protected DebugLineUi            _linePrefab;
 	[SerializeField] protected Transform              _linesContainer;
 	[SerializeField] protected ScrollRectAutoScroller _autoScroller;
-	[SerializeField] protected int                    _autoScrollerUpdateFrames = 5;
 	[SerializeField] protected TMP_InputField         _commandInput;
 	[SerializeField] protected bool                   _refocusOnSubmit = true;
 
@@ -46,6 +45,7 @@ public class DebugUi : MonoBehaviour {
 	}
 
 	public static void Print(string info, string type, Color color) {
+		if (!instance) return;
 		if (instance && instance._autoScroller && instance._autoScroller.atBottom) instance._autoScroller.ScrollToBottom();
 		var line = Instantiate(instance._linePrefab, instance._linesContainer);
 		line.Set(info, type);
