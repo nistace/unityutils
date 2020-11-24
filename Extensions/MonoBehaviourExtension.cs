@@ -10,5 +10,12 @@ namespace Utils.Extensions {
 			for (var secondsPassed = 0f; secondsPassed < seconds; ++secondsPassed) yield return null;
 			callback();
 		}
+
+		public static bool TryStartCoroutine(this MonoBehaviour behaviour, IEnumerator routine, out Coroutine coroutine) {
+			coroutine = null;
+			if (!behaviour.gameObject.activeInHierarchy) return false;
+			coroutine = behaviour.StartCoroutine(routine);
+			return true;
+		}
 	}
 }
