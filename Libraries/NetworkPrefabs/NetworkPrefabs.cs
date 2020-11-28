@@ -23,14 +23,13 @@ public class NetworkPrefabs : MonoBehaviour, IPunPrefabPool {
 		if (library) library.Load();
 	}
 
-	private static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null) {
-		if (PhotonNetwork.OfflineMode) {
-			return instance.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity).Active();
-		}
+	private static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null, bool persistent = false) {
+		if (PhotonNetwork.OfflineMode) return instance.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity).Active();
+		if (persistent) return PhotonNetwork.InstantiateRoomObject(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
 		return PhotonNetwork.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
 	}
 
-	public static E Of<E>(string prefabId, Vector3? position = null, Quaternion? rotation = null) => Of(prefabId, position, rotation).GetComponent<E>();
+	public static E Of<E>(string prefabId, Vector3? position = null, Quaternion? rotation = null, bool persistent = false) => Of(prefabId, position, rotation, persistent).GetComponent<E>();
 
 	public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation) {
 		if (!library) return null;
