@@ -8,4 +8,12 @@ public static class RectTransformExtension {
 		transform.anchorMin = anchorMin;
 		transform.anchorMax = anchorMax;
 	}
+
+	public static void MoveOverWorldTransform(this RectTransform uiTransform, Transform worldTarget, Vector3? targetOffset = null, Vector2? uiOffset = null) {
+		var position = worldTarget.position;
+		if (targetOffset != null) position += targetOffset.Value;
+		var uiPosition = CameraUtils.main.WorldToScreenPoint(position);
+		if (uiOffset != null) uiPosition += new Vector3(uiOffset.Value.x, uiOffset.Value.y, 0);
+		uiTransform.position = uiPosition;
+	}
 }
