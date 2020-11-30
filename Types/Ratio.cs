@@ -61,7 +61,7 @@ public struct Ratio : IComparable<Ratio> {
 	public override int GetHashCode() => value.GetHashCode();
 
 	public bool Roll(bool winUnder = true) => Roll(value, UnityEngine.Random.value, winUnder);
-	public bool NetworkRoll(bool winUnder = true) => Roll(value, NetworkRandom.GetNextValue(), winUnder);
+	public bool NetworkRoll(bool winUnder = true) => Roll(value, SeedRandom.GetNextValue(), winUnder);
 	public override string ToString() => $"{value}";
 	public string ToStringPc(string format) => $"{(value * 100).ToString(format)}%";
 	public int CompareTo(Ratio other) => _value.CompareTo(other._value);

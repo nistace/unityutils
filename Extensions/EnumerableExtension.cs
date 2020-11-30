@@ -43,9 +43,9 @@ public static class EnumerableExtension {
 
 	public static int RandomIndex<E>(this E[] array) => UnityEngine.Random.Range(0, array.Length);
 	public static E Random<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, UnityEngine.Random.Range).GetSafe(0);
-	public static E NetworkRandom<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, Utils.RandomUtils.NetworkRandom.Range).GetSafe(0);
+	public static E NetworkRandom<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, Utils.RandomUtils.SeedRandom.Range).GetSafe(0);
 	public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, UnityEngine.Random.Range);
-	public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, Utils.RandomUtils.NetworkRandom.Range);
+	public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, Utils.RandomUtils.SeedRandom.Range);
 
 	private static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability, Func<float, float, float> randomRangeFunc) {
 		if (array == null || array.Count == 0) return default;

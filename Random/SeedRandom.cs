@@ -2,11 +2,11 @@
 using UnityEngine;
 
 namespace Utils.RandomUtils {
-	public static class NetworkRandom {
+	public static class SeedRandom {
 		private static int[] values         { get; } = new int[12];
 		private static int   nextValueIndex { get; set; }
 		private static int   previousValue  { get; set; }
-		private static int   step           { get; set; }
+		public static  int   step           { get; private set; }
 
 		public static void Set(int seed, int startingStep = 0) {
 			for (var i = 0; i < 12; ++i) values[i] = ((seed << (i + 1)) + (int) Mathf.Pow(i + 2, 2)).PosMod(1000);
