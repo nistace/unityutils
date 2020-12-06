@@ -5,6 +5,7 @@ public static class VectorExtension {
 	public static Vector2 Inside(this Vector3 v3, Rect rect) => ((Vector2) v3).Inside(rect);
 
 	public static Vector2 Inside(this Vector2 v2, Rect rect) => new Vector2(v2.x.Clamp(rect.xMin, rect.xMax), v2.y.Clamp(rect.yMin, rect.yMax));
+	public static Vector2 With(this Vector2 v2, float? x = null, float? y = null) => new Vector2(x ?? v2.x, y ?? v2.y);
 
 	public static Vector3 With(this Vector3 v3, float? x = null, float? y = null, float? z = null) => new Vector3(x ?? v3.x, y ?? v3.y, z ?? v3.z);
 

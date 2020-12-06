@@ -16,4 +16,14 @@ public static class RectTransformExtension {
 		if (uiOffset != null) uiPosition += new Vector3(uiOffset.Value.x, uiOffset.Value.y, 0);
 		uiTransform.position = uiPosition;
 	}
+
+	public static void SetOffsets(this RectTransform uiTransform, Vector2 offsetMin, Vector2 offsetMax) {
+		uiTransform.offsetMin = offsetMin;
+		uiTransform.offsetMax = offsetMax;
+	}
+
+	public static void LerpToOffsets(this RectTransform uiTransform, Vector2 offsetMin, Vector2 offsetMax, float lerp) {
+		uiTransform.offsetMin = Vector2.Lerp(uiTransform.offsetMin, offsetMin, lerp);
+		uiTransform.offsetMax = Vector2.Lerp(uiTransform.offsetMax, offsetMax, lerp);
+	}
 }
