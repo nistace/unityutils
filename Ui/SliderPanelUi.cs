@@ -4,6 +4,9 @@ using Utils.Types.Ui;
 
 namespace Utils.Ui {
 	public class SliderPanelUi : MonoBehaviourUi {
+		public static int defaultCloseIndex => 0;
+		public static int defaultOpenIndex  => 1;
+
 		[SerializeField] protected RectTransformPosition[] _positions;
 
 		public void MoveTo(int state, float time) {
@@ -11,7 +14,7 @@ namespace Utils.Ui {
 				Debug.Log("State " + state + " does not exist");
 				return;
 			}
-			if (time <= 0) JumpTo(state);
+			if (time <= 0 || !gameObject.activeInHierarchy) JumpTo(state);
 			else StartSingleCoroutine(DoMoveTo(_positions[state], time));
 		}
 

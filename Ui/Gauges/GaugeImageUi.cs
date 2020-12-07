@@ -7,6 +7,8 @@ namespace Utils.Ui.Gauges {
 	public class GaugeImageUi : MonoBehaviourUi {
 		[SerializeField] protected Image _image;
 
+		public Image image => _image;
+
 		public float fillAmount {
 			get => _image.fillAmount;
 			set => _image.fillAmount = value;
