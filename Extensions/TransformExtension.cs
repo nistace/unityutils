@@ -9,7 +9,6 @@ public static class TransformExtension {
 			currentPosition.z.Clamp(minPosition.z, maxPosition.z));
 	}
 
-
 	public static void SetRotationWithEuler(this Transform t, float? x = null, float? y = null, float? z = null) => t.rotation = t.rotation.WithEuler(x, y, z);
 	public static void SetPositionWith(this Transform t, float? x = null, float? y = null, float? z = null) => t.position = t.position.With(x, y, z);
 
@@ -21,4 +20,6 @@ public static class TransformExtension {
 		}
 		return null;
 	}
+
+	public static Vector3 GetForwardRelativePosition(this Transform transform, float distance) => transform.position + transform.forward * distance;
 }
