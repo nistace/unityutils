@@ -11,20 +11,20 @@ namespace Utils.Ui.Gauges {
 		public float fillAmount {
 			get => _frontGauge.fillAmount;
 			set {
-				_backGauge.fillAmount = value;
-				_frontGauge.fillAmount = value;
+				_backGauge.SetFillAmount(value);
+				_frontGauge.SetFillAmount(value);
 			}
 		}
 
 		public void SlowlyChangeFill(float targetFill, float delayBeforeStart, float time) {
 			if (_frontGauge.fillAmount == targetFill) return;
 			if (_frontGauge.fillAmount > targetFill) {
-				_backGauge.fillAmount = _frontGauge.fillAmount;
-				_frontGauge.fillAmount = targetFill;
+				_backGauge.SetFillAmount(_frontGauge.fillAmount);
+				_frontGauge.SetFillAmount(targetFill);
 				_backGauge.SlowlyChangeFill(targetFill, delayBeforeStart, time);
 			}
 			else {
-				_backGauge.fillAmount = targetFill;
+				_backGauge.SetFillAmount(targetFill);
 				_frontGauge.SlowlyChangeFill(targetFill, delayBeforeStart, time);
 			}
 		}

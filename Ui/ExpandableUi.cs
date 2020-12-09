@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.Coroutines;
 using Utils.Types.Ui;
 using Utils.Ui;
 
@@ -20,9 +21,14 @@ public class ExpandableUi : MonoBehaviourUi {
 	[SerializeField] protected float                 _defaultSmoothness = .5f;
 	[SerializeField] protected bool                  _initiallyExpanded;
 
+	private SingleCoroutine singleCoroutine { get; set; }
+
 	private void Awake() {
+		singleCoroutine = new SingleCoroutine(this);
+
 		_expandButton.onClick.AddListenerOnce(Expand);
 		_contractButton.onClick.AddListenerOnce(Contract);
+
 		if (_initiallyExpanded) Expand(0);
 		else Contract(0);
 	}
@@ -44,8 +50,8 @@ public class ExpandableUi : MonoBehaviourUi {
 	}
 
 	private void MoveTo(RectTransformPosition destination, float smoothness) {
-		if (smoothness <= 0) JumpTo(destination);
-		else StartSingleCoroutine(DoMovement(destination, smoothness));
+		if (smoothness <= 0 || !gameObject.activeInHierarchy || singleCoroutine == null) JumpTo(destination);
+		else singleCoroutine.Start(DoMovement(destination, smoothness));
 	}
 
 	private void JumpTo(RectTransformPosition destination) {
