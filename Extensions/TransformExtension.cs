@@ -22,4 +22,10 @@ public static class TransformExtension {
 	}
 
 	public static Vector3 GetForwardRelativePosition(this Transform transform, float distance) => transform.position + transform.forward * distance;
+
+	public static void ResetLocalAttributes(this Transform transform) {
+		transform.localPosition = Vector3.zero;
+		transform.localRotation = Quaternion.identity;
+		transform.localScale = Vector3.one;
+	}
 }
