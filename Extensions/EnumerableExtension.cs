@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Utils.RandomUtils;
 
 public static class EnumerableExtension {
 	public static void Shuffle<E>(this IList<E> list) {
@@ -17,35 +18,29 @@ public static class EnumerableExtension {
 		return list;
 	}
 
-	public static bool TryRandom<E>(this IEnumerable<E> array, out E result) {
+	public static bool TryRandom<E>(this IEnumerable<E> array, out E result) => array.TryRandom(out result, UnityEngine.Random.Range);
+
+	private static bool TryRandom<E>(this IEnumerable<E> array, out E result, Func<int, int, int> randomFunc) {
 		result = default;
 		var enumerable = array as E[] ?? array.ToArray();
-		var r = UnityEngine.Random.Range(0, enumerable.Length);
-		foreach (var e in enumerable) {
-			if (r == 0) {
-				result = e;
-				return true;
-			}
-			r--;
-		}
-		return false;
+		if (enumerable.Length == 0) return false;
+		result = enumerable[randomFunc(0, enumerable.Length)];
+		return true;
 	}
 
-	public static E Random<E>(this IEnumerable<E> array) {
-		if (array.TryRandom(out var e)) return e;
-		throw new IndexOutOfRangeException("Cannot get a random item from an empty collection");
-	}
+	private static E Random<E>(this IEnumerable<E> array, Func<int, int, int> randomFunc) =>
+		array.TryRandom(out var result, randomFunc) ? result : throw new IndexOutOfRangeException("Cannot get a random item from an empty collection");
 
-	public static E RandomOrDefault<E>(this IEnumerable<E> array) {
-		if (array.TryRandom(out var e)) return e;
-		return default;
-	}
-
+	private static E RandomOrDefault<E>(this IEnumerable<E> array, Func<int, int, int> randomFunc) => array.TryRandom(out var result, randomFunc) ? result : default;
+	public static E Random<E>(this IEnumerable<E> array) => array.Random(UnityEngine.Random.Range);
+	public static E NetworkRandom<E>(this IEnumerable<E> array) => array.Random(SeedRandom.Range);
+	public static E RandomOrDefault<E>(this IEnumerable<E> array) => array.RandomOrDefault(UnityEngine.Random.Range);
+	public static E SeedRandomOrDefault<E>(this IEnumerable<E> array) => array.RandomOrDefault(UnityEngine.Random.Range);
 	public static int RandomIndex<E>(this E[] array) => UnityEngine.Random.Range(0, array.Length);
 	public static E Random<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, UnityEngine.Random.Range).GetSafe(0);
-	public static E NetworkRandom<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, Utils.RandomUtils.SeedRandom.Range).GetSafe(0);
+	public static E NetworkRandom<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, SeedRandom.Range).GetSafe(0);
 	public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, UnityEngine.Random.Range);
-	public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, Utils.RandomUtils.SeedRandom.Range);
+	public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, SeedRandom.Range);
 
 	private static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability, Func<float, float, float> randomRangeFunc) {
 		if (array == null || array.Count == 0) return default;
