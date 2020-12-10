@@ -1,3 +1,5 @@
-﻿public interface IData {
-	int id { get; }
+﻿namespace Utils.Id {
+	public interface IData {
+		int id { get; }
+	}
 }

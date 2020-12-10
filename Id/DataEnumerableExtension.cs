@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-public static class DataEnumerableExtension {
-	public static E SingleOrDefault<E>(this IEnumerable<E> items, int id) where E : IData => items.SingleOrDefault(t => t.id == id);
+namespace Utils.Id {
+	public static class DataEnumerableExtension {
+		public static E SingleOrDefault<E>(this IEnumerable<E> items, int id) where E : IData => items.SingleOrDefault(t => t.id == id);
+	}
 }

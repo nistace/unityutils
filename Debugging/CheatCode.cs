@@ -1,5 +1,6 @@
-﻿﻿using System;
+﻿using System;
 using System.Text.RegularExpressions;
+using Utils.Libraries;
 
 namespace Utils.Debugging {
 	public struct CheatCode {

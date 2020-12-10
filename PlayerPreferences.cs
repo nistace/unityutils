@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils.Extensions;
 
 namespace Utils {
 	public static class PlayerPreferences {

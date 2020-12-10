@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils.Events;
+using Utils.Extensions;
 
 namespace Utils.Debugging {
 	public static class Debug {

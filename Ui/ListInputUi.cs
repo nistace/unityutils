@@ -3,8 +3,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.Events;
+using Utils.Extensions;
+using Utils.Libraries;
 
-namespace Utils.Types.Ui {
+namespace Utils.Ui {
 	public class ListInputUi : MonoBehaviour {
 		[SerializeField] protected bool     _interactable = true;
 		[SerializeField] protected L10NText _currentItemTextKey;

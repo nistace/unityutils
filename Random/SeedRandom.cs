@@ -1,7 +1,8 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using Utils.Extensions;
 
-namespace Utils.RandomUtils {
+namespace Utils.Random {
 	public static class SeedRandom {
 		private static int[] values         { get; } = new int[12];
 		private static int   nextValueIndex { get; set; }
@@ -16,7 +17,7 @@ namespace Utils.RandomUtils {
 		}
 
 		public static float GetNextValue() {
-			if (PhotonNetwork.OfflineMode) return Random.value;
+			if (PhotonNetwork.OfflineMode) return UnityEngine.Random.value;
 			step++;
 			previousValue += values[nextValueIndex];
 			previousValue %= 1000;

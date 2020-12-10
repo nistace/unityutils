@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils.Extensions;
 
 namespace Utils.Ui {
 	public class HorizontalSeparatedBarUi : MonoBehaviourUi {

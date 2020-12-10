@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils.Events;
+using Utils.Extensions;
 
 namespace Utils.Types.Ui {
 	[RequireComponent(typeof(TMP_Text))]

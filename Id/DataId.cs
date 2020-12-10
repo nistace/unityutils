@@ -2,34 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils.Extensions;
 
-[Serializable]
-public class DataId {
-	[SerializeField] protected int _value;
+namespace Utils.Id {
+	[Serializable]
+	public class DataId {
+		[SerializeField] protected int _value;
 
-	public int value {
-		get => _value;
-		set => _value = value;
-	}
-
-	public static int GetNextId() => GetNextIds(1)[0];
-
-	private static int[] GetNextIds(int count) {
-		var result = new int[count];
-		var allTaken = new HashSet<int>();
-		allTaken.AddAll(Resources.LoadAll<DataMonoBehaviour>("").Cast<IData>().Select(t => t.id));
-		allTaken.AddAll(Resources.LoadAll<DataScriptableObject>("").Cast<IData>().Select(t => t.id));
-
-		var maxTaken = allTaken.Max();
-		var allGaps = maxTaken.CreateArray(t => t + 1).Except(allTaken).ToArray();
-		int i;
-		for (i = 0; i < allGaps.Length && i < result.Length; ++i) {
-			result[i] = allGaps[i];
+		public int value {
+			get => _value;
+			set => _value = value;
 		}
-		while (i < result.Length) {
-			result[i] = maxTaken + i + 1;
-			i++;
+
+		public static int GetNextId() => GetNextIds(1)[0];
+
+		private static int[] GetNextIds(int count) {
+			var result = new int[count];
+			var allTaken = new HashSet<int>();
+			allTaken.AddAll(Resources.LoadAll<DataMonoBehaviour>("").Cast<IData>().Select(t => t.id));
+			allTaken.AddAll(Resources.LoadAll<DataScriptableObject>("").Cast<IData>().Select(t => t.id));
+
+			var maxTaken = allTaken.Max();
+			var allGaps = maxTaken.CreateArray(t => t + 1).Except(allTaken).ToArray();
+			int i;
+			for (i = 0; i < allGaps.Length && i < result.Length; ++i) {
+				result[i] = allGaps[i];
+			}
+			while (i < result.Length) {
+				result[i] = maxTaken + i + 1;
+				i++;
+			}
+			return result;
 		}
-		return result;
 	}
 }

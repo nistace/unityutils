@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Utils.Events;
+using Utils.Extensions;
 using Utils.Types.Ui;
 
 public class DebugUi : MonoBehaviour {

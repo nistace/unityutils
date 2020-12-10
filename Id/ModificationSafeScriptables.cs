@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils.Extensions;
 
 namespace Utils.Id {
 	public static class ModificationSafeScriptables {

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public abstract class DataScriptableObject : ScriptableObject, IData {
-	[SerializeField] protected DataId _id;
-	public                     int    id => _id.value;
+namespace Utils.Id {
+	public abstract class DataScriptableObject : ScriptableObject, IData {
+		[SerializeField] protected DataId _id;
+		public                     int    id => _id.value;
 
-	public override string ToString() => name;
+		public override string ToString() => name;
+	}
 }

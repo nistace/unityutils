@@ -1,5 +1,6 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using Utils.Extensions;
 
 namespace Utils.Ui {
 	public class ImageAnimator : MonoBehaviour {

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils.Extensions;
+using Utils.Libraries;
+using Utils.Types;
 
 namespace Utils.Audio {
 	public class AudioManager : MonoBehaviour {

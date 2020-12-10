@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Utils.Events;
+using Utils.Extensions;
 
 namespace Utils.Dropdown {
 	public class ImageDropdownOption : MonoBehaviour {
