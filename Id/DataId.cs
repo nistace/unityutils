@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Utils.Extensions;
+using Object = UnityEngine.Object;
 
 namespace Utils.Id {
 	[Serializable]
@@ -34,5 +35,7 @@ namespace Utils.Id {
 			}
 			return result;
 		}
+
+		public static Dictionary<int, E> FromResources<E>(string resourcesDataPath) where E : Object, IData => Resources.LoadAll<E>(resourcesDataPath).ToDictionary(t => t.id, t => t);
 	}
 }
