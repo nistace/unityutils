@@ -6,7 +6,7 @@ using Utils.Types.Ui;
 
 namespace Utils.Ui {
 	public class PanelTransformUi : MonoBehaviourUi {
-		public static float defaultMoveTime { get; set; }
+		public static float defaultMoveTime { get; set; } = 1;
 
 		[SerializeField] protected RectTransformPosition _openPosition;
 		[SerializeField] protected RectTransformPosition _closePosition;
