@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using Utils.Extensions;
 using Utils.Id;
@@ -78,6 +79,18 @@ namespace Utils.Libraries {
 			var orderedCouples = Mathf.Min(_items.Length, _itemNames.Length).CreateArray(i => (_itemNames[i], _items[i])).OrderBy(t => t.Item1).ToArray();
 			_itemNames = orderedCouples.Select(t => t.Item1).ToArray();
 			_items = orderedCouples.Select(t => t.Item2).ToArray();
+		}	
+
+#if UNITY_EDITOR
+		private static string AssetPathToIdentifier(string assetPath, string pathPrefix) => assetPath.Substring(pathPrefix.Length, assetPath.LastIndexOf('.') - pathPrefix.Length).Replace('/', '.');
+
+		protected static void AddToLibrariesFromAssetGuid<C>(string assetGuid, string pathPrefix, IEnumerable<Library<C>> libraries) where C : UnityEngine.Object {
+			var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
+			var clip = (C) AssetDatabase.LoadAssetAtPath(assetPath, typeof(C));
+			var identifier = AssetPathToIdentifier(assetPath, pathPrefix);
+			libraries.ForEach(t => t.Set(identifier, clip));
 		}
+
+#endif
 	}
 }
