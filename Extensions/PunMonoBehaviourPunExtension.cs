@@ -17,5 +17,15 @@ namespace Utils.Extensions {
 			if (PhotonNetwork.OfflineMode) return;
 			mb.photonView.RpcSecure(func.Method.Name, RpcTarget.Others, true, e, f);
 		}
+
+		public static void RpcOthers<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) return;
+			mb.photonView.RPC(func.Method.Name, RpcTarget.Others, e);
+		}
+
+		public static void RpcOthers(this MonoBehaviourPun mb, Action func) {
+			if (PhotonNetwork.OfflineMode) return;
+			mb.photonView.RPC(func.Method.Name, RpcTarget.Others);
+		}
 	}
 }
