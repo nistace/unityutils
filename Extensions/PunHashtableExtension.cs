@@ -37,6 +37,11 @@ namespace Utils.Extensions {
 			return new Vector3(asArray[0], asArray[1], asArray[2]);
 		}
 
+		public static Quaternion Quaternion(this Hashtable table, string key) {
+			var asArray = table.FloatArray(key);
+			return new Quaternion(asArray[0], asArray[1], asArray[2], asArray[3]);
+		}
+
 		public static Vector2 Vector2(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);
 			return new Vector2(asArray[0], asArray[1]);
@@ -60,17 +65,23 @@ namespace Utils.Extensions {
 			return false;
 		}
 
-		public static void Define(this Hashtable table, string key, int i) => table[key] = i;
-		public static void Define(this Hashtable table, string key, float f) => table[key] = f;
-		public static void Define(this Hashtable table, string key, string s) => table[key] = s;
-		public static void Define(this Hashtable table, string key, bool b) => table[key] = b;
-		public static void Define(this Hashtable table, string key, byte b) => table[key] = b;
-		public static void Define(this Hashtable table, string key, Color color) => table.Define(key, $"{color.r}|{color.g}|{color.b}|{color.a}");
-		public static void Define(this Hashtable table, string key, Vector3 v3) => table.Define(key, $"{v3.x}|{v3.y}|{v3.z}");
-		public static void Define(this Hashtable table, string key, Vector2 v2) => table.Define(key, $"{v2.x}|{v2.y}");
-		public static void Define(this Hashtable table, string key, IEnumerable<string> array) => table.Define(key, array.Join("|"));
-		public static void Define(this Hashtable table, string key, IEnumerable<int> array) => table.Define(key, array.Join("|"));
-		public static void Define(this Hashtable table, string key, IEnumerable<float> array) => table.Define(key, array.Join("|"));
+		private static Hashtable With<E>(this Hashtable table, string key, E val) {
+			table[key] = val;
+			return table;
+		}
+
+		public static Hashtable Define(this Hashtable table, string key, int i) => table.With(key, i);
+		public static Hashtable Define(this Hashtable table, string key, float f) => table.With(key, f);
+		public static Hashtable Define(this Hashtable table, string key, string s) => table.With(key, s);
+		public static Hashtable Define(this Hashtable table, string key, bool b) => table.With(key, b);
+		public static Hashtable Define(this Hashtable table, string key, byte b) => table.With(key, b);
+		public static Hashtable Define(this Hashtable table, string key, Color color) => table.Define(key, $"{color.r}|{color.g}|{color.b}|{color.a}");
+		public static Hashtable Define(this Hashtable table, string key, Vector3 v3) => table.Define(key, $"{v3.x}|{v3.y}|{v3.z}");
+		public static Hashtable Define(this Hashtable table, string key, Vector2 v2) => table.Define(key, $"{v2.x}|{v2.y}");
+		public static Hashtable Define(this Hashtable table, string key, Quaternion q) => table.Define(key, $"{q.x}|{q.y}|{q.z}|{q.w}");
+		public static Hashtable Define(this Hashtable table, string key, IEnumerable<string> array) => table.Define(key, array.Join("|"));
+		public static Hashtable Define(this Hashtable table, string key, IEnumerable<int> array) => table.Define(key, array.Join("|"));
+		public static Hashtable Define(this Hashtable table, string key, IEnumerable<float> array) => table.Define(key, array.Join("|"));
 
 		private const int  fileCharOffset = 32;
 		private const char fileSeparator  = (char) 0;
