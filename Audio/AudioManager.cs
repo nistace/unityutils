@@ -17,6 +17,10 @@ namespace Utils.Audio {
 		[Header("Voices")] [SerializeField]        protected Ratio        _voicesVolume = 1;
 		private static                                       AudioManager instance { get; set; }
 
+		private void Reset() {
+			if (!_musicSource) _musicSource = this.GetOrAddComponent<AudioSource>();
+		}
+
 		private Queue<AudioSource> availableSources { get; } = new Queue<AudioSource>();
 
 		public static Ratio masterVolume {
@@ -53,7 +57,7 @@ namespace Utils.Audio {
 		}
 
 		public static class Sfx {
-			private static HashSet<AudioSource> playingSources { get; } = new HashSet<AudioSource>();
+			private static List<AudioSource> playingSources { get; } = new List<AudioSource>();
 
 			public static float volume {
 				get => instance._sfxVolume;
@@ -66,14 +70,12 @@ namespace Utils.Audio {
 			public static void Play(string audioClipKey) => Play(AudioClips.Of(audioClipKey));
 			public static void PlayRandom(string audioClipKeyRoot) => Play(AudioClips.RandomOf(audioClipKeyRoot));
 
-			public static AudioSource Play(AudioClip clip) => Play(clip, 1);
-
-			public static AudioSource Play(AudioClip clip, float volumeCoefficient) {
+			public static AudioSource Play(AudioClip clip, float volumeCoefficient = 1, Transform source = null) {
 				var src = instance.availableSources.Count > 0 ? instance.availableSources.Dequeue() : instance.CreateNewSource();
 				src.loop = false;
 				src.volume = volume * instance._masterVolume * volumeCoefficient;
 				src.clip = clip;
-				src.gameObject.SetActive(true);
+				src.gameObject.Active().transform.ParentedTo(source).ResetLocalAttributes();
 				src.Play();
 				playingSources.Add(src);
 				return src;
@@ -81,10 +83,17 @@ namespace Utils.Audio {
 
 			internal static void Update() {
 				if (playingSources.Count == 0) return;
-				foreach (var finishedSfx in playingSources.Where(t => !t.isPlaying).ToArray()) {
-					playingSources.Remove(finishedSfx);
-					instance.availableSources.Enqueue(finishedSfx);
-					finishedSfx.gameObject.SetActive(false);
+				for (var i = 0; i < playingSources.Count; ++i) {
+					if (!playingSources[i]) {
+						playingSources.RemoveAt(i);
+						i--;
+					}
+					else if (!playingSources[i].isPlaying) {
+						instance.availableSources.Enqueue(playingSources[i]);
+						playingSources[i].gameObject.Inactive().transform.ParentedTo(instance.transform).ResetLocalAttributes();
+						playingSources.Remove(playingSources[i]);
+						i--;
+					}
 				}
 			}
 		}
@@ -117,6 +126,7 @@ namespace Utils.Audio {
 				foreach (var finishedSfx in playingSources.Where(t => !t.isPlaying).ToArray()) {
 					playingSources.Remove(finishedSfx);
 					instance.availableSources.Enqueue(finishedSfx);
+					finishedSfx.transform.SetParent(instance.transform);
 					finishedSfx.gameObject.SetActive(false);
 				}
 			}
