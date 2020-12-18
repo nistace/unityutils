@@ -79,10 +79,11 @@ namespace Utils.Libraries {
 			var orderedCouples = Mathf.Min(_items.Length, _itemNames.Length).CreateArray(i => (_itemNames[i], _items[i])).OrderBy(t => t.Item1).ToArray();
 			_itemNames = orderedCouples.Select(t => t.Item1).ToArray();
 			_items = orderedCouples.Select(t => t.Item2).ToArray();
-		}	
+		}
 
 #if UNITY_EDITOR
-		private static string AssetPathToIdentifier(string assetPath, string pathPrefix) => assetPath.Substring(pathPrefix.Length, assetPath.LastIndexOf('.') - pathPrefix.Length).Replace('/', '.');
+		private static string AssetPathToIdentifier(string assetPath, string pathPrefix) => assetPath.Substring(pathPrefix.Length, assetPath.LastIndexOf('.') - pathPrefix.Length).Replace('/', '.')
+			.Split('.').Select(t => t.ToLowerFirst()).Join(".");
 
 		protected static void AddToLibrariesFromAssetGuid<C>(string assetGuid, string pathPrefix, IEnumerable<Library<C>> libraries) where C : UnityEngine.Object {
 			var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);

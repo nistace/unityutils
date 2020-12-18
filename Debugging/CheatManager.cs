@@ -17,19 +17,19 @@ namespace Utils.Debugging {
 		public static void DefineCheatCode(string regex, Func<Match, string> cheatCodeAction, int protectionLevel) => cheatCodes.Set(new Regex(regex), new CheatCode(cheatCodeAction, protectionLevel));
 
 		public static void SetListenToDebugCommand(bool enable) {
-			DebugUi.onCommandSubmitted.SetListenerActive(HandleCheatCode, enable);
-			DebugUi.onDownPressedInCommandInput.SetListenerActive(RepeatNextCommand, enable);
-			DebugUi.onUpPressedInCommandInput.SetListenerActive(RepeatPreviousCommand, enable);
+			DebugCanvas.onCommandSubmitted.SetListenerActive(HandleCheatCode, enable);
+			DebugCanvas.onDownPressedInCommandInput.SetListenerActive(RepeatNextCommand, enable);
+			DebugCanvas.onUpPressedInCommandInput.SetListenerActive(RepeatPreviousCommand, enable);
 		}
 
 		private static void RepeatPreviousCommand() {
 			repeatPreviousIndex = (repeatPreviousIndex - 1).Clamp(0, previousCommands.Count);
-			DebugUi.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
+			DebugCanvas.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
 		}
 
 		private static void RepeatNextCommand() {
 			repeatPreviousIndex = (repeatPreviousIndex + 1).Clamp(0, previousCommands.Count);
-			DebugUi.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
+			DebugCanvas.SetCommand(previousCommands.GetSafe(repeatPreviousIndex, string.Empty));
 		}
 
 		private static void HandleCheatCode(string cmd) {
@@ -54,7 +54,7 @@ namespace Utils.Debugging {
 		}
 
 		private static string HandleExitDebug(Match arg) {
-			DebugUi.Toggle();
+			DebugCanvas.Toggle();
 			return string.Empty;
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using System;
 using Photon.Pun;
+using Photon.Realtime;
 
 namespace Utils.Extensions {
 	public static class PunMonoBehaviourPunExtension {
@@ -23,9 +24,36 @@ namespace Utils.Extensions {
 			mb.photonView.RPC(func.Method.Name, RpcTarget.Others, e);
 		}
 
+		public static void RpcAll<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) {
+				func.Invoke(e);
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, RpcTarget.All, e);
+		}
+
 		public static void RpcOthers(this MonoBehaviourPun mb, Action func) {
-			if (PhotonNetwork.OfflineMode) return;
+			if (PhotonNetwork.OfflineMode) {
+				func.Invoke();
+				return;
+			}
 			mb.photonView.RPC(func.Method.Name, RpcTarget.Others);
+		}
+
+		public static void RpcSingle(this MonoBehaviourPun mb, Player player, Action func) {
+			if (PhotonNetwork.OfflineMode) {
+				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke();
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, player);
+		}
+
+		public static void RpcSingle<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) {
+				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke(e);
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, player, e);
 		}
 	}
 }

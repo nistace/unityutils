@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Utils.Events;
 using Utils.Extensions;
 
 namespace Utils.Debugging {
 	public static class Debug {
-		public static BoolEvent onDebugDisplayedChanged => DebugUi.onDisplayedChanged;
+		public static BoolEvent onDebugDisplayedChanged => DebugCanvas.onDisplayedChanged;
 
 		public enum Type {
 			Info    = 0,
@@ -32,7 +31,7 @@ namespace Utils.Debugging {
 
 		private static void Log(Type type, string info, Action<object> consoleLogAction = null) {
 			(consoleLogAction ?? UnityEngine.Debug.Log)($"[{type.ToString().ToUpper()}] {info}");
-			DebugUi.Print(info, type.ToString().ToUpper(), colors.Of(type, Color.white));
+			DebugCanvas.Print(info, type.ToString().ToUpper(), colors.Of(type, Color.white));
 		}
 	}
 }

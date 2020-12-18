@@ -268,5 +268,15 @@ namespace Utils.Extensions {
 			collection.Clear();
 			return collection;
 		}
+
+		public static bool TryFirst<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) where E : class {
+			e = default;
+			foreach (var item in items) {
+				if (!where(item)) continue;
+				e = item;
+				return true;
+			}
+			return false;
+		}
 	}
 }

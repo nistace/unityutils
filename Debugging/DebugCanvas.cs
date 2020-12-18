@@ -4,9 +4,11 @@ using UnityEngine.Events;
 using Utils.Events;
 using Utils.Extensions;
 using Utils.Types.Ui;
+using Utils.Ui;
 
-public class DebugUi : MonoBehaviour {
-	private static DebugUi instance { get; set; }
+[RequireComponent(typeof(Canvas))]
+public class DebugCanvas : MonoBehaviourUi {
+	private static DebugCanvas instance { get; set; }
 
 	[SerializeField] protected DebugLineUi            _linePrefab;
 	[SerializeField] protected Transform              _linesContainer;
@@ -23,6 +25,7 @@ public class DebugUi : MonoBehaviour {
 		if (instance) Destroy(gameObject);
 		else instance = this;
 		DontDestroyOnLoad(transform.root.gameObject);
+		GetComponent<Canvas>().enabled = true;
 	}
 
 	private void Start() => gameObject.SetActive(false);
@@ -60,7 +63,7 @@ public class DebugUi : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (!_commandInput.isActiveAndEnabled) return;
+		if (!_commandInput || !_commandInput.isActiveAndEnabled) return;
 		if (Input.GetKeyDown(KeyCode.UpArrow)) onUpPressedInCommandInput.Invoke();
 		if (Input.GetKeyDown(KeyCode.DownArrow)) onDownPressedInCommandInput.Invoke();
 	}
