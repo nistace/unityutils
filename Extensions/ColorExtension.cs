@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Utils.Extensions {
 	public static class ColorExtension {
 		public static Color With(this Color c, float? r = null, float? g = null, float? b = null, float? a = null) {
 			return new Color(r ?? c.r, g ?? c.g, b ?? c.b, a ?? c.a);
+		}
+
+		public static Color With(this Color c, Func<float, float> r = null, Func<float, float> g = null, Func<float, float> b = null, Func<float, float> a = null) {
+			return new Color(r?.Invoke(c.r) ?? c.r, g?.Invoke(c.g) ?? c.g, b?.Invoke(c.b) ?? c.b, a?.Invoke(c.a) ?? c.a);
 		}
 
 		public static Color Brighter(this Color c, float coefficient = .5f) {
