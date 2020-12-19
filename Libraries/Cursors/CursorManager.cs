@@ -39,6 +39,7 @@ namespace Utils.Libraries {
 		}
 
 		private void Awake() {
+			if (instance) return;
 			instance = this;
 			Cursor.lockState = Application.isEditor ? CursorLockMode.None : CursorLockMode.Confined;
 			animationCoroutine = new SingleCoroutine(this);
