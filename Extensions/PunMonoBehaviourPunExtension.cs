@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿﻿﻿using System;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -54,6 +54,22 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, player, e);
+		}
+
+		public static void RpcMaster(this MonoBehaviourPun mb, Action func) {
+			if (PhotonNetwork.OfflineMode) {
+				func.Invoke();
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, RpcTarget.MasterClient);
+		}
+
+		public static void RpcMaster<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) {
+				func.Invoke(e);
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, RpcTarget.MasterClient, e);
 		}
 	}
 }
