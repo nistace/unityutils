@@ -2,8 +2,9 @@
 
 namespace Utils.Extensions {
 	public static class MaterialExtension {
-		private static readonly int dstBlend = Shader.PropertyToID("_DstBlend");
-		private static readonly int zWrite   = Shader.PropertyToID("_ZWrite");
+		private static readonly int dstBlend      = Shader.PropertyToID("_DstBlend");
+		private static readonly int zWrite        = Shader.PropertyToID("_ZWrite");
+		private static readonly int emissionColor = Shader.PropertyToID("_EmissionColor");
 
 		public static void SetRenderingModeTransparent(this Material material) {
 			material.SetInt(dstBlend, (int) UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
@@ -20,6 +21,7 @@ namespace Utils.Extensions {
 		}
 
 		public static void SetEmissionEnabled(this Material material, bool enabled) => material.SetKeywordEnabled("_EMISSION", enabled);
+		public static void SetEmissionColor(this Material material, Color color) => material.SetColor(emissionColor, color);
 
 		public static void SetKeywordEnabled(this Material material, string keyword, bool enabled) {
 			if (enabled) material.EnableKeyword(keyword);
