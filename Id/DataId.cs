@@ -23,7 +23,7 @@ namespace Utils.Id {
 			allTaken.AddAll(Resources.LoadAll<DataMonoBehaviour>("").Cast<IData>().Select(t => t.id));
 			allTaken.AddAll(Resources.LoadAll<DataScriptableObject>("").Cast<IData>().Select(t => t.id));
 
-			var maxTaken = allTaken.Max();
+			var maxTaken = allTaken.Count == 0 ? 1 : allTaken.Max();
 			var allGaps = maxTaken.CreateArray(t => t + 1).Except(allTaken).ToArray();
 			int i;
 			for (i = 0; i < allGaps.Length && i < result.Length; ++i) {

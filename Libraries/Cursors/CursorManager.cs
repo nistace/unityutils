@@ -17,7 +17,8 @@ namespace Utils.Libraries {
 
 		public static void LoadLibrary(CursorLibrary libraryToLoad) {
 			library = libraryToLoad;
-			if (library) library.Load();
+			if (!library) return;
+			library.Load();
 			instance.BuildFrames();
 		}
 
