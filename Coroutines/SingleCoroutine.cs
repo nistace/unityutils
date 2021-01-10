@@ -11,12 +11,14 @@ namespace Utils.Coroutines {
 		}
 
 		public void Start(IEnumerator routine) {
+			if (!actor) return;
 			if (!actor.isActiveAndEnabled) return;
 			Stop();
 			singleRoutine = actor.StartCoroutine(routine);
 		}
 
 		public void Stop() {
+			if (!actor) return;
 			if (!actor.enabled) return;
 			if (singleRoutine != null) actor.StopCoroutine(singleRoutine);
 		}
