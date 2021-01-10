@@ -32,6 +32,7 @@ namespace Utils.Libraries.Network {
 		}
 
 		public static E Of<E>(string prefabId, Vector3? position = null, Quaternion? rotation = null, bool persistent = false) => Of(prefabId, position, rotation, persistent).GetComponent<E>();
+		public static E Of<E>(Vector3? position = null, Quaternion? rotation = null, bool persistent = false) => Of(typeof(E).Name, position, rotation, persistent).GetComponent<E>();
 
 		public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation) {
 			if (!library) return null;

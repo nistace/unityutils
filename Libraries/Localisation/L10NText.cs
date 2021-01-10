@@ -32,7 +32,8 @@ namespace Utils.Libraries {
 			if (!enabled) return;
 			if (!_text) _text = GetComponent<TMPro.TMP_Text>();
 			if (!_text) return;
-			_text.text = Localisation.Map(key);
+			var value = Localisation.Map(key);
+			if (_text.text != value) _text.text = Localisation.Map(key);
 		}
 
 		[ContextMenu("Refresh")]

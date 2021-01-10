@@ -20,6 +20,7 @@ namespace Utils.Libraries {
 			if (!library) return;
 			library.Load();
 			instance.BuildFrames();
+			SetDefault();
 		}
 
 		private void BuildFrames() {

@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils.Extensions;
 
 namespace Utils.Libraries {
-	[CreateAssetMenu(menuName = "Constants/Libraries/Cursor")]
+	[CreateAssetMenu(menuName = "Constants/Libraries/Cursors")]
 	public class CursorLibrary : Library<CursorType> {
 		protected override string GetNonExistingWarningMessage(string key) => $"No clip value for the key {key} in the cursor library {name}";
 
