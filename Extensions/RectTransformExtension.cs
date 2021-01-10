@@ -27,5 +27,13 @@ namespace Utils.Extensions {
 			uiTransform.offsetMin = Vector2.Lerp(uiTransform.offsetMin, offsetMin, lerp);
 			uiTransform.offsetMax = Vector2.Lerp(uiTransform.offsetMax, offsetMax, lerp);
 		}
+
+		public static RectTransform Positioned(this RectTransform transform, Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax) {
+			transform.anchorMin = anchorMin;
+			transform.anchorMax = anchorMax;
+			transform.offsetMin = offsetMin;
+			transform.offsetMax = offsetMax;
+			return transform;
+		}
 	}
 }

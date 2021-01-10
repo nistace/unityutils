@@ -138,5 +138,11 @@ namespace Utils.Extensions {
 			go.SetActive(false);
 			return go;
 		}
+
+		public static void SetActiveIfDiff(this GameObject go, bool active) {
+			if (!go) return;
+			if (go.activeSelf == active) return;
+			go.SetActive(active);
+		}
 	}
 }

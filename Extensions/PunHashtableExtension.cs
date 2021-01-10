@@ -47,6 +47,11 @@ namespace Utils.Extensions {
 			return new Vector2(asArray[0], asArray[1]);
 		}
 
+		public static Vector2Int Vector2Int(this Hashtable table, string key) {
+			var asArray = table.IntArray(key);
+			return new Vector2Int(asArray[0], asArray[1]);
+		}
+
 		private static bool TryGet<E>(this Hashtable table, string name, out E value, Func<string, E> parseFunc) {
 			value = default;
 			if (!table.ContainsKey(name)) return false;
@@ -78,6 +83,7 @@ namespace Utils.Extensions {
 		public static Hashtable Define(this Hashtable table, string key, Color color) => table.Define(key, $"{color.r}|{color.g}|{color.b}|{color.a}");
 		public static Hashtable Define(this Hashtable table, string key, Vector3 v3) => table.Define(key, $"{v3.x}|{v3.y}|{v3.z}");
 		public static Hashtable Define(this Hashtable table, string key, Vector2 v2) => table.Define(key, $"{v2.x}|{v2.y}");
+		public static Hashtable Define(this Hashtable table, string key, Vector2Int v2) => table.Define(key, $"{v2.x}|{v2.y}");
 		public static Hashtable Define(this Hashtable table, string key, Quaternion q) => table.Define(key, $"{q.x}|{q.y}|{q.z}|{q.w}");
 		public static Hashtable Define(this Hashtable table, string key, IEnumerable<string> array) => table.Define(key, array.Join("|"));
 		public static Hashtable Define(this Hashtable table, string key, IEnumerable<int> array) => table.Define(key, array.Join("|"));
