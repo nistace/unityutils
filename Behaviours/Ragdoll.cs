@@ -7,6 +7,14 @@ namespace Utils.Behaviours {
 	public class Ragdoll : MonoBehaviour {
 		[SerializeField] protected RagdollLimb[] _limbs;
 
+		public new bool enabled {
+			get => base.enabled;
+			set {
+				base.enabled = value;
+				_limbs.ForEach(t => t.SetPhysicsEnabled(value));
+			}
+		}
+
 		public void ResetPhysics() => _limbs.ForEach(t => t.ResetPhysics());
 
 		public void AddForce(string hitLimbName, Vector3 force, ForceMode forceMode) {
@@ -17,7 +25,8 @@ namespace Utils.Behaviours {
 			hitRigidbody.AddForce(force, forceMode);
 		}
 
-		public void SetEnabled(bool enabled) => _limbs.ForEach(t => t.SetPhysicsEnabled(enabled));
+		[Obsolete]
+		public void SetEnabled(bool enabled) =>_limbs.ForEach(t => t.SetPhysicsEnabled(enabled));
 
 		[Serializable]
 		public class RagdollLimb {

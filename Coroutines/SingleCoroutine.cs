@@ -20,7 +20,8 @@ namespace Utils.Coroutines {
 		public void Stop() {
 			if (!actor) return;
 			if (!actor.enabled) return;
-			if (singleRoutine != null) actor.StopCoroutine(singleRoutine);
+			if (singleRoutine == null) return;
+			actor.StopCoroutine(singleRoutine);
 		}
 	}
 }
