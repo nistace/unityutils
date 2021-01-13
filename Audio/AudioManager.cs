@@ -67,8 +67,8 @@ namespace Utils.Audio {
 				}
 			}
 
-			public static void Play(string audioClipKey) => Play(AudioClips.Of(audioClipKey));
-			public static void PlayRandom(string audioClipKeyRoot) => Play(AudioClips.RandomOf(audioClipKeyRoot));
+			public static AudioSource Play(string audioClipKey) => Play(AudioClips.Of(audioClipKey));
+			public static AudioSource PlayRandom(string audioClipKeyRoot) => Play(AudioClips.RandomOf(audioClipKeyRoot));
 
 			public static AudioSource Play(AudioClip clip, float volumeCoefficient = 1, Transform source = null) {
 				var src = instance.availableSources.Count > 0 ? instance.availableSources.Dequeue() : instance.CreateNewSource();
