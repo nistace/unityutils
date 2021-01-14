@@ -13,7 +13,7 @@ namespace Utils.Ui {
 		[SerializeField] protected bool                  _lockHorizontal;
 		[SerializeField] protected bool                  _lockVertical;
 
-		private SingleCoroutine singleCoroutine { get; set; }
+		private SingleCoroutine       singleCoroutine       { get; set; }
 
 		private void Awake() {
 			singleCoroutine = new SingleCoroutine(this);
@@ -27,7 +27,7 @@ namespace Utils.Ui {
 			else singleCoroutine.Start(DoMoveTo(position.WithLockedAxes(transform, _lockHorizontal, _lockVertical), time ?? defaultMoveTime));
 		}
 
-		private void JumpTo(RectTransformPosition position) {
+		public void JumpTo(RectTransformPosition position) {
 			var lockedPosition = position.WithLockedAxes(transform, _lockHorizontal, _lockVertical);
 			transform.MoveAnchorsKeepPosition(lockedPosition.anchorMin, lockedPosition.anchorMax);
 			transform.SetOffsets(lockedPosition.offsetMin, lockedPosition.offsetMax);

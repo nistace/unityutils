@@ -9,42 +9,29 @@ namespace Utils.Types.Ui {
 		[SerializeField] protected Vector2 _offsetMin;
 		[SerializeField] protected Vector2 _offsetMax;
 
-		public Vector2 anchorMin {
-			get => _anchorMin;
-			set => _anchorMin = value;
-		}
-
-		public Vector2 anchorMax {
-			get => _anchorMax;
-			set => _anchorMax = value;
-		}
-
-		public Vector2 offsetMin {
-			get => _offsetMin;
-			set => _offsetMin = value;
-		}
-
-		public Vector2 offsetMax {
-			get => _offsetMax;
-			set => _offsetMax = value;
-		}
+		public Vector2 anchorMin => _anchorMin;
+		public Vector2 anchorMax => _anchorMax;
+		public Vector2 offsetMin => _offsetMin;
+		public Vector2 offsetMax => _offsetMax;
 
 		public RectTransformPosition() { }
 
-		public RectTransformPosition(RectTransform transform) {
-			anchorMin = transform.anchorMin;
-			anchorMax = transform.anchorMax;
-			offsetMin = transform.offsetMin;
-			offsetMax = transform.offsetMax;
+		public RectTransformPosition(RectTransform transform) : this(transform.anchorMin, transform.anchorMax, transform.offsetMin, transform.offsetMax) { }
+
+		public RectTransformPosition(Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax) {
+			_anchorMin = anchorMin;
+			_anchorMax = anchorMax;
+			_offsetMin = offsetMin;
+			_offsetMax = offsetMax;
 		}
 
 		public RectTransformPosition WithLockedAxes(RectTransform transform, bool horizontallyLocked, bool verticallyLocked) {
 			if (!horizontallyLocked && !verticallyLocked) return this;
 			return new RectTransformPosition {
-				anchorMin = GetLockedPosition(anchorMin, transform.anchorMin, horizontallyLocked, verticallyLocked),
-				anchorMax = GetLockedPosition(anchorMax, transform.anchorMax, horizontallyLocked, verticallyLocked),
-				offsetMin = GetLockedPosition(offsetMin, transform.offsetMin, horizontallyLocked, verticallyLocked),
-				offsetMax = GetLockedPosition(offsetMax, transform.offsetMax, horizontallyLocked, verticallyLocked)
+				_anchorMin = GetLockedPosition(anchorMin, transform.anchorMin, horizontallyLocked, verticallyLocked),
+				_anchorMax = GetLockedPosition(anchorMax, transform.anchorMax, horizontallyLocked, verticallyLocked),
+				_offsetMin = GetLockedPosition(offsetMin, transform.offsetMin, horizontallyLocked, verticallyLocked),
+				_offsetMax = GetLockedPosition(offsetMax, transform.offsetMax, horizontallyLocked, verticallyLocked)
 			};
 		}
 
