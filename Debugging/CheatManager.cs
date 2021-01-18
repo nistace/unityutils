@@ -18,8 +18,8 @@ namespace Utils.Debugging {
 
 		public static void SetListenToDebugCommand(bool enable) {
 			DebugCanvas.onCommandSubmitted.SetListenerActive(HandleCheatCode, enable);
-			DebugCanvas.onDownPressedInCommandInput.SetListenerActive(RepeatNextCommand, enable);
-			DebugCanvas.onUpPressedInCommandInput.SetListenerActive(RepeatPreviousCommand, enable);
+			DebugCanvas.onNextPressed.SetListenerActive(RepeatNextCommand, enable);
+			DebugCanvas.onPreviousPressed.SetListenerActive(RepeatPreviousCommand, enable);
 		}
 
 		private static void RepeatPreviousCommand() {
