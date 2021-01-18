@@ -1,46 +1,58 @@
-﻿﻿﻿﻿using System;
+﻿using System;
 using Photon.Pun;
 using Photon.Realtime;
 
 namespace Utils.Extensions {
 	public static class PunMonoBehaviourPunExtension {
-		public static void RpcEncryptedSecureOthers(this MonoBehaviourPun mb, Action func) {
-			if (PhotonNetwork.OfflineMode) return;
-			mb.photonView.RpcSecure(func.Method.Name, RpcTarget.Others, true);
-		}
-
-		public static void RpcEncryptedSecureOthers<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
-			if (PhotonNetwork.OfflineMode) return;
-			mb.photonView.RpcSecure(func.Method.Name, RpcTarget.Others, true, e);
-		}
-
-		public static void RpcEncryptedSecureOthers<E, F>(this MonoBehaviourPun mb, Action<E, F> func, E e, F f) {
-			if (PhotonNetwork.OfflineMode) return;
-			mb.photonView.RpcSecure(func.Method.Name, RpcTarget.Others, true, e, f);
-		}
-
-		public static void RpcOthers<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
-			if (PhotonNetwork.OfflineMode) return;
-			mb.photonView.RPC(func.Method.Name, RpcTarget.Others, e);
-		}
-
-		public static void RpcAll<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
+		public static void RpcSecure(this MonoBehaviourPun mb, RpcTarget target, Action func) {
 			if (PhotonNetwork.OfflineMode) {
-				func.Invoke(e);
+				if (target == RpcTarget.All) func.Invoke();
 				return;
 			}
-			mb.photonView.RPC(func.Method.Name, RpcTarget.All, e);
+			mb.photonView.RpcSecure(func.Method.Name, target, true);
 		}
 
-		public static void RpcOthers(this MonoBehaviourPun mb, Action func) {
+		public static void RpcSecure<E>(this MonoBehaviourPun mb, RpcTarget target, Action<E> func, E e) {
 			if (PhotonNetwork.OfflineMode) {
-				func.Invoke();
+				if (target == RpcTarget.All) func.Invoke(e);
 				return;
 			}
-			mb.photonView.RPC(func.Method.Name, RpcTarget.Others);
+			mb.photonView.RpcSecure(func.Method.Name, target, true, e);
 		}
 
-		public static void RpcSingle(this MonoBehaviourPun mb, Player player, Action func) {
+		public static void RpcSecure(this MonoBehaviourPun mb, Player player, Action func) {
+			if (PhotonNetwork.OfflineMode) {
+				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke();
+				return;
+			}
+			mb.photonView.RpcSecure(func.Method.Name, player, true);
+		}
+
+		public static void RpcSecure<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) {
+				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke(e);
+				return;
+			}
+			mb.photonView.RpcSecure(func.Method.Name, player, true, e);
+		}
+
+		public static void Rpc(this MonoBehaviourPun mb, RpcTarget target, Action func) {
+			if (PhotonNetwork.OfflineMode) {
+				if (target == RpcTarget.All) func.Invoke();
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, target);
+		}
+
+		public static void Rpc<E>(this MonoBehaviourPun mb, RpcTarget target, Action<E> func, E e) {
+			if (PhotonNetwork.OfflineMode) {
+				if (target == RpcTarget.All) func.Invoke(e);
+				return;
+			}
+			mb.photonView.RPC(func.Method.Name, target, e);
+		}
+
+		public static void Rpc(this MonoBehaviourPun mb, Player player, Action func) {
 			if (PhotonNetwork.OfflineMode) {
 				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke();
 				return;
@@ -48,7 +60,7 @@ namespace Utils.Extensions {
 			mb.photonView.RPC(func.Method.Name, player);
 		}
 
-		public static void RpcSingle<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
+		public static void Rpc<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
 			if (PhotonNetwork.OfflineMode) {
 				if (Equals(player, PhotonNetwork.LocalPlayer)) func.Invoke(e);
 				return;
