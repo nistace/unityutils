@@ -14,6 +14,8 @@
 		public static implicit operator LocalisationMessage((string key, object parameter) group) => new LocalisationMessage(group.key, group.parameter);
 		public static implicit operator LocalisationMessage((string key, object[] parameters) group) => new LocalisationMessage(group.key, group.parameters);
 
+		public static implicit operator bool(LocalisationMessage message) => message.exists;
+
 		public LocalisationMessage With(string key) => new LocalisationMessage(key, parameters);
 
 		public override string ToString() => display;
