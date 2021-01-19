@@ -4,22 +4,23 @@ using System.IO;
 using System.Linq;
 using ExitGames.Client.Photon;
 using UnityEngine;
+using Utils.StaticUtils;
 
 namespace Utils.Extensions {
 	public static class PunHashtableExtension {
 		public static int Int(this Hashtable table, string name, int defaultValue = default) => table.TryInt(name, out var value) ? value : defaultValue;
-		public static bool TryInt(this Hashtable table, string name, out int value) => table.TryGet(name, out value, int.Parse);
+		public static bool TryInt(this Hashtable table, string name, out int value) => table.TryGet(name, out value, Parse.Int);
 		public static byte Byte(this Hashtable table, string name, byte defaultValue = default) => table.TryByte(name, out var value) ? value : defaultValue;
-		public static bool TryByte(this Hashtable table, string name, out byte value) => table.TryGet(name, out value, byte.Parse);
+		public static bool TryByte(this Hashtable table, string name, out byte value) => table.TryGet(name, out value, Parse.Byte);
 		public static string String(this Hashtable table, string name, string defaultValue = default) => table.TryString(name, out var value) ? value : defaultValue;
 		public static bool TryString(this Hashtable table, string name, out string value) => table.TryGet(name, out value, t => t);
 		public static float Float(this Hashtable table, string name, float defaultValue = default) => table.TryFloat(name, out var value) ? value : defaultValue;
-		public static bool TryFloat(this Hashtable table, string name, out float value) => table.TryGet(name, out value, float.Parse);
+		public static bool TryFloat(this Hashtable table, string name, out float value) => table.TryGet(name, out value, Parse.Float);
 		public static bool Bool(this Hashtable table, string name, bool defaultValue = default) => table.TryBool(name, out var value) ? value : defaultValue;
-		public static bool TryBool(this Hashtable table, string name, out bool value) => table.TryGet(name, out value, bool.Parse);
+		public static bool TryBool(this Hashtable table, string name, out bool value) => table.TryGet(name, out value, Parse.Bool);
 		public static string[] StringArray(this Hashtable table, string key) => table.Array(key, t => t);
-		public static int[] IntArray(this Hashtable table, string key) => table.Array(key, int.Parse);
-		public static float[] FloatArray(this Hashtable table, string key) => table.Array(key, float.Parse);
+		public static int[] IntArray(this Hashtable table, string key) => table.Array(key, Parse.Int);
+		public static float[] FloatArray(this Hashtable table, string key) => table.Array(key, Parse.Float);
 
 		private static E[] Array<E>(this Hashtable table, string key, Func<string, E> parse) {
 			var stringValue = table.String(key);

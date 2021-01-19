@@ -3,14 +3,6 @@ using System.Text;
 
 namespace Utils.Extensions {
 	public static class StringExtension {
-		public static bool TryParseFloat(this string str, out float res) {
-			return float.TryParse(str.Replace(".", ","), out res);
-		}
-
-		public static bool TryParseInt(this string str, out int res) {
-			return int.TryParse(str.Replace(".", ","), out res);
-		}
-
 		public static string WithLength(this string str, int length, char character) {
 			if (str.Length == length) return str;
 			if (str.Length > length) return str.Substring(0, length);

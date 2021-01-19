@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Utils.StaticUtils;
 
 namespace Utils.Extensions {
 	public static class XmlDocumentExtension {
@@ -26,7 +27,7 @@ namespace Utils.Extensions {
 		public static int IntAttribute(this XmlNode node, string attributeName, int defaultValue = 0) => node.TryIntAttribute(attributeName, out var value) ? value : defaultValue;
 
 		public static float FloatAttribute(this XmlNode element, string attributeName, float defaultValue = 0) =>
-			float.TryParse(element?.Attributes[attributeName]?.Value ?? "", out var value) ? value : defaultValue;
+			Parse.TryFloat(element?.Attributes[attributeName]?.Value ?? "", out var value) ? value : defaultValue;
 
 		public static string StringAttribute(this XmlNode element, string attributeName, string defaultValue = "") => element?.Attributes[attributeName]?.Value ?? defaultValue;
 

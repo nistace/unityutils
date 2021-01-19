@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Utils.StaticUtils;
 
 namespace Utils.Libraries {
 	public static class Constants {
@@ -14,9 +15,9 @@ namespace Utils.Libraries {
 			if (library) library.Load();
 		}
 
-		public static int Int(string name, int defaultValue = 0) => Get(name, parsedToInts, t => int.TryParse(t, out var value) ? value : defaultValue);
-		public static float Float(string name, float defaultValue = 0) => Get(name, parsedToFloats, t => float.TryParse(t.Replace('.', ','), out var value) ? value : defaultValue);
-		public static bool Bool(string name, bool defaultValue = false) => Get(name, parsedToBooleans, t => bool.TryParse(t, out var value) ? value : defaultValue);
+		public static int Int(string name, int defaultValue = 0) => Get(name, parsedToInts, t => Parse.TryInt(t, out var value) ? value : defaultValue);
+		public static float Float(string name, float defaultValue = 0) => Get(name, parsedToFloats, t => Parse.TryFloat(t, out var value) ? value : defaultValue);
+		public static bool Bool(string name, bool defaultValue = false) => Get(name, parsedToBooleans, t => Parse.TryBool(t, out var value) ? value : defaultValue);
 		public static string String(string name) => library?[name] ?? string.Empty;
 
 		private static E Get<E>(string key, IDictionary<string, E> parsedValues, Func<string, E> parseFunc) {

@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils.Extensions;
+using Utils.StaticUtils;
 
 namespace Utils.Libraries {
 	public static class Localisation {
@@ -77,7 +78,7 @@ namespace Utils.Libraries {
 					Debug.LogWarning($"Localisation {cleanKey} have an error parsing the regex. {match.Groups[1].Value} cannot be turned into an index.");
 				else if (parameters.Length <= paramIndex)
 					Debug.LogWarning($"Localisation {cleanKey} requires a parameter at index {paramIndex} but not enough parameters were given.");
-				else if (!float.TryParse($"{parameters[paramIndex]}", out var paramAsFloat))
+				else if (!Parse.TryFloat($"{parameters[paramIndex]}", out var paramAsFloat))
 					Debug.LogWarning($"Localisation {cleanKey} requires a number parameter at {paramIndex} but this parameter could not be parsed to a number.");
 				else if (check(paramAsFloat)) return match.Groups[2].Value;
 				return string.Empty;
