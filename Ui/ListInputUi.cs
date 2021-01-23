@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Utils.Events;
 using Utils.Extensions;
 using Utils.Libraries;
+using Utils.StaticUtils;
 
 namespace Utils.Ui {
 	public class ListInputUi : Selectable {
@@ -51,12 +52,12 @@ namespace Utils.Ui {
 		}
 
 		private void Refresh() {
-			if (_currentItemTextKey && _currentItemTextKey.enabled != _optionsAreKeys) _currentItemTextKey.enabled = _optionsAreKeys;
+			DiffSet.Enabled(_currentItemTextKey, _optionsAreKeys);
 			var valueOption = _options.GetSafe(_value, string.Empty);
 			if (_currentItemTextKey && _optionsAreKeys && _currentItemTextKey.key != valueOption) _currentItemTextKey.key = valueOption;
 			if (_currentItemTextValue && !_optionsAreKeys && _currentItemTextValue.text != valueOption) _currentItemTextValue.text = valueOption;
-			_previousItemButton?.SetInteractableIfDiff(interactable && _options.Length > 1 && (_loop || _value > 0));
-			_nextItemButton?.SetInteractableIfDiff(interactable && _options.Length > 1 && (_loop || _value < _options.Length - 1));
+			DiffSet.Interactable(_previousItemButton, interactable && _options.Length > 1 && (_loop || _value > 0));
+			DiffSet.Interactable(_nextItemButton, interactable && _options.Length > 1 && (_loop || _value < _options.Length - 1));
 		}
 
 		public void SetValueWithoutNotify(int value) {
