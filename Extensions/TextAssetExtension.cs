@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Utils.Extensions {
 	public static class TextAssetExtension {
-		public static IEnumerable<string> Lines(this TextAsset asset) => asset.text.Split(Environment.NewLine[0]).Select(t => t.Replace("\n", string.Empty));
+		public static IEnumerable<string> Lines(this TextAsset asset) => asset.text.Split('\n').Select(t => t.Replace("\r", string.Empty));
 
 		public static IReadOnlyDictionary<string, int> CsvHeaderAsDictionary(this TextAsset asset) =>
 			SplitCsvLine(asset.text.Split(Environment.NewLine[0])[0]).Select((name, index) => (name, index)).ToDictionary(t => t.name.PascalCase(), t => t.index);
