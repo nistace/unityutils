@@ -2,7 +2,7 @@
 	public struct LocalisationMessage {
 		private string   key        { get; }
 		private object[] parameters { get; }
-		public  string   display    => Localisation.Map(key, parameters);
+		public  string   display    => exists ? Localisation.Map(key, parameters) : string.Empty;
 		public  bool     exists     => !string.IsNullOrEmpty(key);
 
 		public LocalisationMessage(string key, params object[] parameters) {
