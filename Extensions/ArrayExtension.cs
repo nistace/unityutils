@@ -105,5 +105,7 @@ namespace Utils.Extensions {
 			}
 			return index;
 		}
+
+		public static void Sort<E>(this E[] array, Func<E, int> comparable) => Array.Sort(array, (t, u) => comparable(u) - comparable(t));
 	}
 }
