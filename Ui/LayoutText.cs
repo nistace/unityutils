@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Utils.Extensions;
-using Utils.Types;
 
 namespace Utils.Ui {
 	[RequireComponent(typeof(LayoutElement))]
@@ -9,9 +8,8 @@ namespace Utils.Ui {
 	public class LayoutText : MonoBehaviour {
 		[SerializeField] protected TMPro.TMP_Text _text;
 		[SerializeField] protected LayoutElement  _layout;
-		[SerializeField] protected FloatRange     _ratioBounds = new FloatRange(2, 5);
-		[SerializeField] protected float          _minWidth    = 200;
-		[SerializeField] protected float          _maxWidth    = 600;
+		[SerializeField] protected float          _minWidth = 200;
+		[SerializeField] protected float          _maxWidth = 600;
 
 		public string text {
 			get => _text?.text;
@@ -20,9 +18,8 @@ namespace Utils.Ui {
 				_text.text = value;
 				if (!_layout) return;
 				var preferredValues = _text.GetPreferredValues(value);
-				var preferredRatio = preferredValues.x / preferredValues.y;
-				var boundedRatio = preferredRatio.Clamp(_ratioBounds);
-				_layout.preferredWidth = (preferredValues.y * boundedRatio).Clamp(_minWidth, _maxWidth);
+				var newPreferredWidth = preferredValues.x.Clamp(_minWidth, _maxWidth);
+				if (_layout.preferredWidth != newPreferredWidth) _layout.preferredWidth = newPreferredWidth;
 			}
 		}
 
@@ -42,10 +39,7 @@ namespace Utils.Ui {
 		}
 
 #if UNITY_EDITOR
-		[ContextMenu("Refresh")]
-		public void Refresh() {
-			text = text;
-		}
+		private void OnValidate() => text = text;
 #endif
 	}
 }
