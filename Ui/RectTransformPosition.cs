@@ -40,5 +40,32 @@ namespace Utils.Types.Ui {
 			if (!horizontallyLocked && !verticallyLocked) return unlockedPosition;
 			return new Vector2(horizontallyLocked ? currentPosition.x : unlockedPosition.x, verticallyLocked ? currentPosition.y : unlockedPosition.y);
 		}
+
+		public static bool operator ==(RectTransformPosition first, RectTransformPosition second) {
+			if (ReferenceEquals(first, null)) return ReferenceEquals(second, null);
+			return first.Equals(second);
+		}
+
+		public static bool operator !=(RectTransformPosition first, RectTransformPosition second) => !(first == second);
+
+		private bool Equals(RectTransformPosition other) =>
+			_anchorMin.Equals(other._anchorMin) && _anchorMax.Equals(other._anchorMax) && _offsetMin.Equals(other._offsetMin) && _offsetMax.Equals(other._offsetMax);
+
+		public override bool Equals(object obj) {
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != GetType()) return false;
+			return Equals((RectTransformPosition) obj);
+		}
+
+		public override int GetHashCode() {
+			unchecked {
+				var hashCode = _anchorMin.GetHashCode();
+				hashCode = (hashCode << 8) ^ _anchorMax.GetHashCode();
+				hashCode = (hashCode << 8) ^ _offsetMin.GetHashCode();
+				hashCode = (hashCode << 8) ^ _offsetMax.GetHashCode();
+				return hashCode;
+			}
+		}
 	}
 }

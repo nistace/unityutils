@@ -13,7 +13,9 @@ namespace Utils.Ui {
 		[SerializeField] protected bool                  _lockHorizontal;
 		[SerializeField] protected bool                  _lockVertical;
 
-		private SingleCoroutine       singleCoroutine       { get; set; }
+		private SingleCoroutine singleCoroutine { get; set; }
+
+		public RectTransformPosition position => new RectTransformPosition(transform);
 
 		private void Awake() {
 			singleCoroutine = new SingleCoroutine(this);
@@ -23,6 +25,7 @@ namespace Utils.Ui {
 		public void Close(float? time = null) => MoveTo(_closePosition, time);
 
 		public void MoveTo(RectTransformPosition position, float? time = null) {
+			if (this.position == position) return;
 			if (singleCoroutine == null || !gameObject.activeInHierarchy || (time ?? defaultMoveTime) <= 0) JumpTo(position);
 			else singleCoroutine.Start(DoMoveTo(position.WithLockedAxes(transform, _lockHorizontal, _lockVertical), time ?? defaultMoveTime));
 		}
