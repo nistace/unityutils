@@ -10,10 +10,11 @@ namespace Utils.Extensions {
 			transform.anchorMax = anchorMax;
 		}
 
-		public static void MoveOverWorldTransform(this RectTransform uiTransform, Transform worldTarget, Vector3? targetOffset = null, Vector2? uiOffset = null) {
-			var position = worldTarget.position;
-			if (targetOffset != null) position += targetOffset.Value;
-			var uiPosition = CameraUtils.main.WorldToScreenPoint(position);
+		public static void MoveOverWorldTransform(this RectTransform uiTransform, Transform worldTarget, Vector3? targetOffset = null, Vector2? uiOffset = null) =>
+			uiTransform.MoveOverWorldPosition(worldTarget.position, targetOffset, uiOffset);
+
+		public static void MoveOverWorldPosition(this RectTransform uiTransform, Vector3 worldPosition, Vector3? targetOffset = null, Vector2? uiOffset = null) {
+			var uiPosition = CameraUtils.main.WorldToScreenPoint(worldPosition + (targetOffset ?? Vector3.zero));
 			if (uiOffset != null) uiPosition += new Vector3(uiOffset.Value.x, uiOffset.Value.y, 0);
 			uiTransform.position = uiPosition;
 		}
