@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Utils.Extensions {
 	public static class DictionaryExtension {
-		private static void Set<E, F>(this Dictionary<E, F> dico, KeyValuePair<E, F> kvp) {
+		private static void Set<E, F, G>(this Dictionary<E, F> dico, KeyValuePair<E, G> kvp) where G : F {
 			dico.Set(kvp.Key, kvp.Value);
 		}
 
@@ -14,8 +14,13 @@ namespace Utils.Extensions {
 
 		public static void Set<E, F>(this Dictionary<E, F> dico, E e, F f) => (dico as IDictionary<E, F>).Set(e, f);
 
-		public static void SetAll<E, F>(this Dictionary<E, F> dico, IEnumerable<KeyValuePair<E, F>> values) {
+		public static void SetAll<E, F, G>(this Dictionary<E, F> dico, IEnumerable<KeyValuePair<E, G>> values) where G : F {
 			values.ForEach(dico.Set);
+		}
+
+		public static Dictionary<E, F> With<E, F, G>(this Dictionary<E, F> dico, IEnumerable<KeyValuePair<E, G>> values) where G : F {
+			dico.SetAll(values);
+			return dico;
 		}
 
 		public static void CompleteWith<E, F>(this Dictionary<E, F> dico, IEnumerable<KeyValuePair<E, F>> additionalValues) {
