@@ -25,8 +25,7 @@ namespace Utils.Ui {
 		public void Close(float? time = null) => MoveTo(_closePosition, time);
 
 		public void MoveTo(RectTransformPosition position, float? time = null) {
-			if (this.position == position) return;
-			if (singleCoroutine == null || !gameObject.activeInHierarchy || (time ?? defaultMoveTime) <= 0) JumpTo(position);
+			if (!Application.isPlaying || singleCoroutine == null || !gameObject.activeInHierarchy || (time ?? defaultMoveTime) <= 0) JumpTo(position);
 			else singleCoroutine.Start(DoMoveTo(position.WithLockedAxes(transform, _lockHorizontal, _lockVertical), time ?? defaultMoveTime));
 		}
 
