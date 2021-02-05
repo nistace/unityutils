@@ -269,7 +269,7 @@ namespace Utils.Extensions {
 			return collection;
 		}
 
-		public static bool TryFirst<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) where E : class {
+		public static bool TryFirst<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) {
 			e = default;
 			foreach (var item in items) {
 				if (!where(item)) continue;
