@@ -47,6 +47,12 @@ namespace Utils.Id {
 			return result;
 		}
 
+		public static E[] LoadListFromIds<E>(Hashtable data, string root, Func<int, E> getFromIdFunc) where E : DataScriptableObject {
+			var result = new E[data.Int(root)];
+			for (var i = 0; i < result.Length; ++i) result[i] = getFromIdFunc(data.Int(Item(root, i)));
+			return result;
+		}
+
 		public static void ForEach(Hashtable data, string root, Action<string> foreachFunc) {
 			var count = data.Int(root);
 			for (var i = 0; i < count; ++i) foreachFunc(Item(root, i));
