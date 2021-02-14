@@ -25,8 +25,7 @@ namespace Utils.Behaviours {
 			hitRigidbody.AddForce(force, forceMode);
 		}
 
-		[Obsolete]
-		public void SetEnabled(bool enabled) =>_limbs.ForEach(t => t.SetPhysicsEnabled(enabled));
+		[Obsolete] public void SetEnabled(bool enabled) => _limbs.ForEach(t => t.SetPhysicsEnabled(enabled));
 
 		[Serializable]
 		public class RagdollLimb {
@@ -70,6 +69,9 @@ namespace Utils.Behaviours {
 		private void LoadRigidBodies() {
 			_limbs = transform.Children().SelectMany(t => t.GetComponentsInChildren<Rigidbody>()).Select(t => new RagdollLimb(t)).ToArray();
 		}
+
+		[ContextMenu("Enable")] private void Enable() => enabled = true;
+		[ContextMenu("Disable")] private void Disable() => enabled = false;
 #endif
 	}
 }
