@@ -30,27 +30,27 @@ namespace Utils.Extensions {
 
 		public static Color Color(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);
-			return new Color(asArray[0], asArray[1], asArray[2], asArray[3]);
+			return new Color(asArray?.GetSafe(0) ?? 0, asArray?.GetSafe(1) ?? 0, asArray?.GetSafe(2) ?? 0, asArray?.GetSafe(3) ?? 0);
 		}
 
 		public static Vector3 Vector3(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);
-			return new Vector3(asArray[0], asArray[1], asArray[2]);
+			return new Vector3(asArray?.GetSafe(0) ?? 0, asArray?.GetSafe(1) ?? 0, asArray?.GetSafe(2) ?? 0);
 		}
 
 		public static Quaternion Quaternion(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);
-			return new Quaternion(asArray[0], asArray[1], asArray[2], asArray[3]);
+			return new Quaternion(asArray?.GetSafe(0) ?? 0, asArray?.GetSafe(1) ?? 0, asArray?.GetSafe(2) ?? 0, asArray?.GetSafe(3) ?? 0);
 		}
 
 		public static Vector2 Vector2(this Hashtable table, string key) {
 			var asArray = table.FloatArray(key);
-			return new Vector2(asArray[0], asArray[1]);
+			return new Vector2(asArray?.GetSafe(0) ?? 0, asArray?.GetSafe(1) ?? 0);
 		}
 
 		public static Vector2Int Vector2Int(this Hashtable table, string key) {
 			var asArray = table.IntArray(key);
-			return new Vector2Int(asArray[0], asArray[1]);
+			return new Vector2Int(asArray?.GetSafe(0) ?? 0, asArray?.GetSafe(1) ?? 0);
 		}
 
 		private static bool TryGet<E>(this Hashtable table, string name, out E value, Func<string, E> parseFunc) {
