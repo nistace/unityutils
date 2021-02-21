@@ -92,6 +92,13 @@ namespace Utils.Libraries {
 			libraries.ForEach(t => t.Set(identifier, clip));
 		}
 
+		protected static void AddComponentToLibrariesFromAssetGuid<C>(string assetGuid, string pathPrefix, IEnumerable<Library<C>> libraries) where C : Component {
+			var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
+			var go = (GameObject) AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
+			var identifier = AssetPathToIdentifier(assetPath, pathPrefix);
+			libraries.ForEach(t => t.Set(identifier, go.GetComponent<C>()));
+		}
+
 #endif
 	}
 }
