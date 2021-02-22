@@ -16,7 +16,7 @@ namespace Utils.Extensions {
 		public static void MoveOverWorldPosition(this RectTransform uiTransform, Vector3 worldPosition, Vector3? targetOffset = null, Vector2? uiOffset = null) {
 			var uiPosition = CameraUtils.main.WorldToScreenPoint(worldPosition + (targetOffset ?? Vector3.zero));
 			if (uiOffset != null) uiPosition += new Vector3(uiOffset.Value.x, uiOffset.Value.y, 0);
-			uiTransform.position = uiPosition;
+			uiTransform.position = uiPosition.RoundToInt();
 		}
 
 		public static void SetOffsets(this RectTransform uiTransform, Vector2 offsetMin, Vector2 offsetMax) {

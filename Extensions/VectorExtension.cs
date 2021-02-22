@@ -36,5 +36,7 @@ namespace Utils.Extensions {
 		public static Vector3 FromGround(this Vector2 v2, float? height = null) => new Vector3(v2.x, height ?? 0, v2.y);
 
 		public static Vector2 Clamp(this Vector2 v2, Vector2 min, Vector2 max) => new Vector2(Mathf.Clamp(v2.x, min.x, max.x), Mathf.Clamp(v2.y, min.y, max.y));
+
+		public static Vector3Int RoundToInt(this Vector3 v3) => new Vector3Int(Mathf.RoundToInt(v3.x), Mathf.RoundToInt(v3.y), Mathf.RoundToInt(v3.z));
 	}
 }
