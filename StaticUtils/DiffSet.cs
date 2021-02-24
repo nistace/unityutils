@@ -14,7 +14,7 @@ namespace Utils.StaticUtils {
 			Active(mb.gameObject, active);
 		}
 
-		public static void Enabled(MonoBehaviour mb, bool enabled) {
+		public static void Enabled(Behaviour mb, bool enabled) {
 			if (!mb) return;
 			if (mb.enabled == enabled) return;
 			mb.enabled = enabled;
@@ -30,6 +30,12 @@ namespace Utils.StaticUtils {
 			if (!selectable) return;
 			if (selectable.interactable == interactable) return;
 			selectable.interactable = interactable;
+		}
+
+		public static void Bool(Animator animator, int animParam, bool value) {
+			if (!animator) return;
+			if (animator.GetBool(animParam) == value) return;
+			animator.SetBool(animParam, value);
 		}
 	}
 }
