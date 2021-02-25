@@ -5,13 +5,16 @@ using Utils.Extensions;
 
 namespace Utils.Behaviours {
 	public class Ragdoll : MonoBehaviour {
+		[SerializeField] protected string        _defaultForcedLimb;
+		[SerializeField] protected bool          _hitRandomLimbWhenNotFound = true;
+		[SerializeField] protected bool          _impactColliders           = true;
 		[SerializeField] protected RagdollLimb[] _limbs;
 
 		public new bool enabled {
 			get => base.enabled;
 			set {
 				base.enabled = value;
-				_limbs.ForEach(t => t.SetPhysicsEnabled(value));
+				_limbs.ForEach(t => t.SetPhysicsEnabled(value, _impactColliders));
 			}
 		}
 
@@ -19,23 +22,24 @@ namespace Utils.Behaviours {
 
 		public void AddForce(string hitLimbName, Vector3 force, ForceMode forceMode) {
 			if (_limbs.Length == 0) return;
-			var hitRigidbody = !string.IsNullOrEmpty(hitLimbName) && _limbs.TryFirst(t => t.canReceiveForce && t.name == hitLimbName, out var limbRigidbody)
-				? limbRigidbody
-				: _limbs.Random(t => t.canReceiveForce ? 1 : 0);
-			hitRigidbody.AddForce(force, forceMode);
+			if (force == Vector3.zero) return;
+			RagdollLimb limbToHit = null;
+			if (!string.IsNullOrEmpty(hitLimbName) && _limbs.TryFirst(t => t.canReceiveForce && t.name == hitLimbName, out var preciseLimb)) limbToHit = preciseLimb;
+			else if (!string.IsNullOrEmpty(_defaultForcedLimb) && _limbs.TryFirst(t => t.canReceiveForce && t.name == _defaultForcedLimb, out var defaultLimb)) limbToHit = defaultLimb;
+			else if (_hitRandomLimbWhenNotFound) limbToHit = _limbs.Random(t => t.canReceiveForce ? 1 : 0);
+			limbToHit?.AddForce(force, forceMode);
 		}
 
-		[Obsolete] public void SetEnabled(bool enabled) => _limbs.ForEach(t => t.SetPhysicsEnabled(enabled));
+		[Obsolete] public void SetEnabled(bool enabled) => _limbs.ForEach(t => t.SetPhysicsEnabled(enabled, _impactColliders));
 
 		[Serializable]
 		public class RagdollLimb {
-			[SerializeField] protected string     _name;
-			[SerializeField] protected Rigidbody  _rigidbody;
-			[SerializeField] protected Transform  _transform;
-			[SerializeField] protected Vector3    _initialLocalPosition;
-			[SerializeField] protected Quaternion _initialLocalRotation;
-			[SerializeField] protected Vector3    _initialLocalScale;
-			[SerializeField] protected bool       _canReceiveForce = true;
+			[SerializeField] protected string    _name;
+			[SerializeField] protected Rigidbody _rigidbody;
+			[SerializeField] protected Collider  _collider;
+			[SerializeField] protected Transform _transform;
+			[SerializeField] protected Vector3   _initialLocalPosition;
+			[SerializeField] protected bool      _canReceiveForce = true;
 
 			public string name            => _name;
 			public bool   canReceiveForce => _canReceiveForce;
@@ -44,22 +48,22 @@ namespace Utils.Behaviours {
 				_rigidbody.velocity = Vector3.zero;
 				_rigidbody.angularVelocity = Vector3.zero;
 				_transform.localPosition = _initialLocalPosition;
-				//_transform.localRotation = _initialLocalRotation;
-				//_transform.localScale = _initialLocalScale;
 			}
 
 			public RagdollLimb() { }
 
 			public RagdollLimb(Rigidbody rigidbody) {
 				_rigidbody = rigidbody;
+				_collider = _rigidbody.GetComponent<Collider>();
 				_name = _rigidbody.name;
 				_transform = _rigidbody.transform;
 				_initialLocalPosition = _transform.localPosition;
-				_initialLocalRotation = _transform.localRotation;
-				_initialLocalScale = _transform.localScale;
 			}
 
-			public void SetPhysicsEnabled(bool enabled) => _rigidbody.isKinematic = !enabled;
+			public void SetPhysicsEnabled(bool enabled, bool impactColliders) {
+				_rigidbody.isKinematic = !enabled;
+				if (impactColliders) _collider.enabled = enabled;
+			}
 
 			public void AddForce(Vector3 force, ForceMode forceMode) => _rigidbody.AddForce(force, forceMode);
 		}
