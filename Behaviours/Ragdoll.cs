@@ -5,6 +5,7 @@ using Utils.Extensions;
 
 namespace Utils.Behaviours {
 	public class Ragdoll : MonoBehaviour {
+		[SerializeField] protected Transform     _root;
 		[SerializeField] protected string        _defaultForcedLimb;
 		[SerializeField] protected bool          _hitRandomLimbWhenNotFound = true;
 		[SerializeField] protected bool          _impactColliders           = true;
@@ -71,7 +72,8 @@ namespace Utils.Behaviours {
 #if UNITY_EDITOR
 		[ContextMenu("Load limbs")]
 		private void LoadRigidBodies() {
-			_limbs = transform.Children().SelectMany(t => t.GetComponentsInChildren<Rigidbody>()).Select(t => new RagdollLimb(t)).ToArray();
+			if (!_root) _root = transform;
+			_limbs = _root.GetComponentsInChildren<Rigidbody>().Select(t => new RagdollLimb(t)).ToArray();
 		}
 
 		[ContextMenu("Enable")] private void Enable() => enabled = true;
