@@ -19,14 +19,6 @@ namespace Utils.Ui {
 		[SerializeField] protected string[] _options = { };
 		[SerializeField] protected int      _value;
 
-		public new bool interactable {
-			get => base.interactable;
-			set {
-				base.interactable = value;
-				Refresh();
-			}
-		}
-
 		public int value {
 			get => _value;
 			set {
@@ -58,6 +50,11 @@ namespace Utils.Ui {
 			if (_currentItemTextValue && !_optionsAreKeys && _currentItemTextValue.text != valueOption) _currentItemTextValue.text = valueOption;
 			DiffSet.Interactable(_previousItemButton, interactable && _options.Length > 1 && (_loop || _value > 0));
 			DiffSet.Interactable(_nextItemButton, interactable && _options.Length > 1 && (_loop || _value < _options.Length - 1));
+		}
+
+		protected override void DoStateTransition(SelectionState state, bool instant) {
+			base.DoStateTransition(state, instant);
+			Refresh();
 		}
 
 		public void SetValueWithoutNotify(int value) {
