@@ -87,6 +87,11 @@ namespace Utils.Extensions {
 			return component != null;
 		}
 
+		public static bool TryGetComponentInChildren<E>(this GameObject gameObject, out E component) {
+			component = gameObject.GetComponentInChildren<E>();
+			return component != null;
+		}
+
 		public static IEnumerable<E> SelectNotNullComponents<E>(this IEnumerable<GameObject> gameObjects) {
 			var selects = new List<E>();
 			foreach (var gameObject in gameObjects.NotNull())
