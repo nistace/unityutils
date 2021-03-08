@@ -6,6 +6,11 @@ namespace Utils.Ui {
 		private PanelTransformUi pt             { get; set; }
 		public  PanelTransformUi panelTransform => pt ? pt : pt = GetComponent<PanelTransformUi>();
 
+		public void Move(bool open, float? time = null) {
+			if (open) panelTransform.Open(time);
+			else panelTransform.Close(time);
+		}
+
 		public void Open(float? time = null) => panelTransform.Open(time);
 		public void Close(float? time = null) => panelTransform.Close(time);
 
