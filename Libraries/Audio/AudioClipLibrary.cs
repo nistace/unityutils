@@ -15,6 +15,7 @@ namespace Utils.Libraries {
 			libraries.ForEach(EditorUtility.SetDirty);
 			AssetDatabase.FindAssets("t:audioClip", new[] {"Assets/Audio/Music"}).ForEach(t => AddToLibrariesFromAssetGuid(t, "Assets/Audio/", libraries));
 			AssetDatabase.FindAssets("t:audioClip", new[] {"Assets/Audio/Sfx"}).ForEach(t => AddToLibrariesFromAssetGuid(t, "Assets/Audio/Sfx/", libraries));
+			AssetDatabase.FindAssets("t:audioClip", new[] {"Assets/Audio/Voices"}).ForEach(t => AddToLibrariesFromAssetGuid(t, "Assets/Audio/Voices/", libraries));
 			AssetDatabase.SaveAssets();
 		}
 
