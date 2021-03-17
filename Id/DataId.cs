@@ -38,5 +38,7 @@ namespace Utils.Id {
 
 		public static IReadOnlyDictionary<int, E> FromResources<E>(string resourcesDataPath) where E : Object, IData => Resources.LoadAll<E>(resourcesDataPath).ToDictionary(t => t.id, t => t);
 		public static IReadOnlyList<E> ListFromResources<E>(string resourcesDataPath) where E : Object, IData => Resources.LoadAll<E>(resourcesDataPath).OrderBy(t => t.id).ToList();
+
+		public static bool Equals<E>(E first, E second) where E : IData => first?.id == second?.id;
 	}
 }
