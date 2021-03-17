@@ -279,6 +279,8 @@ namespace Utils.Extensions {
 			return false;
 		}
 
+		public static bool TryLast<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) => TryFirst(items.Reverse(), where, out e);
+
 		/// <returns>the nth item in the list, starting from the end towards the first. e.g. n=0 returns the item at c-1, 1 => c-2, etc. where c is the count.</returns>
 		public static E FromLast<E>(this IReadOnlyList<E> items, int n) => items[items.Count - n - 1];
 	}
