@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using Utils.Extensions;
+using Utils.StaticUtils;
 using Object = UnityEngine.Object;
 
 namespace Utils.Libraries.Network {
@@ -26,7 +27,7 @@ namespace Utils.Libraries.Network {
 		}
 
 		private static GameObject Of(string prefabId, Vector3? position = null, Quaternion? rotation = null, bool persistent = false) {
-			if (PhotonNetwork.OfflineMode) return instance.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity).Active();
+			if (PunUtils.offlineOrNoRoom) return instance.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity).Active();
 			if (persistent) return PhotonNetwork.InstantiateRoomObject(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
 			return PhotonNetwork.Instantiate(prefabId, position ?? Vector3.zero, rotation ?? Quaternion.identity);
 		}
