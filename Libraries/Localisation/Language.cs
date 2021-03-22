@@ -73,9 +73,9 @@ namespace Utils.Libraries {
 		[MenuItem("Tools/Localisation/Import CSV ")]
 		public static void ImportCsv() {
 			Debug.ClearDeveloperConsole();
-			var textAsset = Resources.Load<TextAsset>("Localisation/allTexts");
+			var textAsset = Resources.Load<TextAsset>("Sheets/localisation");
 			if (!textAsset) {
-				Debug.LogWarning("No csv file at Localisation/allTexts");
+				Debug.LogWarning("No csv file at Sheets/localisation");
 				return;
 			}
 			var columns = textAsset.CsvHeaderAsDictionary();
@@ -105,6 +105,7 @@ namespace Utils.Libraries {
 				Debug.Log($"{lang.CamelCase()}.properties updated.");
 			}
 			AssetDatabase.SaveAssets();
+			SortLinesInFiles();
 		}
 #endif
 	}
