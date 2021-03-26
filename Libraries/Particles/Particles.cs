@@ -22,10 +22,10 @@ namespace Utils.Libraries {
 			if (library) library.Load();
 		}
 
-		public static void Play(string key, Vector3 position, Quaternion? rotation = null, Vector3? scale = null) {
-			if (!library) return;
-			var particleSystem = pooledSystems.ContainsKey(key) && pooledSystems[key].Count > 0 ? pooledSystems[key].Dequeue() : Instantiate(library[key]);
-			if (!particleSystem) return;
+		public static ParticleSystem Play(string key, Vector3 position, Quaternion? rotation = null, Vector3? scale = null) {
+			if (!library) return null;
+			var particleSystem = pooledSystems.ContainsKey(key) && pooledSystems[key].Count > 0 ? pooledSystems[key].Dequeue() : library[key] ? Instantiate(library[key]) : null;
+			if (!particleSystem) return null;
 			particleSystem.name = key;
 			var particleSystemTransform = particleSystem.transform;
 			particleSystemTransform.SetParent(null);
@@ -34,6 +34,7 @@ namespace Utils.Libraries {
 			particleSystemTransform.localScale = scale ?? Vector3.one;
 			particleSystem.Play();
 			playingSystems.Add(particleSystem);
+			return particleSystem;
 		}
 
 		public static void Stop(ParticleSystem system) {
