@@ -6,14 +6,19 @@ using Object = UnityEngine.Object;
 
 namespace Utils.Extensions {
 	public static class GameObjectExtension {
-		public static E GetOrAddComponent<E>(this Component t) where E : Component {
-			return t.gameObject.GetOrAddComponent<E>();
-		}
+		public static E GetOrAddComponent<E>(this Component t) where E : Component => t.gameObject.GetOrAddComponent<E>();
+		public static Component GetOrAddComponent(this Component component, Type type) => component.gameObject.GetOrAddComponent(type);
 
 		public static E GetOrAddComponent<E>(this GameObject t) where E : Component {
 			var e = t.GetComponent<E>();
 			if (e) return e;
 			return t.AddComponent<E>();
+		}
+
+		public static Component GetOrAddComponent(this GameObject t, Type type) {
+			var e = t.GetComponent(type);
+			if (e) return e;
+			return t.AddComponent(type);
 		}
 
 		public static IEnumerable<Transform> Children(this Transform parent) {
