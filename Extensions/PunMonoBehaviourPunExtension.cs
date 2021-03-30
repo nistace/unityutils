@@ -1,6 +1,7 @@
 ﻿using System;
 using Photon.Pun;
 using Photon.Realtime;
+using Utils.Multi.Profiling;
 using Utils.StaticUtils;
 
 namespace Utils.Extensions {
@@ -11,6 +12,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RpcSecure(func.Method.Name, target, true);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void RpcSecure<E>(this MonoBehaviourPun mb, RpcTarget target, Action<E> func, E e) {
@@ -19,6 +21,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RpcSecure(func.Method.Name, target, true, e);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void RpcSecure(this MonoBehaviourPun mb, Player player, Action func) {
@@ -27,6 +30,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RpcSecure(func.Method.Name, player, true);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void RpcSecure<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
@@ -35,6 +39,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RpcSecure(func.Method.Name, player, true, e);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void Rpc(this MonoBehaviourPun mb, RpcTarget target, Action func) {
@@ -43,6 +48,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, target);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void Rpc<E>(this MonoBehaviourPun mb, RpcTarget target, Action<E> func, E e) {
@@ -51,6 +57,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, target, e);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void Rpc(this MonoBehaviourPun mb, Player player, Action func) {
@@ -59,6 +66,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, player);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void Rpc<E>(this MonoBehaviourPun mb, Player player, Action<E> func, E e) {
@@ -67,6 +75,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, player, e);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void RpcMaster(this MonoBehaviourPun mb, Action func) {
@@ -75,6 +84,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, RpcTarget.MasterClient);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 
 		public static void RpcMaster<E>(this MonoBehaviourPun mb, Action<E> func, E e) {
@@ -83,6 +93,7 @@ namespace Utils.Extensions {
 				return;
 			}
 			mb.photonView.RPC(func.Method.Name, RpcTarget.MasterClient, e);
+			PunRpcProfiler.AddRpcSent(func.Method.Name);
 		}
 	}
 }

@@ -10,7 +10,9 @@ using Utils.Ui;
 
 [RequireComponent(typeof(Canvas))]
 public class DebugCanvas : MonoBehaviourUi {
-	private static DebugCanvas instance { get; set; }
+	private static DebugCanvas instance         { get; set; }
+	public static  bool        overrideLastLine { get; set; }
+	private static DebugLineUi lastLine         { get; set; }
 
 	[SerializeField] protected DebugLineUi            _linePrefab;
 	[SerializeField] protected Transform              _linesContainer;
@@ -67,9 +69,9 @@ public class DebugCanvas : MonoBehaviourUi {
 	public static void Print(string info, string type, Color color) {
 		if (!instance) return;
 		if (instance && instance._autoScroller && instance._autoScroller.atBottom) instance._autoScroller.ScrollToBottom();
-		var line = Instantiate(instance._linePrefab, instance._linesContainer);
-		line.Set(info, type);
-		line.color = color;
+		if (!overrideLastLine || !lastLine) lastLine = Instantiate(instance._linePrefab, instance._linesContainer);
+		lastLine.Set(info, type);
+		lastLine.color = color;
 	}
 
 	public static void Toggle() {
@@ -81,5 +83,10 @@ public class DebugCanvas : MonoBehaviourUi {
 	public static void SetCommand(string cmd) {
 		instance._commandInput.text = cmd;
 		instance._commandInput.caretPosition = cmd.Length;
+	}
+
+	public static void Clear() {
+		instance._linesContainer.ClearChildren();
+		lastLine = null;
 	}
 }
