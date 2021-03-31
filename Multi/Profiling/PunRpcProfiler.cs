@@ -7,8 +7,10 @@ using Object = UnityEngine.Object;
 
 namespace Utils.Multi.Profiling {
 	public class PunRpcProfiler : MonoBehaviour {
-		private static PunRpcProfiler instance { get; set; }
-		public static  bool           exists   => instance;
+		private static PunRpcProfiler instance         { get; set; }
+		public static  bool           exists           => instance;
+		public static  bool           displayPerFrame  { get; set; } = true;
+		public static  bool           displayPerSecond { get; set; } = true;
 
 		public static void Instantiate() {
 			if (instance) return;
@@ -21,47 +23,77 @@ namespace Utils.Multi.Profiling {
 			Object.Destroy(instance.gameObject);
 		}
 
-		private int           frameRpcSentCount     { get; set; }
-		private int           frameRpcReceivedCount { get; set; }
-		private StringBuilder logBuilder            { get; } = new StringBuilder();
-
-		private Dictionary<string, int> rpcSentPerFunctionName     { get; } = new Dictionary<string, int>();
-		private Dictionary<string, int> rpcReceivedPerFunctionName { get; } = new Dictionary<string, int>();
-
-		private void OnEnable() => Clear();
-
-		private void Clear() {
-			rpcSentPerFunctionName.Clear();
-			rpcReceivedPerFunctionName.Clear();
-			frameRpcReceivedCount = 0;
-			frameRpcSentCount = 0;
-		}
+		private int           second        { get; set; }
+		private Counter       frameCounter  { get; } = new Counter();
+		private Counter       secondCounter { get; } = new Counter();
+		private StringBuilder logBuilder    { get; } = new StringBuilder();
 
 		private void Update() {
-			if (frameRpcSentCount > 0 || frameRpcReceivedCount > 0) {
-				logBuilder.Clear();
-				logBuilder.Append("Profiling frame count");
-				if (frameRpcSentCount > 0)
-					logBuilder.Append(" SENT:").Append(frameRpcSentCount).Append("(").Append(rpcSentPerFunctionName.FirstWhereMaxOrDefault(t => t.Value)).Append(")");
-				if (frameRpcReceivedCount > 0)
-					logBuilder.Append(" RECEIVED:").Append(frameRpcReceivedCount).Append("(").Append(rpcReceivedPerFunctionName.FirstWhereMaxOrDefault(t => t.Value)).Append(")");
+			if (frameCounter.hasAnything) {
+				if (displayPerFrame) {
+					logBuilder.Clear();
+					logBuilder.Append("Profiling frame count");
+					frameCounter.Fill(logBuilder);
+					Debug.Log(logBuilder.ToString());
+				}
+				frameCounter.Clear();
+			}
+			if ((int) Time.time == second) return;
+			if (secondCounter.hasAnything) {
+				if (displayPerSecond) {
+					logBuilder.Clear();
+					logBuilder.Append("Profiling second count");
+					secondCounter.Fill(logBuilder);
+				}
 				Debug.Log(logBuilder.ToString());
 			}
-			Clear();
+			second = (int) Time.time;
+			secondCounter.Clear();
 		}
 
 		public static void AddRpcSent(string functionName) {
 			if (!instance) return;
-			instance.frameRpcSentCount++;
-			if (!instance.rpcSentPerFunctionName.ContainsKey(functionName)) instance.rpcSentPerFunctionName.Add(functionName, 0);
-			instance.rpcSentPerFunctionName[functionName]++;
+			instance.frameCounter.AddSent(functionName);
+			instance.secondCounter.AddSent(functionName);
 		}
 
 		public static void AddRpcReceived(string functionName) {
 			if (!instance) return;
-			instance.frameRpcReceivedCount++;
-			if (!instance.rpcReceivedPerFunctionName.ContainsKey(functionName)) instance.rpcReceivedPerFunctionName.Add(functionName, 0);
-			instance.rpcReceivedPerFunctionName[functionName]++;
+			instance.frameCounter.AddReceived(functionName);
+			instance.secondCounter.AddReceived(functionName);
+		}
+
+		private class Counter {
+			private int                     sentCount               { get; set; }
+			private int                     receivedCount           { get; set; }
+			private Dictionary<string, int> sentPerFunctionName     { get; } = new Dictionary<string, int>();
+			private Dictionary<string, int> receivedPerFunctionName { get; } = new Dictionary<string, int>();
+
+			public bool hasAnything => sentCount > 0 || receivedCount > 0;
+
+			public void Clear() {
+				sentPerFunctionName.Clear();
+				receivedPerFunctionName.Clear();
+				sentCount = 0;
+				receivedCount = 0;
+			}
+
+			public void Fill(StringBuilder stringBuilder) {
+				if (sentCount > 0) stringBuilder.Append(" SENT:").Append(sentCount).Append("(").Append(sentPerFunctionName.FirstWhereMaxOrDefault(t => t.Value)).Append(")");
+				if (receivedCount > 0) stringBuilder.Append(" RECEIVED:").Append(receivedCount).Append("(").Append(receivedPerFunctionName.FirstWhereMaxOrDefault(t => t.Value)).Append(")");
+			}
+
+			public void AddSent(string functionName) {
+				sentCount++;
+				if (!sentPerFunctionName.ContainsKey(functionName)) sentPerFunctionName.Add(functionName, 0);
+				sentPerFunctionName[functionName]++;
+			}
+
+			public void AddReceived(string functionName) {
+				receivedCount++;
+				if (!receivedPerFunctionName.ContainsKey(functionName)) receivedPerFunctionName.Add(functionName, 0);
+				receivedPerFunctionName[functionName]++;
+			}
 		}
 	}
 }
