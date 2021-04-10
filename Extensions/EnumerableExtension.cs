@@ -283,5 +283,12 @@ namespace Utils.Extensions {
 
 		/// <returns>the nth item in the list, starting from the end towards the first. e.g. n=0 returns the item at c-1, 1 => c-2, etc. where c is the count.</returns>
 		public static E FromLast<E>(this IReadOnlyList<E> items, int n) => items[items.Count - n - 1];
+
+		public static IEnumerable<E> DistinctBy<E, F>(this IEnumerable<E> source, Func<E, F> by) {
+			var seenKeys = new HashSet<F>();
+			foreach (var element in source) {
+				if (seenKeys.Add(by(element))) yield return element;
+			}
+		}
 	}
 }
