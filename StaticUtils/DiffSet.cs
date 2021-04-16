@@ -26,6 +26,12 @@ namespace Utils.StaticUtils {
 			gr.color = color;
 		}
 
+		public static void Sprite(Image image, Sprite sprite) {
+			if (!image) return;
+			if (image.sprite == sprite) return;
+			image.sprite = sprite;
+		}
+
 		public static void Interactable(Selectable selectable, bool interactable) {
 			if (!selectable) return;
 			if (selectable.interactable == interactable) return;
