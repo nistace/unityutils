@@ -17,6 +17,11 @@ namespace Utils.Libraries {
 			}
 		}
 
+		public Color color {
+			get => _text.color;
+			set => _text.color = value;
+		}
+
 		protected void Start() {
 			if (string.IsNullOrEmpty(key)) key = _text.text;
 			Refresh();
