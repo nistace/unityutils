@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using Utils.Extensions;
-using Utils.Random;
 
 namespace Utils.Types {
 	[Serializable]
@@ -11,7 +10,7 @@ namespace Utils.Types {
 
 		public static Ratio Random() => new Ratio(UnityEngine.Random.value);
 
-		private static bool Roll(float value, float random, bool winUnder = true) {
+		public static bool Roll(float value, float random, bool winUnder = true) {
 			if (value >= 1) return winUnder;
 			if (value <= 0) return !winUnder;
 			return winUnder == random < value;
@@ -63,7 +62,6 @@ namespace Utils.Types {
 		public override int GetHashCode() => value.GetHashCode();
 
 		public bool Roll(bool winUnder = true) => Roll(value, UnityEngine.Random.value, winUnder);
-		public bool NetworkRoll(bool winUnder = true) => Roll(value, SeedRandom.GetNextValue(), winUnder);
 		public override string ToString() => $"{value}";
 		public string ToStringPc(string format) => $"{(value * 100).ToString(format)}%";
 		public int CompareTo(Ratio other) => _value.CompareTo(other._value);

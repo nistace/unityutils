@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Utils.Random;
 using Utils.Types;
 
 namespace Utils.Extensions {
@@ -30,21 +29,18 @@ namespace Utils.Extensions {
 			return true;
 		}
 
-		private static E Random<E>(this IEnumerable<E> array, Func<int, int, int> randomFunc) =>
+		public static E Random<E>(this IEnumerable<E> array, Func<int, int, int> randomFunc) =>
 			array.TryRandom(out var result, randomFunc) ? result : throw new IndexOutOfRangeException("Cannot get a random item from an empty collection");
 
 		private static E RandomOrDefault<E>(this IEnumerable<E> array, Func<int, int, int> randomFunc) => array.TryRandom(out var result, randomFunc) ? result : default;
 		public static E Random<E>(this IEnumerable<E> array) => array.Random(UnityEngine.Random.Range);
-		public static E NetworkRandom<E>(this IEnumerable<E> array) => array.Random(SeedRandom.Range);
 		public static E RandomOrDefault<E>(this IEnumerable<E> array) => array.RandomOrDefault(UnityEngine.Random.Range);
 		public static E SeedRandomOrDefault<E>(this IEnumerable<E> array) => array.RandomOrDefault(UnityEngine.Random.Range);
 		public static int RandomIndex<E>(this E[] array) => UnityEngine.Random.Range(0, array.Length);
 		public static E Random<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, UnityEngine.Random.Range).GetSafe(0);
-		public static E NetworkRandom<E>(this IList<E> array, Func<E, float> probability) => array.Random(1, probability, SeedRandom.Range).GetSafe(0);
 		public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, UnityEngine.Random.Range);
-		public static E[] NetworkRandom<E>(this IList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, SeedRandom.Range);
 
-		private static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability, Func<float, float, float> randomRangeFunc) {
+		public static E[] Random<E>(this IList<E> array, int size, Func<E, float> probability, Func<float, float, float> randomRangeFunc) {
 			if (array == null || array.Count == 0) return default;
 			if (size == 0) return new E[] { };
 			var probabilities = array.Select(probability).ToArray();
