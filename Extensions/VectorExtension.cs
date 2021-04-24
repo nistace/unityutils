@@ -11,6 +11,8 @@ namespace Utils.Extensions {
 
 		public static Vector3 With(this Vector3 v3, float? x = null, float? y = null, float? z = null) => new Vector3(x ?? v3.x, y ?? v3.y, z ?? v3.z);
 
+		public static Vector2Int With(this Vector2Int v2, Func<int, int> xFunc = null, Func<int, int> yFunc = null) => new Vector2Int(xFunc?.Invoke(v2.x) ?? v2.x, yFunc?.Invoke(v2.y) ?? v2.y);
+
 		public static Vector3 With(this Vector3 v3, Func<float, float> funcX = null, Func<float, float> funcY = null, Func<float, float> funcZ = null) =>
 			new Vector3((funcX ?? (t => t))(v3.x), (funcY ?? (t => t))(v3.y), (funcZ ?? (t => t))(v3.z));
 
