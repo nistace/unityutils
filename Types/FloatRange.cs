@@ -28,6 +28,7 @@ namespace Utils.Types {
 
 		public float Random() => UnityEngine.Random.Range(_min, _max);
 		public float ValueAt(Ratio ratio) => _min + (_max - _min) * ratio.value;
+		public Ratio RatioOf(float value) => (value - _min) / (_max - _min);
 		public static FloatRange operator +(FloatRange fr1, FloatRange fr2) => new FloatRange(fr1._min + fr2._min, fr1._max + fr2._max);
 		public static FloatRange operator -(FloatRange fr1, FloatRange fr2) => new FloatRange(fr1._min - fr2._min, fr1._max - fr2._max);
 		public static FloatRange operator *(FloatRange fr, float value) => new FloatRange(fr._min * value, fr._max * value);
