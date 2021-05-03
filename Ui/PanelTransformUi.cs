@@ -13,9 +13,10 @@ namespace Utils.Ui {
 		[SerializeField] protected bool                  _lockHorizontal;
 		[SerializeField] protected bool                  _lockVertical;
 
-		private SingleCoroutine singleCoroutine { get; set; }
-
-		public RectTransformPosition position => new RectTransformPosition(transform);
+		public  RectTransformPosition openPosition    => _openPosition;
+		public  RectTransformPosition closePosition   => _closePosition;
+		private SingleCoroutine       singleCoroutine { get; set; }
+		public  RectTransformPosition position        => new RectTransformPosition(transform);
 
 		private void Awake() {
 			singleCoroutine = new SingleCoroutine(this);
