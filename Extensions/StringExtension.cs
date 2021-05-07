@@ -37,5 +37,6 @@ namespace Utils.Extensions {
 		public static string PascalCase(this string str) => string.IsNullOrEmpty(str) ? string.Empty : str.ToLower().Split(' ').Select(t => t.ToUpperFirst()).Join("");
 		public static string CamelCase(this string str) => str.PascalCase().ToLowerFirst();
 		public static string LowerNoSpace(this string str) => str.PascalCase().ToLower();
+		public static string Repeated(this string str, int count) => new StringBuilder(str.Length * count).Insert(0, str, count).ToString();
 	}
 }
