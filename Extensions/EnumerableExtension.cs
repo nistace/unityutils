@@ -226,11 +226,11 @@ namespace Utils.Extensions {
 			return enumerable.Except(enumerable.Where(where));
 		}
 
-		public static E FirstWhereMaxOrDefault<E>(this IEnumerable<E> items, Func<E, float> @where) {
+		public static E FirstWhereMaxOrDefault<E>(this IEnumerable<E> items, Func<E, float> maxFunc) {
 			var max = float.MinValue;
 			E itemMax = default;
 			foreach (var item in items) {
-				var itemValue = @where(item);
+				var itemValue = maxFunc(item);
 				if (itemValue <= max) continue;
 				max = itemValue;
 				itemMax = item;
@@ -238,11 +238,11 @@ namespace Utils.Extensions {
 			return itemMax;
 		}
 
-		public static E FirstWhereMinOrDefault<E>(this IEnumerable<E> items, Func<E, float> @where) {
+		public static E FirstWhereMinOrDefault<E>(this IEnumerable<E> items, Func<E, float> minFunc) {
 			var min = float.MaxValue;
 			E itemMin = default;
 			foreach (var item in items) {
-				var itemValue = @where(item);
+				var itemValue = minFunc(item);
 				if (itemValue >= min) continue;
 				min = itemValue;
 				itemMin = item;
