@@ -67,6 +67,10 @@ namespace Utils.Extensions {
 			foreach (var e in array) func(e);
 		}
 
+		public static void ForEach<E>(this IReadOnlyList<E> array, Action<E> func) {
+			for (var i = 0; i < array.Count; ++i) func(array[i]);
+		}
+
 		public static void ForEach<E>(this IReadOnlyList<E> array, Action<E, int> func) {
 			for (var i = 0; i < array.Count; ++i) func(array[i], i);
 		}

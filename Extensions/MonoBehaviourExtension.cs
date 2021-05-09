@@ -17,5 +17,10 @@ namespace Utils.Extensions {
 			coroutine = behaviour.StartCoroutine(routine);
 			return true;
 		}
+
+		public static T Enabled<T>(this T thisMb, bool enabled) where T : MonoBehaviour {
+			thisMb.enabled = enabled;
+			return thisMb;
+		}
 	}
 }
