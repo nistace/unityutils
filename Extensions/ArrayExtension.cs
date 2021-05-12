@@ -16,6 +16,11 @@ namespace Utils.Extensions {
 			return array;
 		}
 
+		public static void FillFromStart<E>(this E[] array, params E[] values) {
+			if (values.Length > array.Length) throw new IndexOutOfRangeException();
+			for (var i = 0; i < values.Length; ++i) array[i] = values[i];
+		}
+
 		public static E[,] FilledWith<E>(this E[,] array, E value) {
 			for (var i = 0; i < array.GetLength(0); ++i)
 			for (var j = 0; j < array.GetLength(1); ++j)
