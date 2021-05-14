@@ -11,7 +11,7 @@ namespace Utils.Ui {
 			else Close(time);
 		}
 
-		public void Open(float? time = null) => panelTransform.Open(time);
+		public virtual void Open(float? time = null) => panelTransform.Open(time);
 		public virtual void Close(float? time = null) => panelTransform.Close(time);
 
 		public void SetOpen() => Open(0);
