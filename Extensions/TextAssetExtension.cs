@@ -13,7 +13,8 @@ namespace Utils.Extensions {
 
 		public static string[] CsvHeaderAsArray(this TextAsset asset) => SplitCsvLine(asset.text.Split(Environment.NewLine[0])[0]);
 
-		public static IEnumerable<string[]> CsvLines(this TextAsset asset) => asset.Lines().Where((t, i) => i > 0 && !string.IsNullOrEmpty(t.Trim())).Select(SplitCsvLine);
+		public static IEnumerable<string[]> CsvLines(this TextAsset asset, bool firstLineIsHeader = true) =>
+			asset.Lines().Where((t, i) => (!firstLineIsHeader || i > 0) && !string.IsNullOrEmpty(t.Trim())).Select(SplitCsvLine);
 
 		private static string[] SplitCsvLine(string rawLine) {
 			var items = new List<string>();
