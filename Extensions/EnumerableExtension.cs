@@ -279,7 +279,27 @@ namespace Utils.Extensions {
 			return false;
 		}
 
+		public static bool TryFirstIndex<E>(this IReadOnlyList<E> items, Func<E, bool> where, out int index) {
+			for (var i = 0; i < items.Count; ++i)
+				if (where(items[i])) {
+					index = i;
+					return true;
+				}
+			index = -1;
+			return false;
+		}
+
 		public static bool TryLast<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) => TryFirst(items.Reverse(), where, out e);
+
+		public static bool TryLastIndex<E>(this IReadOnlyList<E> items, Func<E, bool> where, out int index) {
+			for (var i = items.Count - 1; i >= 0; i--)
+				if (where(items[i])) {
+					index = i;
+					return true;
+				}
+			index = -1;
+			return false;
+		}
 
 		/// <returns>the nth item in the list, starting from the end towards the first. e.g. n=0 returns the item at c-1, 1 => c-2, etc. where c is the count.</returns>
 		public static E FromLast<E>(this IReadOnlyList<E> items, int n) => items[items.Count - n - 1];
