@@ -289,6 +289,11 @@ namespace Utils.Extensions {
 			return false;
 		}
 
+		public static bool TrySingle<E>(this IEnumerable<E> items, Func<E, bool> where, out E single) {
+			single = items.SingleOrDefault(where);
+			return !ReferenceEquals(single, default);
+		}
+
 		public static bool TryLast<E>(this IEnumerable<E> items, Func<E, bool> where, out E e) => TryFirst(items.Reverse(), where, out e);
 
 		public static bool TryLastIndex<E>(this IReadOnlyList<E> items, Func<E, bool> where, out int index) {
