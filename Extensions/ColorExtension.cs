@@ -20,8 +20,9 @@ namespace Utils.Extensions {
 			return new Color(c.r * (1 - coefficient), c.g * (1 - coefficient), c.b * (1 - coefficient), c.a);
 		}
 
-		public static string ToHexaString(this Color c) {
-			return $"#{(c.r * 255).Floor():X2}{(c.g * 255).Floor():X2}{(c.b * 255).Floor():X2}";
+		public static string ToHexaString(this Color c, bool includeOpacity = false) {
+			var rgb = $"#{(c.r * 255).Floor():X2}{(c.g * 255).Floor():X2}{(c.b * 255).Floor():X2}";
+			return includeOpacity ? $"{rgb}{(c.a * 255).Floor():X2}" : rgb;
 		}
 
 		public static ColorBlock With(this ColorBlock c, float? colorMultiplier = null, Color? normalColor = null, Color? disabledColor = null, Color? highlightedColor = null,
