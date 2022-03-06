@@ -20,4 +20,10 @@ public class Follow : MonoBehaviour {
 		if (!_target) return;
 		transform.position = Vector3.SmoothDamp(transform.position, _target.position + _offset, ref _velocity, _smoothTime);
 	}
+
+	public void Jump() {
+		if (!target) return;
+		transform.position = _target.position + _offset;
+		_velocity = Vector3.zero;
+	}
 }

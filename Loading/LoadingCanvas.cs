@@ -34,7 +34,7 @@ namespace Utils.Loading {
 		public void Show(Action callback = null) => fadeCoroutine.Start(DoFadeIn(callback));
 		public void Hide(Action callback = null) => fadeCoroutine.Start(DoFadeOut(callback));
 
-		public IEnumerator DoFadeIn(Action callback) {
+		public IEnumerator DoFadeIn(Action callback = null) {
 			onStartFadeIn.Invoke();
 			while (opacity < 1) {
 				SetOpacity(opacity + Time.deltaTime * _fadeInSpeed);
@@ -44,7 +44,7 @@ namespace Utils.Loading {
 			onFadeInComplete.Invoke();
 		}
 
-		public IEnumerator DoFadeOut(Action callback) {
+		public IEnumerator DoFadeOut(Action callback = null) {
 			onStartFadeOut.Invoke();
 			while (opacity > 0) {
 				SetOpacity(opacity - Time.deltaTime * _fadeOutSpeed);
