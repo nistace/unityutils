@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Utils.Types;
 
 namespace Utils.Extensions {
@@ -8,9 +9,7 @@ namespace Utils.Extensions {
 		public static void Shuffle<E>(this IList<E> list) {
 			for (var i = 0; i < list.Count - 1; ++i) {
 				var swapWithIndex = UnityEngine.Random.Range(i, list.Count);
-				var itemAtSwap = list[swapWithIndex];
-				list[swapWithIndex] = list[i];
-				list[i] = itemAtSwap;
+				(list[swapWithIndex], list[i]) = (list[i], list[swapWithIndex]);
 			}
 		}
 
@@ -175,11 +174,7 @@ namespace Utils.Extensions {
 			return -1;
 		}
 
-		public static void Swap<E>(this E[] array, int index1, int index2) {
-			var item1 = array[index1];
-			array[index1] = array[index2];
-			array[index2] = item1;
-		}
+		public static void Swap<E>(this E[] array, int index1, int index2) => (array[index1], array[index2]) = (array[index2], array[index1]);
 
 		public static string Join<E>(this IEnumerable<E> strings, string separator) {
 			return String.Join(separator, strings.Select(t => t?.ToString() ?? "null"));
@@ -314,6 +309,22 @@ namespace Utils.Extensions {
 			foreach (var element in source) {
 				if (seenKeys.Add(by(element))) yield return element;
 			}
+		}
+
+		public static E GetWithClosestScore<E>(this IEnumerable<E> items, Func<E, float> getScore, float targetScore, bool smallerAllowed = true, bool higherAllowed = true) {
+			E closest = default;
+			var closestScoreDelta = float.MaxValue;
+			foreach (var item in items) {
+				var itemScore = getScore(item);
+				var itemScoreDelta = Mathf.Abs(targetScore - itemScore);
+				if (!smallerAllowed && itemScore < targetScore) itemScoreDelta = int.MaxValue;
+				if (!higherAllowed && itemScore > targetScore) itemScoreDelta = int.MaxValue;
+				if (itemScoreDelta < closestScoreDelta) {
+					closest = item;
+					closestScoreDelta = itemScoreDelta;
+				}
+			}
+			return closest;
 		}
 	}
 }
