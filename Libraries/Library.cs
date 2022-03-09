@@ -51,14 +51,25 @@ namespace Utils.Libraries {
 
 		public E GetRandom(string keyRoot) => this[GetRandomKey(keyRoot)];
 
-		public string GetRandomKey(string keyRoot) {
+		private bool TryGetRandomKey(string keyRoot, out string randomKey) {
+			randomKey = default;
 			var cleanKey = keyRoot.CleanKey().WithEnding(".");
-			if (map.Where(t => t.Key.StartsWith(cleanKey)).TryRandom(out var result)) return result.Key;
-			if (Application.isPlaying) Debug.LogWarning(GetNonExistingWarningMessage(cleanKey));
-			return default;
+			if (map.Where(t => t.Key.StartsWith(cleanKey)).TryRandom(out var result)) {
+				randomKey = result.Key;
+				return true;
+			}
+			return false;
+		}
+
+		public string GetRandomKey(string keyRoot) {
+			if (!TryGetRandomKey(keyRoot, out var randomKey) && Application.isPlaying) {
+				Debug.LogWarning(GetNonExistingWarningMessage(keyRoot.CleanKey().WithEnding(".")));
+			}
+			return randomKey;
 		}
 
 		public bool HasKey(string key) => map.ContainsKey(key.CleanKey());
+		public bool HasRandomKey(string keyRoot) => TryGetRandomKey(keyRoot, out _);
 
 		public IReadOnlyDictionary<string, E> AllStartingWith(string keyRoot) {
 			var cleanKey = keyRoot.CleanKey().WithEnding(".");
@@ -87,14 +98,14 @@ namespace Utils.Libraries {
 
 		protected static void AddToLibrariesFromAssetGuid<C>(string assetGuid, string pathPrefix, IEnumerable<Library<C>> libraries) where C : UnityEngine.Object {
 			var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
-			var clip = (C) AssetDatabase.LoadAssetAtPath(assetPath, typeof(C));
+			var clip = (C)AssetDatabase.LoadAssetAtPath(assetPath, typeof(C));
 			var identifier = AssetPathToIdentifier(assetPath, pathPrefix);
 			libraries.ForEach(t => t.Set(identifier, clip));
 		}
 
 		protected static void AddComponentToLibrariesFromAssetGuid<C>(string assetGuid, string pathPrefix, IEnumerable<Library<C>> libraries) where C : Component {
 			var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
-			var go = (GameObject) AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
+			var go = (GameObject)AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
 			var identifier = AssetPathToIdentifier(assetPath, pathPrefix);
 			libraries.ForEach(t => t.Set(identifier, go.GetComponent<C>()));
 		}
