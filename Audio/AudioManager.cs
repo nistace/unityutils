@@ -28,7 +28,7 @@ namespace Utils.Audio {
 		public static Ratio masterVolume {
 			get => instance._masterVolume;
 			set {
-				instance._masterVolume = value;
+				instance._masterVolume = Mathf.Clamp01(value);
 				Sfx.volume = Sfx.volume;
 				Music.volume = Music.volume;
 				Voices.volume = Voices.volume;
