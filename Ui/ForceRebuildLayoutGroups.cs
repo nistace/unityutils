@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Utils.Coroutines;
-using Utils.Extensions;
 
 namespace Utils.Ui {
 	public class ForceRebuildLayoutGroups : MonoBehaviourUi {
@@ -19,8 +18,12 @@ namespace Utils.Ui {
 
 		private IEnumerator DoPlay(int frames) {
 			for (var i = 0; i < frames; ++i) {
-				layoutGroups.ForEach(t => t.enabled = false);
-				layoutGroups.ForEach(t => t.enabled = true);
+				foreach (var layoutGroup in layoutGroups) {
+					if (layoutGroup) {
+						layoutGroup.enabled = false;
+						layoutGroup.enabled = true;
+					}
+				}
 				yield return null;
 			}
 		}

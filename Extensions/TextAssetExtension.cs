@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Utils.Extensions {
 	public static class TextAssetExtension {
-		public static IEnumerable<string> Lines(this TextAsset asset) => asset.text.Split('\n').Select(t => t.Replace("\r", string.Empty));
+		public static IEnumerable<string> Lines(this TextAsset asset) => Regex.Split(asset.text, "\n|\r|\r\n");
 
 		public static IReadOnlyDictionary<string, int> CsvHeaderAsDictionary(this TextAsset asset) =>
-			SplitCsvLine(asset.text.Split(Environment.NewLine[0])[0]).Select((name, index) => (name, index)).ToDictionary(t => t.name.PascalCase(), t => t.index);
+			asset.CsvHeaderAsArray().Select((name, index) => (name, index)).ToDictionary(t => t.name.PascalCase(), t => t.index);
 
-		public static string[] CsvHeaderAsArray(this TextAsset asset) => SplitCsvLine(asset.text.Split(Environment.NewLine[0])[0]);
+		public static IReadOnlyList<string> CsvHeaderAsArray(this TextAsset asset) => SplitCsvLine(asset.Lines().First());
 
 		public static IEnumerable<string[]> CsvLines(this TextAsset asset, bool firstLineIsHeader = true) =>
 			asset.Lines().Where((t, i) => (!firstLineIsHeader || i > 0) && !string.IsNullOrEmpty(t.Trim())).Select(SplitCsvLine);
