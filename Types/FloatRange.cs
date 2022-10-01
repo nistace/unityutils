@@ -6,13 +6,13 @@ namespace Utils.Types {
 	[Serializable]
 	public struct FloatRange {
 		/// <summary> 0 - 0 </summary>
-		public static readonly FloatRange zero = new FloatRange {_min = 0, _max = 0};
+		public static readonly FloatRange zero = new FloatRange { _min = 0, _max = 0 };
 
 		/// <summary> 1 - 1</summary>
-		public static readonly FloatRange one = new FloatRange {_min = 1, _max = 1};
+		public static readonly FloatRange one = new FloatRange { _min = 1, _max = 1 };
 
 		/// <summary> 0 - 1 </summary>
-		public static readonly FloatRange unit = new FloatRange {_min = 0, _max = 1};
+		public static readonly FloatRange unit = new FloatRange { _min = 0, _max = 1 };
 
 		[SerializeField] private float _min;
 		[SerializeField] private float _max;
@@ -36,5 +36,6 @@ namespace Utils.Types {
 		public static implicit operator FloatRange(IntRange range) => new FloatRange(range.min, range.max);
 		public IntRange Round() => new IntRange(min.Round(), max.Round());
 		public FloatRange Pow(int pow) => new FloatRange(Mathf.Pow(min, pow), Mathf.Pow(max, pow));
+		public float Clamp(float value) => Mathf.Clamp(value, min, max);
 	}
 }
