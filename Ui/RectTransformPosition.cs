@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.Types.Ui {
+namespace Utils.Ui {
 	[Serializable]
 	public class RectTransformPosition {
 		[SerializeField] protected Vector2 _anchorMin;
@@ -55,7 +55,7 @@ namespace Utils.Types.Ui {
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
 			if (obj.GetType() != GetType()) return false;
-			return Equals((RectTransformPosition) obj);
+			return Equals((RectTransformPosition)obj);
 		}
 
 		public override int GetHashCode() {
