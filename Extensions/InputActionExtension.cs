@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ENABLE_INPUT_SYSTEM
+using System;
 using UnityEngine.InputSystem;
 using Utils.Libraries;
 
@@ -90,3 +91,4 @@ namespace Utils.Extensions {
 		public static int ToAbsoluteIndex(this InputAction inputAction, int nonCompositeIndex) => inputAction.AbsoluteIndexOf(inputAction.GetNonCompositeBinding(nonCompositeIndex));
 	}
 }
+#endif
