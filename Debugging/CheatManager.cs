@@ -11,7 +11,7 @@ namespace Utils.Debugging {
 		private static int          repeatPreviousIndex { get; set; }
 
 		private static Dictionary<Regex, CheatCode> cheatCodes { get; } = new Dictionary<Regex, CheatCode> {
-			{new Regex("^ *help *(\\w+)? *$"), new CheatCode(HandleHelpCheatCode, 0)}, {new Regex("^ *exit-debug *(\\w+)? *$"), new CheatCode(HandleExitDebug, 0)}
+			{ new Regex("^ *help *(\\w+)? *$"), new CheatCode(HandleHelpCheatCode, 0) }, { new Regex("^ *exit-debug *(\\w+)? *$"), new CheatCode(HandleExitDebug, 0) }
 		};
 
 		public static void DefineCheatCode(string regex, Func<Match, string> cheatCodeAction, int protectionLevel) => cheatCodes.Set(new Regex(regex), new CheatCode(cheatCodeAction, protectionLevel));

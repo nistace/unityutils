@@ -1,5 +1,6 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/Prefabs/Utils/Debug/DebugControls.inputactions'
 
+#if ENABLE_INPUT_SYSTEM
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -162,3 +163,4 @@ namespace Utils.Debugging
         }
     }
 }
+#endif
