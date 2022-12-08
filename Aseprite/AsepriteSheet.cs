@@ -37,5 +37,7 @@ namespace Utils.Aseprite {
 		public Vector2 GetPivot(string name) => _layerPivots.FirstOrDefault(t => t.layerName == name)?.pivot ?? _defaultPivot;
 
 		public void SetSprites(IEnumerable<Sprite> sprites) => _sprites = sprites.ToArray();
+
+		public Sprite this[string name] => sprites.FirstOrDefault(t => t.name == name);
 	}
 }
