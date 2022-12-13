@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+/*
 namespace Utils.Types.Editor {
 	[CustomPropertyDrawer(typeof(Quaternion))]
 	public class QuaternionCustomPropertyDrawer : PropertyDrawer {
@@ -18,4 +19,4 @@ namespace Utils.Types.Editor {
 			property.quaternionValue = Quaternion.Euler(euler); // convert the eulerAngles back to Quaternion value.
 		}
 	}
-}
+}*/
