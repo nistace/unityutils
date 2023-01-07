@@ -4,5 +4,10 @@
 			variable = e;
 			return true;
 		}
+
+		public static bool False<TE>(this TE e, out TE variable) {
+			variable = e;
+			return false;
+		}
 	}
 }
