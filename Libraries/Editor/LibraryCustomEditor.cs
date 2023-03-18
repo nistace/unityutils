@@ -7,7 +7,7 @@ namespace UtilsEditor.CustomEditors {
 		private string filter { get; set; } = string.Empty;
 
 		public override void OnInspectorGUI() {
-			var library = (Library<E>) target;
+			var library = (Library<E>)target;
 			var itemsCount = Mathf.Min(serializedObject.FindProperty("_itemNames").arraySize, serializedObject.FindProperty("_items").arraySize);
 			GUI.enabled = false;
 			EditorGUILayout.ObjectField("Script:", MonoScript.FromScriptableObject(library), typeof(Library<E>), false);

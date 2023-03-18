@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ENABLE_2D
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -40,3 +41,4 @@ namespace Utils.Aseprite.Editor {
 		}
 	}
 }
+#endif
