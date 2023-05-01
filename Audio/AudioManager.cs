@@ -165,17 +165,18 @@ namespace Utils.Audio {
 
 			public static bool isPlaying => instance._musicSource.isPlaying;
 
-			public static void ChangeToRandomClip(string clipKeyRoot, bool restartIfPlaying = false) => ChangeClip(AudioClips.RandomOf(clipKeyRoot), restartIfPlaying);
-			public static void ChangeClip(string clipKey, bool restartIfPlaying = false) => ChangeClip(AudioClips.Of(clipKey), restartIfPlaying);
+			public static void ChangeToRandomClip(string clipKeyRoot, bool instantly, bool restartIfPlaying = false) => ChangeClip(AudioClips.RandomOf(clipKeyRoot), instantly, restartIfPlaying);
+			public static void ChangeClip(string clipKey, bool instantly, bool restartIfPlaying = false) => ChangeClip(AudioClips.Of(clipKey), instantly, restartIfPlaying);
 
-			public static void ChangeClip(AudioClip clip, bool restartIfPlaying = false) {
+			public static void ChangeClip(AudioClip clip, bool instantly, bool restartIfPlaying = false) {
 				if (changeClipRoutine == null) changeClipRoutine = new SingleCoroutine(instance);
-				changeClipRoutine.Start(DoChangeClip(clip, restartIfPlaying));
+				changeClipRoutine.Start(DoChangeClip(clip, instantly, restartIfPlaying));
 			}
 
-			private static IEnumerator DoChangeClip(AudioClip clip, bool restartIfPlaying = false) {
+			private static IEnumerator DoChangeClip(AudioClip clip, bool instantly, bool restartIfPlaying = false) {
 				if (instance._musicSource.clip == clip && tmpVolume == volume && !restartIfPlaying) yield break;
 				if (instance._musicSource.clip && (instance._musicSource.clip != clip || restartIfPlaying) && instance._musicSource.isPlaying) {
+					if (instantly) tmpVolume = 0;
 					while (tmpVolume > 0) {
 						tmpVolume -= Time.deltaTime * instance._changeMusicClipSpeed;
 						yield return null;
@@ -184,7 +185,7 @@ namespace Utils.Audio {
 				}
 				instance._musicSource.clip = clip;
 				instance._musicSource.Play();
-				while (tmpVolume < volume) {
+				while (!instantly && tmpVolume < volume) {
 					tmpVolume += Time.deltaTime * instance._changeMusicClipSpeed;
 					yield return null;
 				}
@@ -192,7 +193,7 @@ namespace Utils.Audio {
 			}
 
 			public static void Update() {
-				if (autoSelectNextClip && !isPlaying) ChangeToRandomClip("music");
+				if (autoSelectNextClip && !isPlaying) ChangeToRandomClip("music", false);
 			}
 		}
 	}

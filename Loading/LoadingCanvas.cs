@@ -11,6 +11,8 @@ using Utils.Types;
 namespace Utils.Loading {
 	[RequireComponent(typeof(Canvas))]
 	public class LoadingCanvas : MonoBehaviour {
+		public static LoadingCanvas instance { get; set; }
+
 		[SerializeField] protected Ratio     _initialOpacity = 0f;
 		[SerializeField] protected Graphic[] _graphics;
 		[SerializeField] protected float     _fadeInSpeed  = 1;
@@ -18,21 +20,19 @@ namespace Utils.Loading {
 		[SerializeField] protected TMP_Text  _progressText;
 		[SerializeField] protected Image     _progressBar;
 
-		private Canvas          sCanvas       { get; set; }
-		private Canvas          canvas        => sCanvas ? sCanvas : sCanvas = GetComponent<Canvas>();
-		private Ratio           opacity       { get; set; }
-		private SingleCoroutine fadeCoroutine { get; set; }
+		private Canvas    sCanvas     { get; set; }
+		private Canvas    canvas      => sCanvas ? sCanvas : sCanvas = GetComponent<Canvas>();
+		private Ratio     opacity     { get; set; }
+		private Coroutine fadeRoutine { get; set; }
 
 		public static UnityEvent onStartFadeIn     { get; } = new UnityEvent();
 		public static UnityEvent onFadeInComplete  { get; } = new UnityEvent();
 		public static UnityEvent onStartFadeOut    { get; } = new UnityEvent();
 		public static UnityEvent onFadeOutComplete { get; } = new UnityEvent();
 
-		private void Awake() => fadeCoroutine = new SingleCoroutine(this);
-
 		private void Start() => SetOpacity(_initialOpacity);
-		public void Show(Action callback = null) => fadeCoroutine.Start(DoFadeIn(callback));
-		public void Hide(Action callback = null) => fadeCoroutine.Start(DoFadeOut(callback));
+		public void Show(Action callback = null) => fadeRoutine = CoroutineRunner.Run(DoFadeIn(callback));
+		public void Hide(Action callback = null) => fadeRoutine = CoroutineRunner.Run(DoFadeOut(callback));
 
 		public IEnumerator DoFadeIn(Action callback = null) {
 			onStartFadeIn.Invoke();
@@ -56,14 +56,14 @@ namespace Utils.Loading {
 
 		public void SetVisible() {
 			onStartFadeIn.Invoke();
-			fadeCoroutine.Stop();
+			if (fadeRoutine != null) CoroutineRunner.Stop(fadeRoutine);
 			SetOpacity(1);
 			onFadeInComplete.Invoke();
 		}
 
 		public void SetHidden() {
 			onStartFadeOut.Invoke();
-			fadeCoroutine.Stop();
+			if (fadeRoutine != null) CoroutineRunner.Stop(fadeRoutine);
 			SetOpacity(0);
 			onFadeOutComplete.Invoke();
 		}
