@@ -15,5 +15,7 @@ namespace Utils.Libraries {
 		}
 
 		public static AudioClip RandomOf(string clipRootName) => library.GetRandom(clipRootName);
+
+		public static bool HasKey(string key) => library.HasKey(key);
 	}
 }

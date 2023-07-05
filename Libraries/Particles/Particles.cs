@@ -55,5 +55,7 @@ namespace Utils.Libraries {
 				else if (!playingSystems[i].isPlaying) Stop(playingSystems[i]);
 			}
 		}
+
+		public static bool HasKey(string key) => library.HasKey(key);
 	}
 }
