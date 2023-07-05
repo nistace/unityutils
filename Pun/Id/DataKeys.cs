@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PHOTON_UNITY_NETWORKING
+using System;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using NiUtils.Extensions;
@@ -61,3 +62,4 @@ namespace NiUtils.Pun.Id {
 		}
 	}
 }
+#endif

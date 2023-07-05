@@ -1,4 +1,5 @@
 ﻿using NiUtils.Extensions;
+#if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -52,3 +53,4 @@ namespace NiUtils.Pun.Libraries.Network {
 		}
 	}
 }
+#endif

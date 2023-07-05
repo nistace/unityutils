@@ -1,4 +1,5 @@
-﻿using NiUtils.Extensions;
+﻿#if PHOTON_UNITY_NETWORKING
+using NiUtils.Extensions;
 using NiUtils.Libraries;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +9,8 @@ namespace NiUtils.Pun.Libraries.Network {
 	public class NetworkPrefabsLibrary : Library<GameObject> {
 		protected override string GetNonExistingWarningMessage(string key) => $"No object value for the key {key} in the network prefabs library {name}";
 
-#if UNITY_EDITOR
+#endif
+#if PHOTON_UNITY_NETWORKING && UNITY_EDITOR
 
 		[MenuItem("Tools/Libraries/Networed Prefabs")]
 		public static void ToolsLoad() {
@@ -19,5 +21,7 @@ namespace NiUtils.Pun.Libraries.Network {
 		}
 
 #endif
+#if PHOTON_UNITY_NETWORKING
 	}
 }
+#endif

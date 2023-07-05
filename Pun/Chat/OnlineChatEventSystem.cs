@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿#if PHOTON_UNITY_NETWORKING
+using UnityEngine.Events;
 
 namespace NiUtils.Pun.Chat {
 	public static class OnlineChatEventSystem {
@@ -7,3 +8,4 @@ namespace NiUtils.Pun.Chat {
 		public static MessageEvent onMessageSent { get; } = new MessageEvent();
 	}
 }
+#endif

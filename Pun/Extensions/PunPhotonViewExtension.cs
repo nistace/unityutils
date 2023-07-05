@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PHOTON_UNITY_NETWORKING
+using System;
 using Photon.Pun;
 
 namespace NiUtils.Pun.Extensions {
@@ -15,3 +16,4 @@ namespace NiUtils.Pun.Extensions {
 			photonView.RPC(nameof(func), target, param1, param2, param3, param4, param5);
 	}
 }
+#endif

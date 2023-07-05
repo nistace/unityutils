@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PHOTON_UNITY_NETWORKING
+using System;
 using System.Collections.Generic;
 using NiUtils.Extensions;
 using NiUtils.Pun.Random;
@@ -10,3 +11,4 @@ namespace NiUtils.Pun.Extensions {
 		public static E[] NetworkRandom<E>(this IReadOnlyList<E> array, int size, Func<E, float> probability) => array.Random(size, probability, PunRandom.Range);
 	}
 }
+#endif

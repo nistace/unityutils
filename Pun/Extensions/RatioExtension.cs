@@ -1,4 +1,5 @@
-﻿using NiUtils.Pun.Random;
+﻿#if PHOTON_UNITY_NETWORKING
+using NiUtils.Pun.Random;
 using NiUtils.Types;
 
 namespace NiUtils.Pun.Extensions {
@@ -6,3 +7,4 @@ namespace NiUtils.Pun.Extensions {
 		public static bool NetworkRoll(this Ratio ratio, bool winUnder = true) => Ratio.Roll(ratio.value, PunRandom.GetNextValue(), winUnder);
 	}
 }
+#endif

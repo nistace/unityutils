@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PHOTON_UNITY_NETWORKING
+using System;
 using NiUtils.Pun.Profiling;
 using Photon.Pun;
 using Photon.Realtime;
@@ -96,3 +97,4 @@ namespace NiUtils.Pun.Extensions {
 		}
 	}
 }
+#endif

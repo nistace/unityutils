@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PHOTON_UNITY_NETWORKING
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -131,3 +132,4 @@ namespace NiUtils.Pun.Extensions {
 		}
 	}
 }
+#endif

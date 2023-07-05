@@ -1,4 +1,5 @@
-﻿using NiUtils.Extensions;
+﻿#if PHOTON_UNITY_NETWORKING
+using NiUtils.Extensions;
 using UnityEngine;
 
 namespace NiUtils.Pun.Random {
@@ -29,3 +30,4 @@ namespace NiUtils.Pun.Random {
 		public static string ToDebugString() => $"Network random, previous value ({previousValue}), step ({step})";
 	}
 }
+#endif

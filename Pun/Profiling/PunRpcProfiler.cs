@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if PHOTON_UNITY_NETWORKING
+using System.Collections.Generic;
 using System.Text;
 using NiUtils.Extensions;
 using UnityEngine;
@@ -96,3 +97,4 @@ namespace NiUtils.Pun.Profiling {
 		}
 	}
 }
+#endif

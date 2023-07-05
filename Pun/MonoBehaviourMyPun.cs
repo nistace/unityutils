@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿#if PHOTON_UNITY_NETWORKING
+using Photon.Pun;
 using UnityEngine;
 
 namespace NiUtils.Pun {
@@ -7,3 +8,4 @@ namespace NiUtils.Pun {
 		public bool isMine => photonView.IsMine || Equals(photonView.Controller, PhotonNetwork.LocalPlayer);
 	}
 }
+#endif
