@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Factories {
+namespace NiUtils.Factories {
 	public class Factory : MonoBehaviour {
 		private static Dictionary<Type, Factory> factories { get; } = new Dictionary<Type, Factory>();
 

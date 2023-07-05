@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class AudioClips {
 		private static AudioClipLibrary library { get; set; }
 		public static  bool             loaded  => library != null;

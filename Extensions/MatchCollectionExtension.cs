@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class MatchCollectionExtension {
 		public static IEnumerable<T> Select<T>(this MatchCollection collection, Func<Match, T> select) {
 			var result = new List<T>();

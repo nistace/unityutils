@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class ColorExtension {
 		public static Color With(this Color c, float? r = null, float? g = null, float? b = null, float? a = null) {
 			return new Color(r ?? c.r, g ?? c.g, b ?? c.b, a ?? c.a);

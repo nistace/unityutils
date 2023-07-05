@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Id {
+namespace NiUtils.Id {
 	public static class ModificationSafeScriptables {
 		private static Dictionary<ScriptableObject, ScriptableObject> scriptables { get; } = new Dictionary<ScriptableObject, ScriptableObject>();
 
 		public static E GetModifiableInstance<E>(E source) where E : ScriptableObject {
 			if (!source) return source;
-			if (scriptables.ContainsKey(source)) return (E) scriptables[source];
+			if (scriptables.ContainsKey(source)) return (E)scriptables[source];
 			var modifiableInstance = Object.Instantiate(source);
 			modifiableInstance.name = source.name;
 			scriptables.Set(source, modifiableInstance);

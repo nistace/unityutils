@@ -1,9 +1,9 @@
 ﻿#if ENABLE_INPUT_SYSTEM
 using System;
+using NiUtils.Libraries;
 using UnityEngine.InputSystem;
-using Utils.Libraries;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class InputActionExtension {
 		public static void AddPerformListenerOnce(this InputAction action, Action<InputAction.CallbackContext> context) {
 			action.performed -= context;

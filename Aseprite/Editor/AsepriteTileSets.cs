@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Aseprite.Editor {
+namespace NiUtils.Aseprite.Editor {
 	public static class AsepriteTileSets {
 		public const string defaultNeighbourDescriptor = "xxxxxxxx";
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	[CreateAssetMenu(menuName = "Constants/Cursor")]
 	public class CursorType : ScriptableObject {
 		[SerializeField] protected Texture2D[] _textures;

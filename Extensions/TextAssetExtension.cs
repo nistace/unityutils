@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class TextAssetExtension {
 		public static IEnumerable<string> Lines(this TextAsset asset) => Regex.Split(asset.text, "\n|\r|\r\n");
 

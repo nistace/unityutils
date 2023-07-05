@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using NiUtils.Types;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Utils.Extensions;
-using Utils.Types;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class ToggleButton : MonoBehaviour {
 		[SerializeField] protected Button           _button;
 		[SerializeField] protected bool             _toggledOn;

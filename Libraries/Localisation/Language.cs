@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using NiUtils.Extensions;
+using NiUtils.Id;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
-using Utils.Extensions;
-using Utils.Id;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	[CreateAssetMenu(menuName = "Constants/Language")]
 	public class Language : DataScriptableObject {
 		public class Event : UnityEvent<Language> { }

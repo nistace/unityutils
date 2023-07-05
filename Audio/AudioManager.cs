@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Coroutines;
+using NiUtils.Extensions;
+using NiUtils.Libraries;
+using NiUtils.Types;
 using UnityEngine;
-using Utils.Coroutines;
-using Utils.Extensions;
-using Utils.Libraries;
-using Utils.Types;
 
-namespace Utils.Audio {
+namespace NiUtils.Audio {
 	public class AudioManager : MonoBehaviour {
 		[SerializeField] protected float _changeMusicClipSpeed = 1;
 

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using NiUtils.Extensions;
+using NiUtils.Libraries;
 using UnityEngine;
-using Utils.Extensions;
-using Utils.Libraries;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class FixedTooltipHolder : TooltipHolder {
 		[SerializeField] protected string                     _title;
 		[SerializeField] protected string                     _text;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utils.Behaviours {
+namespace NiUtils.Behaviours {
 	public class SinLocalScale : MonoBehaviour {
 		[SerializeField] protected Vector3 _minScale;
 		[SerializeField] protected Vector3 _maxScale;

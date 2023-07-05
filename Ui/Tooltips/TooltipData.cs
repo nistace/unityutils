@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class TooltipData {
 		public  RectTransform                       target         { get; }
 		public  Vector2                             targetPosition { get; }

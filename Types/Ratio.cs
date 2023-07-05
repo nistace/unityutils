@@ -1,8 +1,8 @@
 ﻿using System;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public struct Ratio : IComparable<Ratio> {
 		public static Ratio one  { get; } = 1;

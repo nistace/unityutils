@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	public class Map<T1, T2> : ICollection<KeyValuePair<T1, T2>> {
 		private IDictionary<T1, T2> lefts  { get; } = new Dictionary<T1, T2>();
 		private IDictionary<T2, T1> rights { get; } = new Dictionary<T2, T1>();

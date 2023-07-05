@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.Hacking {
+namespace NiUtils.Hacking {
 	public class SpeedHackDetector : MonoBehaviour {
 		[SerializeField] protected int   _timeDiff;
 		[SerializeField] protected int   _previousTime;

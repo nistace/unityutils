@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils.StaticUtils {
+namespace NiUtils.StaticUtils {
 	public static class DiffSet {
 		public static void Active(GameObject go, bool active) {
 			if (!go) return;

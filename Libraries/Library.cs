@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Extensions;
+using NiUtils.Id;
 using UnityEditor;
 using UnityEngine;
-using Utils.Extensions;
-using Utils.Id;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public abstract class Library<E> : DataScriptableObject {
 		[SerializeField] protected E        _defaultItem;
 		[SerializeField] protected int      _orderIndex;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 // Interpolation between 2 points with a Bezier Curve (cubic spline) 
 // Adaptation from the algorithm found at https://www.habrador.com/tutorials/interpolation/2-bezier-curve/
 	public class BezierCurve {

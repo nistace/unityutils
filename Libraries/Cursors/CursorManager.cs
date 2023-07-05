@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Coroutines;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Coroutines;
-using Utils.Extensions;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public class CursorManager : MonoBehaviour {
 		private static CursorManager instance { get; set; }
 		private static CursorLibrary library  { get; set; }
@@ -48,7 +48,7 @@ namespace Utils.Libraries {
 			SetDefault();
 		}
 
-		public static void SetDefault() => SetCursor((CursorType) null);
+		public static void SetDefault() => SetCursor((CursorType)null);
 
 		public static void SetCursor(string key) => SetCursor(library?[key]);
 

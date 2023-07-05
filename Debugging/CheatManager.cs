@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Utils.Extensions;
+using NiUtils.Extensions;
 
-namespace Utils.Debugging {
+namespace NiUtils.Debugging {
 	public static class CheatManager {
 		public static  int          userAccessLevel     { get; set; }
 		private static List<string> previousCommands    { get; } = new List<string>();

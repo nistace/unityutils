@@ -1,4 +1,4 @@
-﻿namespace Utils.Id {
+﻿namespace NiUtils.Id {
 	public interface IData {
 		int id { get; }
 	}

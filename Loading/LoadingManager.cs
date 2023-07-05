@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Utils.Loading {
+namespace NiUtils.Loading {
 	public class LoadingManager : MonoBehaviour {
 		private static LoadingManager instance       { get; set; }
 		private static LoadingProcess loadingProcess { get; set; }

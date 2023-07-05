@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class TransformExtension {
 		public static void ClampPosition(this Transform transform, Vector3 minPosition, Vector3 maxPosition) {
 			var currentPosition = transform.position;

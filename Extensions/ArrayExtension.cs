@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class ArrayExtension {
 		public static E[] SubArray<E>(this E[] array, int firstIndex, int length) {
 			var result = new E[length];

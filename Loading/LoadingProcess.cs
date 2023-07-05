@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using NiUtils.Types;
 using UnityEngine;
-using Utils.Types;
 
-namespace Utils.Loading {
+namespace NiUtils.Loading {
 	public abstract class LoadingProcess {
 		public abstract IEnumerator   routine            { get; }
 		public          Ratio         progress           { get; private set; }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class TextureExtension {
 		public static void DrawSpriteOnTop(this Texture2D texture, Sprite sprite, RectInt rect, Color color) {
 			if (color.a == 0) return;

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Utils.Extensions;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 
-namespace Utils.Id {
+namespace NiUtils.Id {
 	public abstract class DataScriptableObject : ScriptableObject, IData {
 		[SerializeField] protected DataId _id;
 		public                     int    id => _id.value;

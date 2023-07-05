@@ -8,7 +8,7 @@ using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace Utils.Aseprite.Editor {
+namespace NiUtils.Aseprite.Editor {
 	public class AsepriteSheetBuilder : EditorWindow {
 		private static AsepriteSheet config { get; set; }
 

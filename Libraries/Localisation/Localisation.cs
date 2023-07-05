@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using NiUtils.Extensions;
+using NiUtils.StaticUtils;
 using UnityEngine;
 using UnityEngine.Events;
-using Utils.Extensions;
-using Utils.StaticUtils;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class Localisation {
 		public class LanguageChangedEvent : UnityEvent { }
 
@@ -34,7 +34,7 @@ namespace Utils.Libraries {
 				if (line.Contains("//")) cleanLine = cleanLine.Substring(0, line.IndexOf("//", StringComparison.Ordinal)).Trim();
 				if (string.IsNullOrEmpty(cleanLine)) continue;
 				if (line.Contains("=")) {
-					messages.Set(cleanLine.Substring(0, cleanLine.IndexOf("=", StringComparison.Ordinal)).CleanKey(), cleanLine.Substring(cleanLine.IndexOf("=", StringComparison.Ordinal) + 1).Trim());
+					messages.Set(cleanLine[..cleanLine.IndexOf("=", StringComparison.Ordinal)].CleanKey(), cleanLine.Substring(cleanLine.IndexOf("=", StringComparison.Ordinal) + 1).Trim());
 				}
 			}
 			onLanguageChanged.Invoke();

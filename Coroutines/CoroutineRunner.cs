@@ -1,8 +1,8 @@
 ﻿using System.Collections;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Coroutines {
+namespace NiUtils.Coroutines {
 	public class CoroutineRunner : MonoBehaviour {
 		private static CoroutineRunner mInstance { get; set; }
 

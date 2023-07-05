@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Utils.Id.Editor {
+namespace NiUtils.Id.Editor {
 	public static class DataIdTools {
 		[MenuItem("Tools/DataId/Check uniqueness")]
 		public static void Check() {

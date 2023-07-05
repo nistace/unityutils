@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class TooltipOverlayUi : MonoBehaviour {
 		private const  string           defaultTooltipName = "_DEFAULT";
 		private static TooltipOverlayUi instance { get; set; }

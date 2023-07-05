@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	[RequireComponent(typeof(RectTransform))]
 	public class MonoBehaviourUi : MonoBehaviour {
 		private    RectTransform rt        { get; set; }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 using Object = UnityEngine.Object;
 
-namespace Utils.Id {
+namespace NiUtils.Id {
 	[Serializable]
 	public class DataId {
 		[SerializeField] protected int _value;

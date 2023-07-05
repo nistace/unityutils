@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
+using NiUtils.Coroutines;
+using NiUtils.Extensions;
+using NiUtils.Types;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using Utils.Coroutines;
-using Utils.Extensions;
-using Utils.Types;
 
-namespace Utils.Loading {
+namespace NiUtils.Loading {
 	[RequireComponent(typeof(Canvas))]
 	public class LoadingCanvas : MonoBehaviour {
 		public static LoadingCanvas instance { get; set; }

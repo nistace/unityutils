@@ -1,9 +1,9 @@
 ﻿using System.Collections;
+using NiUtils.Coroutines;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Coroutines;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class ForceRebuildLayoutGroups : MonoBehaviourUi {
 		[SerializeField] protected int _frames = 2;
 
@@ -11,7 +11,7 @@ namespace Utils.Ui {
 		private LayoutGroup[]   layoutGroups    { get; set; }
 
 		public void Play(int? frames = null) {
-			if (singleCoroutine == null) singleCoroutine = new SingleCoroutine(this);
+			singleCoroutine ??= new SingleCoroutine(this);
 			layoutGroups = GetComponentsInChildren<LayoutGroup>();
 			singleCoroutine.Start(DoPlay(frames ?? _frames));
 		}

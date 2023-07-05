@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using NiUtils.Events;
+using NiUtils.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Events;
-using Utils.Extensions;
 
-namespace Utils.Dropdown {
+namespace NiUtils.Dropdown {
 	public class ImageDropdownOption : MonoBehaviour {
 		[SerializeField] protected string _optionKey;
 		[SerializeField] protected Button _optionButton;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utils.Aseprite {
+namespace NiUtils.Aseprite {
 	[CreateAssetMenu]
 	public class AsepriteSheet : ScriptableObject {
 		public enum Operation {

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
+using NiUtils.Coroutines;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Coroutines;
 
-namespace Utils.Types.Ui {
+namespace NiUtils.Ui {
 	public class ScrollRectAutoScroller : MonoBehaviour {
 		[SerializeField] protected ScrollRect _scrollRect;
 		[SerializeField] protected Scrollbar  _scrollbar;

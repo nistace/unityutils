@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class CanvasAutoScaler : MonoBehaviour {
 		[SerializeField] protected CanvasScaler _scaler;
 		[SerializeField] protected float        _minScaleFactor    = 1;

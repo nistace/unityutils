@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Ui.Gauges {
+namespace NiUtils.Ui.Gauges {
 	public class TwoLayerGaugeUi : MonoBehaviourUi {
 		[SerializeField] protected GaugeImageUi _frontGauge;
 		[SerializeField] protected GaugeImageUi _backGauge;

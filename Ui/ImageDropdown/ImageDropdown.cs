@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Events;
+using NiUtils.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Events;
-using Utils.Extensions;
 
-namespace Utils.Dropdown {
+namespace NiUtils.Dropdown {
 	public class ImageDropdown : MonoBehaviour {
 		[SerializeField] protected Button              _selectedOptionButton;
 		[SerializeField] protected Image               _selectedOptionImage;

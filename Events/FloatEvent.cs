@@ -1,5 +1,5 @@
 ﻿using UnityEngine.Events;
 
-namespace Utils.Events {
+namespace NiUtils.Events {
 	public class FloatEvent : UnityEvent<float> { }
 }

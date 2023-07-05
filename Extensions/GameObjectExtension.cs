@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class GameObjectExtension {
 		public static E GetOrAddComponent<E>(this Component t) where E : Component => t.gameObject.GetOrAddComponent<E>();
 		public static Component GetOrAddComponent(this Component component, Type type) => component.gameObject.GetOrAddComponent(type);

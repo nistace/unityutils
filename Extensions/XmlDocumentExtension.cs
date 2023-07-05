@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Utils.StaticUtils;
+using NiUtils.StaticUtils;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class XmlDocumentExtension {
 		public static XmlElement NewElement(this XmlNode node, string name) {
 			if (!(node is XmlDocument) && node.OwnerDocument == null) throw new NullReferenceException();

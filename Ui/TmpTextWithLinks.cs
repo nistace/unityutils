@@ -1,12 +1,12 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using NiUtils.Events;
+using NiUtils.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Utils.Events;
-using Utils.Extensions;
 
-namespace Utils.Types.Ui {
+namespace NiUtils.Ui {
 	[RequireComponent(typeof(TMP_Text))]
 	public class TmpTextWithLinks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 		private static Regex linkRegex { get; } = new Regex("(<link=\".*?\">)(<color=#.*?>)?(.*?)(</color>)?(</link>)");

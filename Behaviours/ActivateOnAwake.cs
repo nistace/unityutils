@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Behaviours {
+namespace NiUtils.Behaviours {
 	public class ActivateOnAwake : MonoBehaviour {
 		[SerializeField] protected GameObject[] _objectsToActivate;
 

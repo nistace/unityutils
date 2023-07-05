@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	[Serializable]
 	public class RectTransformPosition {
 		[SerializeField] protected Vector2 _anchorMin;

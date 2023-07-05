@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public struct RatioRange {
 		public static readonly RatioRange zero = new RatioRange {_min = 0, _max = 0};

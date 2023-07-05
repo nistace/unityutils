@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Types;
 using UnityEngine;
-using Utils.Types;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class EnumerableExtension {
 		public static void Shuffle<E>(this IList<E> list) {
 			for (var i = 0; i < list.Count - 1; ++i) {

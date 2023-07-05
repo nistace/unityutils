@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class ObjectExtension {
 		public static bool In<E>(this E e, params E[] es) {
 			if (es == null || es.Length == 0) return false;

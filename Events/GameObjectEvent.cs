@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Utils.Events {
+namespace NiUtils.Events {
 	public class GameObjectEvent : UnityEvent<GameObject> { }
 }

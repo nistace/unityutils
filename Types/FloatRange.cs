@@ -1,8 +1,8 @@
 ﻿using System;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public struct FloatRange {
 		/// <summary> 0 - 0 </summary>

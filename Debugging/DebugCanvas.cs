@@ -1,15 +1,14 @@
-﻿using TMPro;
+﻿using NiUtils.Events;
+using NiUtils.Extensions;
+using NiUtils.Ui;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
-using Utils.Events;
-using Utils.Extensions;
-using Utils.Types.Ui;
-using Utils.Ui;
 
-namespace Utils.Debugging {
+namespace NiUtils.Debugging {
 	[RequireComponent(typeof(Canvas))]
 	public class DebugCanvas : MonoBehaviourUi {
 		private static DebugCanvas instance         { get; set; }
@@ -27,7 +26,7 @@ namespace Utils.Debugging {
 		public static UnityEvent  onPreviousPressed  { get; } = new UnityEvent();
 		public static UnityEvent  onNextPressed      { get; } = new UnityEvent();
 #if ENABLE_INPUT_SYSTEM
-	private       DebugControls controls           { get; set; }
+		private DebugControls controls { get; set; }
 #endif
 
 		private void Awake() {
@@ -36,7 +35,7 @@ namespace Utils.Debugging {
 			DontDestroyOnLoad(transform.root.gameObject);
 			GetComponent<Canvas>().enabled = true;
 #if ENABLE_INPUT_SYSTEM
-		controls = new DebugControls();
+			controls = new DebugControls();
 #endif
 		}
 
@@ -51,21 +50,21 @@ namespace Utils.Debugging {
 
 			_commandInput.onSubmit.SetListenerActive(HandleSubmitCommand, enabled);
 #if ENABLE_INPUT_SYSTEM
-		_commandInput.onSelect.SetListenerActive(s => SetCommandInputListenersEnabled(true), enabled);
-		_commandInput.onDeselect.SetListenerActive(s => SetCommandInputListenersEnabled(false), enabled);
+			_commandInput.onSelect.SetListenerActive(s => SetCommandInputListenersEnabled(true), enabled);
+			_commandInput.onDeselect.SetListenerActive(s => SetCommandInputListenersEnabled(false), enabled);
 #endif
 		}
 
 #if ENABLE_INPUT_SYSTEM
-	private void SetCommandInputListenersEnabled(bool enabled) {
-		controls.Common.Next.AddPerformListenerOnce(HandleSelectNextCommand);
-		controls.Common.Previous.AddPerformListenerOnce(HandleSelectPreviousCommand);
-		controls.Common.Next.SetEnabled(enabled);
-		controls.Common.Previous.SetEnabled(enabled);
-	}
+		private void SetCommandInputListenersEnabled(bool enabled) {
+			controls.Common.Next.AddPerformListenerOnce(HandleSelectNextCommand);
+			controls.Common.Previous.AddPerformListenerOnce(HandleSelectPreviousCommand);
+			controls.Common.Next.SetEnabled(enabled);
+			controls.Common.Previous.SetEnabled(enabled);
+		}
 
-	private static void HandleSelectNextCommand(InputAction.CallbackContext obj) => onNextPressed.Invoke();
-	private static void HandleSelectPreviousCommand(InputAction.CallbackContext obj) => onPreviousPressed.Invoke();
+		private static void HandleSelectNextCommand(InputAction.CallbackContext obj) => onNextPressed.Invoke();
+		private static void HandleSelectPreviousCommand(InputAction.CallbackContext obj) => onPreviousPressed.Invoke();
 #endif
 
 		private void HandleSubmitCommand(string command) {

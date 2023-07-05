@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class BuildConfig {
 		private static IReadOnlyDictionary<string, string> map { get; set; }
 
@@ -18,7 +18,7 @@ namespace Utils.Libraries {
 
 			map = buildConfigTextAsset.Lines().Select(t => (trimmed: t.Trim(), indexOfEquals: t.Trim().IndexOf("=", StringComparison.Ordinal)))
 				.Where(t => !string.IsNullOrEmpty(t.trimmed) && !t.trimmed.StartsWith("//") && t.indexOfEquals > 0)
-				.ToDictionary(t => t.trimmed.Substring(0, t.indexOfEquals).Trim(), t => t.trimmed.Substring(t.indexOfEquals + 1).Trim());
+				.ToDictionary(t => t.trimmed[..t.indexOfEquals].Trim(), t => t.trimmed[(t.indexOfEquals + 1)..].Trim());
 		}
 
 		public static string Get(string key, string defaultValue = default) {

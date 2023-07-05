@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using NiUtils.Extensions;
 using UnityEditor;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	[RequireComponent(typeof(TMPro.TMP_Text))]
 	public class L10NText : MonoBehaviour {
 		[SerializeField] protected TMPro.TMP_Text _text;

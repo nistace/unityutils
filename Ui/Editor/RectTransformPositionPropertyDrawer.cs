@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Utils.Ui.Editor {
+namespace NiUtils.Ui.Editor {
 	[CustomPropertyDrawer(typeof(RectTransformPosition))]
 	public class RectTransformPositionPropertyDrawer : PropertyDrawer {
 		private SerializedProperty activeProperty { get; set; }

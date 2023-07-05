@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class SourceTooltipHolder : TooltipHolder {
 		[SerializeField] protected TooltipUi     _tooltipModel;
 		[SerializeField] protected MonoBehaviour _dataSource;

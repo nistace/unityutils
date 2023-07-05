@@ -1,10 +1,9 @@
 ﻿using System.Collections;
+using NiUtils.Coroutines;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Coroutines;
-using Utils.Extensions;
-using Utils.Types.Ui;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class PanelTransformUi : MonoBehaviourUi {
 		public static float defaultMoveTime { get; set; } = 1;
 

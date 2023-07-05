@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class DictionaryExtension {
 		private static void Set<E, F, G>(this Dictionary<E, F> dico, KeyValuePair<E, G> kvp) where G : F {
 			dico.Set(kvp.Key, kvp.Value);

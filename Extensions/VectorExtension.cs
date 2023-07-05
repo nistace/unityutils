@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class VectorExtension {
 		public static Vector2 Inside(this Vector3 v3, Rect rect) => ((Vector2) v3).Inside(rect);
 

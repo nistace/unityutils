@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Utils.Debugging
+namespace NiUtils.Debugging
 {
     public class @DebugControls : IInputActionCollection, IDisposable
     {

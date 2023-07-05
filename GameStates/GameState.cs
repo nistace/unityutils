@@ -1,8 +1,8 @@
 ﻿using System.Collections;
+using NiUtils.Coroutines;
 using UnityEngine;
-using Utils.Coroutines;
 
-namespace Utils.GameStates {
+namespace NiUtils.GameStates {
 	public abstract class GameState {
 		public static  GameState currentState  { get; private set; }
 		public static  GameState previousState { get; private set; }

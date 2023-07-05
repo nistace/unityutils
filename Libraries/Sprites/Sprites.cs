@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class Sprites {
 		private static SpriteLibrary library { get; set; }
 		public static  bool          loaded  => library != null;

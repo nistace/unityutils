@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Utils.Libraries;
+using NiUtils.Libraries;
 
-namespace Utils.Debugging {
-	public struct CheatCode {
+namespace NiUtils.Debugging {
+	public readonly struct CheatCode {
 		public Func<Match, string> solve              { get; }
 		public int                 protectionLevel    { get; }
 		public string              name               { get; }

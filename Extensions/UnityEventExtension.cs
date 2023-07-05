@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Events;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class UnityEventExtension {
 		#region NoArgs
 

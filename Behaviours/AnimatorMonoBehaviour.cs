@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Utils.Behaviours {
+namespace NiUtils.Behaviours {
 	public abstract class AnimatorMonoBehaviour : MonoBehaviour {
 		private   Animator sAnimator { get; set; }
 		protected Animator animator  => sAnimator ? sAnimator : sAnimator = GetComponent<Animator>();

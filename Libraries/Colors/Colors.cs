@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class Colors {
 		private static ColorLibrary library { get; set; }
 		public static  bool         loaded  => library != null;

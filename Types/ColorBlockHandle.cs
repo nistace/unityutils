@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public class ColorBlockHandle {
 		[SerializeField] protected ColorBlock _colorBlock;

@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	[RequireComponent(typeof(LayoutElement))]
 	[RequireComponent(typeof(TMPro.TMP_Text))]
 	public class LayoutText : MonoBehaviour {

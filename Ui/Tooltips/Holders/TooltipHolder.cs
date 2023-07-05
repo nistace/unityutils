@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public abstract class TooltipHolder : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 		public static string titleParameter    { get; } = "__TITLE";
 		public static string textParameter     { get; } = "__TEXT";

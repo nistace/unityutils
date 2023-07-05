@@ -1,9 +1,9 @@
-﻿using UnityEditor;
+﻿using NiUtils.Libraries;
+using UnityEditor;
 using UnityEngine;
-using Utils.Libraries;
 
-namespace UtilsEditor.CustomEditors {
-	public abstract class LibraryCustomEditor<E> : Editor {
+namespace NiUtils.Editor.CustomEditors {
+	public abstract class LibraryCustomEditor<E> : UnityEditor.Editor {
 		private string filter { get; set; } = string.Empty;
 
 		public override void OnInspectorGUI() {

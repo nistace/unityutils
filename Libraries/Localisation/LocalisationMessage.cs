@@ -1,4 +1,4 @@
-﻿namespace Utils.Libraries {
+﻿namespace NiUtils.Libraries {
 	public struct LocalisationMessage {
 		private string   key        { get; }
 		private object[] parameters { get; }

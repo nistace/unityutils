@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using NiUtils.Events;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Events;
-using Utils.Extensions;
 
-namespace Utils.Debugging {
+namespace NiUtils.Debugging {
 	public static class Debug {
 		public static BoolEvent onDebugDisplayedChanged => DebugCanvas.onDisplayedChanged;
 
 		public enum Type {
-			Info = 0,
-			Error = 1,
+			Info    = 0,
+			Error   = 1,
 			Warning = 2,
-			Cheat = 3
+			Cheat   = 3
 		}
 
-		private static Dictionary<Type, Color> colors { get; } = new Dictionary<Type, Color> {{Type.Info, Color.white}, {Type.Error, Color.red}, {Type.Warning, Color.yellow}, {Type.Cheat, Color.cyan}};
+		private static Dictionary<Type, Color> colors { get; } =
+			new Dictionary<Type, Color> { { Type.Info, Color.white }, { Type.Error, Color.red }, { Type.Warning, Color.yellow }, { Type.Cheat, Color.cyan } };
 
 		public static void SetColor(Type type, Color color) {
 			colors.Set(type, color);

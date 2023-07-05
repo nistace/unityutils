@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using NiUtils.Types;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
-using Utils.Types;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class TooltipUi : MonoBehaviour {
 		[Header("Components")] [SerializeField] protected GameObject     _header;
 		[SerializeField]                        protected GameObject     _separationLine;
@@ -39,8 +39,8 @@ namespace Utils.Ui.Tooltips {
 			var bottom = position.y < containerRect.height / 2;
 
 			rectTransform.pivot = new Vector2(position.x / containerRect.width, bottom ? 0 : 1);
-			rectTransform.position = position + new Vector2(left ? targetMax.x + _positionDelta.x : targetMin.x - _positionDelta.x,
-												bottom ? targetMax.y + _positionDelta.y : targetMin.y - _positionDelta.y);
+			rectTransform.position =
+				position + new Vector2(left ? targetMax.x + _positionDelta.x : targetMin.x - _positionDelta.x, bottom ? targetMax.y + _positionDelta.y : targetMin.y - _positionDelta.y);
 		}
 
 		public void RefreshGraphicsOpacity(Ratio opacity) => allGraphics.ForEach(t => t.color = t.color.With(a: opacity));

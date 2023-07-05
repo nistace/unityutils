@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class MaterialExtension {
 		private static readonly int dstBlend      = Shader.PropertyToID("_DstBlend");
 		private static readonly int zWrite        = Shader.PropertyToID("_ZWrite");

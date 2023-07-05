@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class ImageAnimator : MonoBehaviour {
 		[SerializeField] protected Image    _image;
 		[SerializeField] protected float[]  _delays;
@@ -14,8 +14,8 @@ namespace Utils.Ui {
 
 		private void Reset() {
 			_image = GetComponent<Image>();
-			_delays = new[] {1f};
-			_sprites = new[] {_image?.sprite};
+			_delays = new[] { 1f };
+			_sprites = new[] { _image?.sprite };
 		}
 
 		private void Update() {

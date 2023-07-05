@@ -1,6 +1,6 @@
-﻿using Utils.Extensions;
+﻿using NiUtils.Extensions;
 
-namespace Utils.StaticUtils {
+namespace NiUtils.StaticUtils {
 	public static class MathUtils {
 		public static float ToUnsignedDegAngle(float degAngle) => degAngle.PosMod(360);
 

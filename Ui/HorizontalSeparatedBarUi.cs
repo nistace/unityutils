@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using NiUtils.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class HorizontalSeparatedBarUi : MonoBehaviourUi {
 		[SerializeField] protected int         _parts;
 		[SerializeField] protected Color       _separatorColor;
@@ -25,8 +25,8 @@ namespace Utils.Ui {
 
 			for (var i = 0; i < _parts - 1; ++i) {
 				_separators[i].gameObject.SetActive(true);
-				_separators[i].rectTransform.anchorMin = new Vector2((float) (i + 1) / _parts, 0);
-				_separators[i].rectTransform.anchorMax = new Vector2((float) (i + 1) / _parts, 1);
+				_separators[i].rectTransform.anchorMin = new Vector2((float)(i + 1) / _parts, 0);
+				_separators[i].rectTransform.anchorMax = new Vector2((float)(i + 1) / _parts, 1);
 				_separators[i].rectTransform.offsetMin = new Vector2(-_separatorWidth / 2f, 0);
 				_separators[i].rectTransform.offsetMax = new Vector2(_separatorWidth / 2f, 0);
 			}

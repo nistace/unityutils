@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using NiUtils.Libraries;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
-using Utils.Libraries;
 
-namespace Utils.Audio {
+namespace NiUtils.Audio {
 	public class ButtonSfx : MonoBehaviour {
 		[SerializeField] protected Button _button;
 		[SerializeField] protected string _clipKey;

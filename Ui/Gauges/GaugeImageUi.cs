@@ -1,9 +1,9 @@
 ﻿using System.Collections;
+using NiUtils.Coroutines;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Coroutines;
 
-namespace Utils.Ui.Gauges {
+namespace NiUtils.Ui.Gauges {
 	[RequireComponent(typeof(Image))]
 	public class GaugeImageUi : MonoBehaviourUi {
 		[SerializeField] protected Image _image;

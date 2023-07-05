@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class FileInfoExtension {
 		public static string GetSimpleName(this FileInfo fileInfo) {
 			var dotIndex = fileInfo.Name.IndexOf(".", StringComparison.Ordinal);

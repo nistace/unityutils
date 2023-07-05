@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NiUtils.Events;
+using NiUtils.Extensions;
+using NiUtils.Libraries;
+using NiUtils.StaticUtils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils.Events;
-using Utils.Extensions;
-using Utils.Libraries;
-using Utils.StaticUtils;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class ListInputUi : Selectable {
 		[SerializeField] protected L10NText _currentItemTextKey;
 		[SerializeField] protected TMP_Text _currentItemTextValue;

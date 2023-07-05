@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Utils.StaticUtils {
+namespace NiUtils.StaticUtils {
 	public static class Parse {
 		public static bool Bool(string str) => TryBool(str, out var res) ? res : throw new FormatException($"Cannot parse {str} to bool");
 		public static float Float(string str) => TryFloat(str, out var res) ? res : throw new FormatException($"Cannot parse {str} to float");

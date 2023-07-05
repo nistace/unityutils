@@ -1,13 +1,13 @@
 ﻿using System;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public struct IntRange {
-		public static readonly IntRange zero = new IntRange {_min = 0, _max = 0};
-		public static readonly IntRange one  = new IntRange {_min = 1, _max = 1};
-		public static readonly IntRange unit = new IntRange {_min = 0, _max = 1};
+		public static readonly IntRange zero = new IntRange { _min = 0, _max = 0 };
+		public static readonly IntRange one  = new IntRange { _min = 1, _max = 1 };
+		public static readonly IntRange unit = new IntRange { _min = 0, _max = 1 };
 
 		[SerializeField] private int _min;
 		[SerializeField] private int _max;
@@ -22,7 +22,7 @@ namespace Utils.Types {
 		}
 
 		public int Random() => UnityEngine.Random.Range(_min, _max + 1);
-		public float FloatRandom() => UnityEngine.Random.Range((float) _min, _max);
+		public float FloatRandom() => UnityEngine.Random.Range((float)_min, _max);
 
 		public static IntRange operator *(IntRange orig, int amount) => new IntRange(orig._min * amount, orig._max * amount);
 

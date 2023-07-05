@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public class Particles : MonoBehaviour {
 		private static Transform                                 pool           { get; set; }
 		private static ParticlesLibrary                          library        { get; set; }

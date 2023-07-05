@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Utils.Id.Editor {
+namespace NiUtils.Id.Editor {
 	[CustomPropertyDrawer(typeof(DataId))]
 	public class DataIdCustomPropertyDrawer : PropertyDrawer {
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {

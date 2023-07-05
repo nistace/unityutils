@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Utils.Saving {
+namespace NiUtils.Saving {
 	public static class SavingTools {
 #if UNITY_EDITOR
 

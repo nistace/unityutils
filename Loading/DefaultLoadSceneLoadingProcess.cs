@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.SceneManagement;
 
-namespace Utils.Loading {
+namespace NiUtils.Loading {
 	public class DefaultLoadSceneLoadingProcess : LoadingProcess {
 		public override IEnumerator routine => Do();
 

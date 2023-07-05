@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using NiUtils.Extensions;
 using UnityEngine;
-using Utils.Extensions;
 
-namespace Utils.Behaviours {
-	public class Ragdoll : MonoBehaviour {
+namespace NiUtils.Behaviours {
+	public class RagDoll : MonoBehaviour {
 		[SerializeField] protected Transform     _root;
 		[SerializeField] protected string        _defaultForcedLimb;
 		[SerializeField] protected bool          _hitRandomLimbWhenNotFound = true;

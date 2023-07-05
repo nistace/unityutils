@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Utils.StaticUtils;
+using NiUtils.StaticUtils;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	public static class Constants {
 		private static ConstantLibrary           library          { get; set; }
 		public static  bool                      loaded           => library != null;

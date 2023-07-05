@@ -5,7 +5,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Utils.Aseprite.Editor {
+namespace NiUtils.Aseprite.Editor {
 	[Serializable]
 	public class AsepriteSheetDescriptor {
 		[JsonProperty("frames"), SerializeField] protected Frame[] _frames = Array.Empty<Frame>();

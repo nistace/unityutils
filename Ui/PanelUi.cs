@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	[RequireComponent(typeof(PanelTransformUi))]
 	public class PanelUi : MonoBehaviourUi {
 		private PanelTransformUi pt             { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Utils.Coroutines {
+namespace NiUtils.Coroutines {
 	public class SingleCoroutine {
 		private MonoBehaviour actor     { get; }
 		private Coroutine     coroutine { get; set; }

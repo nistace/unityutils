@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class StringExtension {
 		public static string WithLength(this string str, int length, char character) {
 			if (str.Length == length) return str;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class MonoBehaviourExtension {
 		public static void Delay(this MonoBehaviour monoBehaviour, UnityAction callback, float seconds) => monoBehaviour.StartCoroutine(DoDelay(callback, seconds));
 

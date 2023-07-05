@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	public class PingPongUi : MonoBehaviourUi {
 		[SerializeField] protected Vector2 _first;
 		[SerializeField] protected Vector2 _second;

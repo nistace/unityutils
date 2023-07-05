@@ -1,20 +1,20 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using NiUtils.Types;
 using UnityEngine;
-using Utils.Types;
 
-namespace Utils.Extensions {
+namespace NiUtils.Extensions {
 	public static class NumbersExtension {
 		public static int Ceiling(this float f) {
-			if (f == (int) f) return (int) f;
-			if (f < 0) return (int) f;
-			return (int) f + 1;
+			if (f == (int)f) return (int)f;
+			if (f < 0) return (int)f;
+			return (int)f + 1;
 		}
 
 		public static int Floor(this float f) {
-			if ((int) f == f) return (int) f;
-			if (f < 0) return (int) f - 1;
-			return (int) f;
+			if ((int)f == f) return (int)f;
+			if (f < 0) return (int)f - 1;
+			return (int)f;
 		}
 
 		public static int Round(this float f) {
@@ -31,7 +31,7 @@ namespace Utils.Extensions {
 		}
 
 		public static int RoundAwayFrom(this float f, float pivot) {
-			if ((int) f == f) return (int) f;
+			if ((int)f == f) return (int)f;
 			if (f < pivot) return Floor(f);
 			return Ceiling(f);
 		}
@@ -51,7 +51,7 @@ namespace Utils.Extensions {
 		}
 
 		public static float FloatFloor(this int number, float unit) {
-			return ((float) number).FloatFloor(unit);
+			return ((float)number).FloatFloor(unit);
 		}
 
 		public static float FloatFloor(this float number, float unit) {
@@ -95,8 +95,8 @@ namespace Utils.Extensions {
 		}
 
 		public static Ratio Ratio(this float number, float over = 1) => new Ratio(number / over);
-		public static Ratio Ratio(this int number, float over = 1) => ((float) number).Ratio(over);
-		public static Ratio RatioPc(this int number) => ((float) number).RatioPc();
+		public static Ratio Ratio(this int number, float over = 1) => ((float)number).Ratio(over);
+		public static Ratio RatioPc(this int number) => ((float)number).RatioPc();
 		public static Ratio RatioPc(this float number) => number.Ratio(100);
 
 		public static float Average(this IEnumerable<float> numbers, float defaultValue = float.PositiveInfinity) {
@@ -107,7 +107,7 @@ namespace Utils.Extensions {
 		}
 
 		public static float DecimalPart(this float f) {
-			return Mathf.Abs((f - (int) f));
+			return Mathf.Abs((f - (int)f));
 		}
 
 		public static int Clamp(this int i, int min, int max) => Mathf.Clamp(i, min, max);

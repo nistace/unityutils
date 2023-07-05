@@ -1,7 +1,7 @@
-﻿using UnityEngine.UI;
-using Utils.Extensions;
+﻿using NiUtils.Extensions;
+using UnityEngine.UI;
 
-namespace Utils.Ui.Tooltips {
+namespace NiUtils.Ui.Tooltips {
 	public class ButtonWithTooltip : Button {
 		private FixedTooltipHolder sTooltip { get; set; }
 		public  FixedTooltipHolder tooltip  => sTooltip ? sTooltip : (sTooltip = gameObject.GetOrAddComponent<FixedTooltipHolder>());

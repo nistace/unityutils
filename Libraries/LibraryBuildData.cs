@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Utils.Extensions;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 
-namespace Utils.Libraries {
+namespace NiUtils.Libraries {
 	[CreateAssetMenu]
 	public class LibraryBuildData : ScriptableObject {
 		[SerializeField] protected ColorLibrary[]     _colorLibraries;

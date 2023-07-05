@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Utils.Extensions;
 
-namespace Utils.Ui {
+namespace NiUtils.Ui {
 	[RequireComponent(typeof(Image))]
 	public class ImageAlphaPingPong : MonoBehaviour {
 		[SerializeField] protected Image _image;

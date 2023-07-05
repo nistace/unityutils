@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using Utils.Extensions;
+﻿using NiUtils.Extensions;
+using UnityEngine;
 
-namespace Utils {
+namespace NiUtils {
 	public static class PlayerPreferences {
 		private const int trueIntValue  = 1;
 		private const int falseIntValue = 0;

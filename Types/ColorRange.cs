@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utils.Types {
+namespace NiUtils.Types {
 	[Serializable]
 	public struct ColorRange {
 		[SerializeField] private Color _first;
