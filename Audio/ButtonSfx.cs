@@ -10,7 +10,7 @@ namespace NiUtils.Audio {
 
 		private void Reset() => _button = GetComponent<Button>();
 
-		private void Awake() => _button.onClick.AddListenerOnce(PlayClip);
+		private void Start() => _button.onClick.AddListenerOnce(PlayClip);
 
 		private void PlayClip() => AudioManager.Sfx.Play(AudioClips.Of(_clipKey));
 	}
