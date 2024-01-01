@@ -6,9 +6,14 @@ using UnityEngine.UI;
 namespace NiUtils.Ui {
 	public class ForceRebuildLayoutGroups : MonoBehaviourUi {
 		[SerializeField] protected int _frames = 2;
+		[SerializeField] protected bool _executeOnStart;
 
 		private SingleCoroutine singleCoroutine { get; set; }
-		private LayoutGroup[]   layoutGroups    { get; set; }
+		private LayoutGroup[] layoutGroups { get; set; }
+
+		private void Start() {
+			if (_executeOnStart) Play();
+		}
 
 		public void Play(int? frames = null) {
 			singleCoroutine ??= new SingleCoroutine(this);
