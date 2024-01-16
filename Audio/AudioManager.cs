@@ -11,13 +11,13 @@ namespace NiUtils.Audio {
 	public class AudioManager : MonoBehaviour {
 		[SerializeField] protected float _changeMusicClipSpeed = 1;
 
-		[SerializeField]                           protected Ratio        _masterVolume = 1;
-		[Header("Music")] [SerializeField]         protected AudioSource  _musicSource;
-		[SerializeField]                           protected Ratio        _musicVolume        = 1;
-		[SerializeField]                           protected bool         _autoSelectNextClip = true;
-		[Header("Sound effects")] [SerializeField] protected Ratio        _sfxVolume          = 1;
-		[Header("Voices")] [SerializeField]        protected Ratio        _voicesVolume       = 1;
-		private static                                       AudioManager instance { get; set; }
+		[SerializeField] protected Ratio _masterVolume = 1;
+		[Header("Music")] [SerializeField] protected AudioSource _musicSource;
+		[SerializeField] protected Ratio _musicVolume = 1;
+		[SerializeField] protected bool _autoSelectNextClip = true;
+		[Header("Sound effects")] [SerializeField] protected Ratio _sfxVolume = 1;
+		[Header("Voices")] [SerializeField] protected Ratio _voicesVolume = 1;
+		private static AudioManager instance { get; set; }
 
 		private void Reset() {
 			if (!_musicSource) _musicSource = this.GetOrAddComponent<AudioSource>();
@@ -192,6 +192,14 @@ namespace NiUtils.Audio {
 					yield return null;
 				}
 				tmpVolume = volume;
+			}
+
+			public static void Pause() => instance._musicSource.Pause();
+			public static void UnPause() => instance._musicSource.UnPause();
+
+			public static void TogglePaused() {
+				if (instance._musicSource.isPlaying) Pause();
+				else UnPause();
 			}
 
 			public static void Update() {
