@@ -146,7 +146,10 @@ namespace NiUtils.Audio {
 				}
 			}
 
-			public static float timeInCurrentClip => instance._musicSource.time;
+			public static float timeInCurrentClip {
+				get => instance._musicSource.time;
+				set => instance._musicSource.time = value;
+			}
 
 			public static bool autoSelectNextClip {
 				get => instance._autoSelectNextClip;
