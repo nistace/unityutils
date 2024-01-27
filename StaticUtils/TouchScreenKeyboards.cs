@@ -3,20 +3,19 @@
 namespace NiUtils.StaticUtils {
 	public static class TouchScreenKeyboards {
 		public static TouchScreenKeyboard CurrentKeyboard { get; set; }
+		private static AndroidJavaObject UnityPlayerView { get; set; }
+		private static AndroidJavaObject UnityPlayerRect { get; set; }
 
-		public static int GetKeyboardHeight() {
+		private static int GetKeyboardHeight() {
 #if UNITY_ANDROID && !UNITY_EDITOR
-			using (var unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-				var View = unityClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer").Call<AndroidJavaObject>("getView");
+			UnityPlayerView ??= new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer")
+				.Call<AndroidJavaObject>("getView");
+			UnityPlayerRect ??= new AndroidJavaObject("android.graphics.Rect");
 
-				using (var Rct = new AndroidJavaObject("android.graphics.Rect")) {
-					View.Call("getWindowVisibleDisplayFrame", Rct);
+			UnityPlayerView.Call("getWindowVisibleDisplayFrame", UnityPlayerRect);
 
-					return Screen.height - Rct.Call<int>("height");
-				}
-			}
+			return Screen.height - UnityPlayerRect.Call<int>("height");
 #endif
-
 			return 0;
 		}
 
