@@ -111,6 +111,7 @@ namespace NiUtils.Extensions {
 		}
 
 		public static int Clamp(this int i, int min, int max) => Mathf.Clamp(i, min, max);
+		public static int Clamp<T>(this int i, T[] array) => Mathf.Clamp(i, 0, array.Length);
 		public static int Clamp(this int i, IntRange range) => Mathf.Clamp(i, range.min, range.max);
 		public static float Clamp(this float f, float min, float max) => Mathf.Clamp(f, min, max);
 		public static float Clamp(this float f, FloatRange range) => f.Clamp(range.min, range.max);
