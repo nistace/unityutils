@@ -17,6 +17,7 @@ namespace NiUtils.Audio {
 		[SerializeField] protected bool _autoSelectNextClip = true;
 		[Header("Sound effects")] [SerializeField] protected Ratio _sfxVolume = 1;
 		[Header("Voices")] [SerializeField] protected Ratio _voicesVolume = 1;
+		[SerializeField] protected bool dontDestroyOnLoad = true;
 		private static AudioManager instance { get; set; }
 
 		private void Reset() {
@@ -36,7 +37,12 @@ namespace NiUtils.Audio {
 		}
 
 		public void Awake() {
-			if (instance == null) instance = this;
+			if (instance == null) {
+				instance = this;
+				if (dontDestroyOnLoad) {
+					DontDestroyOnLoad(gameObject);
+				}
+			}
 			if (instance != this) Destroy(gameObject);
 			else masterVolume = masterVolume;
 		}
